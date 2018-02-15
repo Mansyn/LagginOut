@@ -1,16 +1,16 @@
-  <div *ngIf="auth.user$ | async; then authenticated else guest">
-    <!-- template will replace this div -->
-  </div>
+<div *ngIf="auth.user$ | async; then authenticated else guest">
+  <!-- template will replace this div -->
+</div>
 
-  <hr>
+<hr>
 
-  <a class="button is-dark" routerLink="/secret">
-    Super Secret Page
-  </a>
+<a class="button is-dark" routerLink="/secret">
+  Super Secret Page
+</a>
 
-  <a  class="button is-info" routerLink="/content">
-   Subscriber Page
-  </a>
+<a class="button is-info" routerLink="/content">
+  Subscriber Page
+</a>
 
 
 <!-- User NOT logged in -->
@@ -27,32 +27,29 @@
 <ng-template #authenticated>
   <div *ngIf="auth.user$ | async as user">
     <h3>Howdy, {{ user.displayName }}</h3>
-    <img  src="assets/avatar.svg" width="50px">
+    <img [src]="user.photoURL || 'assets/avatar.svg'" width=50px />
     <p>UID: {{ user.uid }}</p>
     <button (click)="auth.signOut()" class="button">Logout</button>
 
-    <hr>
-
-    Subscriber: 
+    <hr> Subscriber:
     <span class="tag" [class.is-success]="user.roles?.subscriber">
       {{ user.roles?.subscriber }}
-    </span><br>
-
-    Editor: 
+    </span>
+    <br> Editor:
     <span class="tag" [class.is-success]="user.roles?.editor">
       {{ user.roles?.editor }}
-    </span><br>
-
-    Admin: 
+    </span>
+    <br> Admin:
     <span class="tag" [class.is-success]="user.roles?.admin">
       {{ user.roles?.admin }}
-    </span><br>
+    </span>
+    <br>
 
 
 
   </div>
 
-  
+
 </ng-template>
 
 <hr>

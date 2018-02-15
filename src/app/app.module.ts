@@ -4,18 +4,27 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import {
+  MatCardModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatButtonModule,
+  MatIconModule,
+  MatListModule
+} from '@angular/material'
+
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-/// DELETE firebaseConfig
-/// Add your own firebase config to environment.ts
-/// Then use it to initialize angularfire2 AngularFireModule.initializeApp(environment.firebaseConfig),
-import { firebaseConfig } from '../env';
+import { HomeComponent } from './home/home.component';
 import { SuperSecretComponent } from './super-secret/super-secret.component';
-import { UserLoginComponent } from './user-login/user-login.component'; 
+import { UserLoginComponent } from './user-login/user-login.component';
+
+import { NavbarComponent } from './components/navbar/navbar.component'
+import { FooterComponent } from './components/footer/footer.component'
 
 import { CoreModule } from './core/core.module';
 import { SubscriberPageComponent } from './subscriber-page/subscriber-page.component';
@@ -23,15 +32,24 @@ import { SubscriberPageComponent } from './subscriber-page/subscriber-page.compo
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     SuperSecretComponent,
     UserLoginComponent,
-    SubscriberPageComponent
+    SubscriberPageComponent,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    MatCardModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule
   ],

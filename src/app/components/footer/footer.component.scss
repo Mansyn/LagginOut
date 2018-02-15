@@ -1,0 +1,12 @@
+@import "../../theme";
+.foot {
+  width: 100%;
+  background-color: mat-color($candy-app-accent);
+  align-items: center;
+}
+
+.logo {
+  font-size: 33px;
+  line-height: 33px;
+  font-weight: bold;
+}

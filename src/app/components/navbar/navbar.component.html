@@ -1,0 +1,26 @@
+<nav class="docs-navbar-header">
+  <a aria-label="Hope House" mat-button [routerLink]="['/']" tabindex="0" aria-disabled="false">
+    <span class="mat-button-wrapper">
+      <img alt="hope house" class="docs-hope-logo" src="../../assets/house-icon.png">
+      <span>Hope House</span>
+    </span>
+  </a>
+  <a class="docs-navbar-hide-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/schedule']">
+    <span class="mat-button-wrapper">Schedule</span>
+  </a>
+  <div class="flex-spacer"></div>
+  <a class="docs-navbar-hide-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/contact']">
+    <span class="mat-button-wrapper">
+      <mat-icon aria-label="Contact">mail_outline</mat-icon>
+      <span>Contact</span>
+    </span>
+  </a>
+  <a class="docs-navbar-show-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/contact']">
+    <mat-icon aria-label="Contact">mail_outline</mat-icon>
+  </a>
+</nav>
+<nav class="docs-navbar docs-navbar-show-small">
+  <a class="docs-navbar-link" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/schedule']">
+    <span class="mat-button-wrapper">Schedule</span>
+  </a>
+</nav>

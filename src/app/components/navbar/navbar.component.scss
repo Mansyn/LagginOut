@@ -1,0 +1,74 @@
+@import "../../theme";
+.docs-navbar-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: mat-color($candy-app-primary);
+}
+
+.mat-button {
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.docs-navbar-header>.mat-button:last-child {
+  margin-left: auto
+}
+
+.flex-spacer {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1
+}
+
+.docs-hope-logo {
+  height: 26px;
+  margin: 0 4px 3px 0;
+  vertical-align: middle
+}
+
+.docs-github-logo {
+  height: 21px;
+  margin: 0 7px 2px 0;
+  vertical-align: middle
+}
+
+.docs-navbar-link {
+  text-decoration: inherit;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1
+}
+
+.docs-navbar {
+  background-color: mat-color($candy-app-primary);
+}
+
+.docs-navbar,
+.docs-navbar-show-small {
+  display: none
+}
+
+@media (max-width:720px) {
+  .docs-navbar-hide-small {
+    display: none
+  }
+  .docs-navbar-show-small {
+    display: block
+  }
+  .docs-navbar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex
+  }
+  .docs-navbar--github-logo {
+    margin: 0
+  }
+}

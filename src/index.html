@@ -1,16 +1,118 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>Base</title>
+  <title>Hope House</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Righteous|Allan">
+  <link rel="shortcut icon" href="/assets/favicon.png">
+  <meta name="theme-color" content="#ffffff">
 </head>
+
 <body>
-  <app-root></app-root>
+  <app-root>
+    <style>
+      .container-fluid {
+        width: 100%;
+        height: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      .spinner {
+        margin: 100px auto;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        text-align: center;
+        -webkit-animation: sk-rotate 2.0s infinite linear;
+        animation: sk-rotate 2.0s infinite linear;
+      }
+
+      .dot1,
+      .dot2 {
+        width: 60%;
+        height: 60%;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        background-color: #2196f3;
+        border-radius: 100%;
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+      }
+
+      .dot2 {
+        top: auto;
+        bottom: 0;
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+      }
+
+      @-webkit-keyframes sk-rotate {
+        100% {
+          -webkit-transform: rotate(360deg)
+        }
+      }
+
+      @keyframes sk-rotate {
+        100% {
+          transform: rotate(360deg);
+          -webkit-transform: rotate(360deg)
+        }
+      }
+
+      @-webkit-keyframes sk-bounce {
+        0%,
+        100% {
+          -webkit-transform: scale(0.0)
+        }
+        50% {
+          -webkit-transform: scale(1.0)
+        }
+      }
+
+      @keyframes sk-bounce {
+        0%,
+        100% {
+          transform: scale(0.0);
+          -webkit-transform: scale(0.0);
+        }
+        50% {
+          transform: scale(1.0);
+          -webkit-transform: scale(1.0);
+        }
+      }
+
+    </style>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="spinner">
+          <div class="dot1"></div>
+          <div class="dot2"></div>
+        </div>
+      </div>
+    </div>
+  </app-root>
 </body>
+
 </html>
