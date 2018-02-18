@@ -4,16 +4,19 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SuperSecretComponent } from './super-secret/super-secret.component';
 import { SubscriberPageComponent } from './subscriber-page/subscriber-page.component';
+import { VideosComponent } from './videos/videos.component';
+import { AddVideoComponent } from './videos/add/add.component';
 
 import { AdminGuard } from './core/admin.guard';
 import { CanReadGuard } from './core/can-read.guard';
-
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'content', component: SubscriberPageComponent, canActivate: [CanReadGuard] },
   { path: 'secret', component: SuperSecretComponent, canActivate: [AdminGuard] },
+  { path: 'video', component: VideosComponent },
+  { path: 'video-add', component: AddVideoComponent },
   { path: '*', redirectTo: 'home' }
 ];
 

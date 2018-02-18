@@ -28,6 +28,8 @@ import { FooterComponent } from './components/footer/footer.component'
 
 import { CoreModule } from './core/core.module';
 import { SubscriberPageComponent } from './subscriber-page/subscriber-page.component';
+import { VideosComponent } from './videos/videos.component';
+import { AddVideoComponent } from './videos/add/add.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { SubscriberPageComponent } from './subscriber-page/subscriber-page.compo
     UserLoginComponent,
     SubscriberPageComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    VideosComponent,
+    AddVideoComponent
   ],
   imports: [
     BrowserModule,
