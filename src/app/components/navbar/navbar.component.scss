@@ -8,8 +8,12 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 8px 16px;
-  background-color: mat-color($candy-app-primary);
+  padding: 0.1rem 16px;
+  background-color: #000;
+}
+
+.docs-navbar-header a {
+  color: #fff;
 }
 
 .mat-button {
@@ -44,11 +48,13 @@
   text-decoration: inherit;
   -webkit-box-flex: 1;
   -ms-flex: 1;
-  flex: 1
+  flex: 1;
+  color: #fff;
 }
 
 .docs-navbar {
-  background-color: mat-color($candy-app-primary);
+  background-color: #000;
+  border-bottom: 1px solid #fff;
 }
 
 .docs-navbar,
@@ -56,12 +62,16 @@
   display: none
 }
 
+.first-link {
+  margin-left: 3rem;
+}
+
 @media (max-width:720px) {
   .docs-navbar-hide-small {
     display: none
   }
   .docs-navbar-show-small {
-    display: block
+    display: block;
   }
   .docs-navbar {
     display: -webkit-box;

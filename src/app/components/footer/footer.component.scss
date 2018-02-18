@@ -1,12 +1,30 @@
 @import "../../theme";
 .foot {
   width: 100%;
-  background-color: mat-color($candy-app-accent);
-  align-items: center;
+  background-color: #000;
+  color: #fff;
+}
+.foot {
+  position: absolute;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
 }
 
-.logo {
-  font-size: 33px;
-  line-height: 33px;
-  font-weight: bold;
+.ul-link {
+  font-family: Syncopate, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+  cursor: pointer;
 }
+
+.ul-link a{
+  color: #fff;
+}
+
+.ul-link a:hover {
+  color: #ffeb01
+}
+
+

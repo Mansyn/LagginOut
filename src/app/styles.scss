@@ -49,3 +49,24 @@ app-root {
 .cream {
   font-family: 'Righteous', cursive;
 }
+
+.w-25 {
+  width: 25%;
+  min-width: 300px;
+}
+
+
+.top-logo {
+  margin-top: 1rem;
+  max-width:53px;
+  float:left;
+  position: absolute;
+}
+
+.flt-rt {
+  float: right;
+}
+
+.flt-lt {
+  float: left;
+}
