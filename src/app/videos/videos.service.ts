@@ -1,21 +1,31 @@
 import { Injectable } from '@angular/core';
-import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Video } from './video';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class VideosService {
 
-  private basePath: string = '/video';
+  videos: FirebaseListObservable<Video[]> = null;
 
-  videos: FirebaseListObservable<Video[]> = null; //  list of objects
-  video: FirebaseObjectObservable<Video> = null; //   single object
-
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) {
+    this.videos = this.db.list('videos') as FirebaseListObservable<Video[]>;
+  }
 
   getVideos() {
-
     this.videos = this.db.list('videos') as FirebaseListObservable<Video[]>;
     return this.videos;
+  }
 
+  addVideo(newVideo) {
+    return this.videos.push(newVideo);
+  }
+
+  updateVideo(key, updateVideo) {
+    return this.videos.update(key, updateVideo);
+  }
+
+  deleteVideo(key) {
+    return this.videos.remove(key)
   }
 }

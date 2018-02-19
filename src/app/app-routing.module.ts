@@ -6,6 +6,7 @@ import { SuperSecretComponent } from './super-secret/super-secret.component';
 import { SubscriberPageComponent } from './subscriber-page/subscriber-page.component';
 import { VideosComponent } from './videos/videos.component';
 import { AddVideoComponent } from './videos/add/add.component';
+import { EditVideoComponent } from './videos/edit/edit.component';
 
 import { AdminGuard } from './core/admin.guard';
 import { CanReadGuard } from './core/can-read.guard';
@@ -15,8 +16,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'content', component: SubscriberPageComponent, canActivate: [CanReadGuard] },
   { path: 'secret', component: SuperSecretComponent, canActivate: [AdminGuard] },
-  { path: 'video', component: VideosComponent },
-  { path: 'video-add', component: AddVideoComponent },
+  { path: 'videos', component: VideosComponent },
+  { path: 'video/add', component: AddVideoComponent },
+  { path: 'video/edit/:id', component: EditVideoComponent },
   { path: '*', redirectTo: 'home' }
 ];
 

@@ -58,6 +58,12 @@ app-sidenav {
   margin-top: 5rem;
 }
 
+@media (max-width:720px) {
+  .content {
+    margin-top: 7rem !important;
+  }
+}
+
 .hope-component-viewer-sidenav-container {
   width: 100%
 }

@@ -2,7 +2,7 @@
   <div class="flex-66 flex-offset-15">
     <h3>
       <span (click)="back()">Videos</span>
-      <mat-icon>chevron_right</mat-icon> Add</h3>
+      <mat-icon>chevron_right</mat-icon> Edit</h3>
     <mat-card>
       <form [formGroup]="form">
         <mat-form-field class="full-width">
@@ -33,7 +33,7 @@
           </mat-error>
         </mat-form-field>
         <div class="layout-row layout-align-end-center m-v-25">
-          <button mat-raised-button color="primary" (click)="addVideo()" [disabled]="!form.valid">ADD</button>
+          <button mat-raised-button color="primary" (click)="addVideo()" [disabled]="!form.valid">UPDATE</button>
         </div>
       </form>
     </mat-card>
