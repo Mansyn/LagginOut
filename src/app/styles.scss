@@ -11,6 +11,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  overflow-y: auto;
+}
+
 app-root {
   position: absolute;
   top: 0;
