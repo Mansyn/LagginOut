@@ -1,20 +1,23 @@
 <div class="layout-row">
   <div class="flex-66 flex-offset-15">
-    <mat-toolbar>
+    <mat-toolbar color="primary">
       <mat-toolbar-row>
         <span>Videos</span>
         <span class="spacer"></span>
-        <button (click)="go(videolist.selectedOptions.selected)" mat-mini-fab color="accent" *ngIf="videolist.selectedOptions.selected.length == 1">
-          <mat-icon aria-label="edit video">edit</mat-icon>
-        </button>
         <button [routerLink]="['/video/add']" mat-mini-fab color="accent">
           <mat-icon aria-label="add video">add</mat-icon>
+        </button>
+        <button (click)="edit()" mat-mini-fab color="accent" *ngIf="videolist.selectedOptions.selected.length == 1">
+          <mat-icon aria-label="edit video">edit</mat-icon>
+        </button>
+        <button (click)="remove()" mat-mini-fab color="warn" *ngIf="videolist.selectedOptions.selected.length > 0">
+          <mat-icon aria-label="delete video">remove</mat-icon>
         </button>
       </mat-toolbar-row>
     </mat-toolbar>
     <div>
       <mat-selection-list #videolist>
-        <mat-list-option *ngFor="let video of videos">
+        <mat-list-option *ngFor="let video of videos" (click)="onVideoClick(video)">
           {{ video.title }}
         </mat-list-option>
       </mat-selection-list>

@@ -14,16 +14,14 @@ import { Video } from '../Video';
 })
 export class AddVideoComponent {
 
-  //form validation
-  newVideo: any = {};
+  video: any = {};
   form: FormGroup;
-  Msg: any;
 
   constructor(private router: Router, private _videosService: VideosService, private fb: FormBuilder, public snackBar: MatSnackBar) {
     this.form = this.fb.group({
-      'title': [this.newVideo.title || null, Validators.compose([Validators.maxLength(25), Validators.required])],
-      'link': [this.newVideo.link || null, Validators.compose([Validators.pattern('(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})'), Validators.required])],
-      'description': [this.newVideo.description || null, Validators.required]
+      'title': [this.video.title || null, Validators.compose([Validators.maxLength(25), Validators.required])],
+      'link': [this.video.link || null, Validators.compose([Validators.pattern('(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})'), Validators.required])],
+      'description': [this.video.description || null, Validators.required]
     })
   }
 
@@ -31,17 +29,17 @@ export class AddVideoComponent {
     if (this.form.valid) {
       let now = new Date().toDateString();
 
-      let newVideo = {
-        title: this.newVideo.title,
-        link: this.newVideo.link,
-        description: this.newVideo.description,
+      let video = {
+        title: this.video.title,
+        link: this.video.link,
+        description: this.video.description,
         timeStamp: now,
         active: true
       }
 
-      console.log(newVideo);
+      console.log(video);
 
-      this._videosService.addVideo(newVideo);
+      this._videosService.addVideo(video);
       this.openSnackBar('Video Added!', 'OKAY');
       this.form.reset();
     }
@@ -54,6 +52,10 @@ export class AddVideoComponent {
   }
 
   back() {
+    this.router.navigate(["/videos"]);
+  }
+
+  cancel() {
     this.router.navigate(["/videos"]);
   }
 }

@@ -12,6 +12,7 @@ import {
   MatIconModule,
   MatListModule,
   MatInputModule,
+  MatProgressBarModule
 } from '@angular/material'
 
 import { AngularFireModule } from 'angularfire2';
@@ -64,6 +65,7 @@ import { VideosService } from './videos/videos.service';
     MatSnackBarModule,
     MatListModule,
     MatInputModule,
+    MatProgressBarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFirestoreModule,

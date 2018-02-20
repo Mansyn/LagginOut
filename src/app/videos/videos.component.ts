@@ -13,16 +13,30 @@ import { Video } from './Video';
 export class VideosComponent {
 
   videos: Video[];
-
-  activeVideo: string;
+  selectedVideo: any[];
 
   constructor(private router: Router, private _videosService: VideosService) {
     this._videosService.getVideos().subscribe(videos => {
       this.videos = videos;
-    })
+    });
+    this.selectedVideo = [];
   }
 
-  go(selected) {
-    this.router.navigate(["/videos/edit/" + selected.$key]);
+  onVideoClick(value: any) {
+    if (this.selectedVideo.indexOf(value) == -1) {
+      this.selectedVideo.push(value);
+    } else {
+      this.selectedVideo.splice(value, 1);
+    }
+  }
+
+  edit(selected) {
+    this.router.navigate(["/video/edit/" + this.selectedVideo[0].$key.toString()]);
+  }
+
+  remove() {
+    for (var video in this.selectedVideo) {
+      this._videosService.deleteVideo(this.selectedVideo[video].$key);
+    }
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
@@ -12,20 +12,35 @@ import { Video } from '../Video';
     templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss']
 })
-export class EditVideoComponent {
+export class EditVideoComponent implements OnInit, OnDestroy {
 
-    key: number;
-    //form validation
+    private sub: any;
+    id: string;
     video: any = {};
     form: FormGroup;
-    Msg: any;
+    loaded: boolean = false;
+    buffer: number = 0;
 
-    constructor(private router: Router, private _videosService: VideosService, private fb: FormBuilder, public snackBar: MatSnackBar) {
+    constructor(private route: ActivatedRoute, private router: Router, private _videosService: VideosService, private fb: FormBuilder, public snackBar: MatSnackBar) {
         this.form = this.fb.group({
             'title': [this.video.title || null, Validators.compose([Validators.maxLength(25), Validators.required])],
             'link': [this.video.link || null, Validators.compose([Validators.pattern('(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})'), Validators.required])],
             'description': [this.video.description || null, Validators.required]
         })
+    }
+
+    ngOnInit() {
+        this.buffer = 10;
+        this.sub = this.route.params.subscribe(params => {
+            this.id = params['id'];
+            this.buffer = 20;
+            this._videosService.getVideos().subscribe(videos => {
+                let _videos = videos;
+                this.video = _videos.find(v => v.$key == this.id);
+                this.buffer = 100;
+                this.loaded = true;
+            });
+        });
     }
 
     updateVideo() {
@@ -42,9 +57,9 @@ export class EditVideoComponent {
 
             console.log(updateVideo);
 
-            this._videosService.updateVideo(this.key, updateVideo);
+            this._videosService.updateVideo(this.id, updateVideo);
             this.openSnackBar('Video Updated!', 'OKAY');
-            this.form.reset();
+            this.router.navigate(["/videos"]);
         }
     }
 
@@ -56,5 +71,13 @@ export class EditVideoComponent {
 
     back() {
         this.router.navigate(["/videos"]);
+    }
+
+    cancel() {
+        this.router.navigate(["/videos"]);
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 }

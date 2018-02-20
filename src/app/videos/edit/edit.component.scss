@@ -1,16 +1,20 @@
 @import "../../theme";
-h3 span {
+.back {
   cursor: pointer;
 }
 
-h3 span:hover {
+.back:hover {
   text-decoration: underline;
 }
 
-h3 .mat-icon {
-  vertical-align: middle;
+.form-padding {
+  padding: 2em;
 }
 
-.mat-card {
-  background-color: mat-color($candy-app-primary, 100);
+.actions button {
+  margin: 0 8px;
+}
+
+.actions button:last-of-type {
+  margin-right: 0;
 }

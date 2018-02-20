@@ -1,12 +1,18 @@
 <div class="layout-row">
-  <div class="flex-66 flex-offset-15">
-    <h3>
-      <span (click)="back()">Videos</span>
-      <mat-icon>chevron_right</mat-icon> Edit</h3>
-    <mat-card>
+  <div class="flex-66 flex-offset-15 mat-elevation-z4">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <span class="back" (click)="back()">Videos</span>
+        <mat-icon>chevron_right</mat-icon>
+        <span>Edit</span>
+        <span class="spacer"></span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-progress-bar mode="determinate" color="accent" [value]="buffer" *ngIf="!loaded"></mat-progress-bar>
+    <div class="form-padding">
       <form [formGroup]="form">
         <mat-form-field class="full-width">
-          <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']" [(ngModel)]="newVideo.title">
+          <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']" [(ngModel)]="video.title">
           <mat-error *ngIf="form.controls['title'].hasError('required')">
             Title is required
           </mat-error>
@@ -15,16 +21,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Link" type="url" [formControl]="form.controls['link']" [(ngModel)]="newVideo.link">
-          <mat-error *ngIf="form.controls['link'].hasError('required')">
-            Link is required
-          </mat-error>
-          <mat-error *ngIf="form.controls['link'].hasError('pattern')">
-            Link must be a valid url format
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Description" type="text" [formControl]="form.controls['description']" [(ngModel)]="newVideo.description">
+          <input matInput placeholder="Description" type="text" [formControl]="form.controls['description']" [(ngModel)]="video.description">
           <mat-error *ngIf="form.controls['description'].hasError('required')">
             Description is required
           </mat-error>
@@ -32,11 +29,21 @@
             Description is cannot exceed 500 characters
           </mat-error>
         </mat-form-field>
-        <div class="layout-row layout-align-end-center m-v-25">
-          <button mat-raised-button color="primary" (click)="addVideo()" [disabled]="!form.valid">UPDATE</button>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Link" type="url" [formControl]="form.controls['link']" [(ngModel)]="video.link">
+          <mat-error *ngIf="form.controls['link'].hasError('required')">
+            Link is required
+          </mat-error>
+          <mat-error *ngIf="form.controls['link'].hasError('pattern')">
+            Link must be a valid url format
+          </mat-error>
+        </mat-form-field>
+        <div class="actions layout-row layout-align-end-center m-v-25">
+          <button mat-raised-button color="accent" (click)="updateVideo()" [disabled]="!form.valid">UPDATE</button>
+          <button mat-raised-button (click)="cancel()">CANCEL</button>
         </div>
       </form>
-    </mat-card>
+    </div>
   </div>
   <div class="flex"></div>
 </div>
