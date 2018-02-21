@@ -9,6 +9,7 @@ body {
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: gray;
 }
 
 html {
@@ -73,4 +74,17 @@ app-root {
 
 .flt-lt {
   float: left;
+}
+
+.section-title-container {
+  border-bottom: 5px solid #f00;
+  margin:1rem 50% .5rem 0;
+}
+
+.section-title {
+  background: #f00;
+  color: #fff;
+  width: fit-content;
+  padding: 8px;
+  margin: 0;
 }
