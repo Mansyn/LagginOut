@@ -16,11 +16,10 @@ import {
   MatProgressBarModule
 } from '@angular/material'
 
-import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { CoreModule } from './core/core.module';
@@ -37,7 +36,7 @@ import { SubscriberPageComponent } from './subscriber-page/subscriber-page.compo
 import { VideosComponent } from './videos/videos.component';
 import { AddVideoComponent } from './videos/add/add.component';
 import { EditVideoComponent } from './videos/edit/edit.component';
-import { VideosService } from './videos/videos.service';
+import { VideosService } from './videos/shared/videos.service';
 import { RemoveVideoDialog } from './videos/videos.component';
 
 @NgModule({
@@ -72,7 +71,6 @@ import { RemoveVideoDialog } from './videos/videos.component';
     MatProgressBarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFirestoreModule,
     AngularFireAuthModule
   ],
   entryComponents: [RemoveVideoDialog],

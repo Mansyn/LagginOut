@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { VideosService } from '../videos.service';
-
-import { Video } from '../Video';
+import { VideosService } from '../shared/videos.service';
+import { Video } from '../shared/Video';
 
 @Component({
   selector: 'add-video',

@@ -1,28 +1,37 @@
-import { Component, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
 
-import { VideosService } from './videos.service';
+import { VideosService } from './shared/videos.service';
 
-import { Video } from './Video';
+import { Video } from './shared/Video';
 
 @Component({
   selector: 'videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.scss']
 })
-export class VideosComponent {
+export class VideosComponent implements OnInit {
 
   videos: Video[];
   selectedVideo: any[];
   loaded: boolean = false;
 
-  constructor(private router: Router, private _videosService: VideosService, public dialog: MatDialog) {
-    this._videosService.getVideos().subscribe(videos => {
-      this.videos = videos;
+  constructor(private router: Router, private _videosService: VideosService, public dialog: MatDialog) { }
+
+  ngOnInit() {
+    var x = this._videosService.getVideos();
+    x.snapshotChanges().subscribe(data => {
+      this.videos = [];
+      data.forEach(element => {
+        var y = element.payload.toJSON();
+        y["$key"] = element.key;
+        this.videos.push(y as Video);
+      });
       this.loaded = true;
+      this.selectedVideo = [];
     });
-    this.selectedVideo = [];
   }
 
   onVideoClick(value: any) {

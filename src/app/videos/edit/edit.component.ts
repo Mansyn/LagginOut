@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
 
-import { VideosService } from '../videos.service';
-
-import { Video } from '../Video';
+import { VideosService } from '../shared/videos.service';
+import { Video } from '../shared/Video';
 
 @Component({
     selector: 'edit-video',
@@ -31,9 +31,12 @@ export class EditVideoComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
-            this._videosService.getVideos().subscribe(videos => {
-                let _videos = videos;
-                this.video = _videos.find(v => v.$key == this.id);
+
+            var x = this._videosService.getVideo(this.id);
+            x.snapshotChanges().subscribe(data => {
+                var y = data.payload.toJSON();
+                y["$key"] = data.key;
+                this.video = y as Video;
                 this.loaded = true;
             });
         });
