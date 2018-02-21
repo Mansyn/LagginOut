@@ -8,6 +8,7 @@
         <span class="spacer"></span>
       </mat-toolbar-row>
     </mat-toolbar>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="!loaded"></mat-progress-bar>
     <div class="form-padding">
       <form [formGroup]="form">
         <mat-form-field class="full-width">
@@ -20,21 +21,21 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Link" type="url" [formControl]="form.controls['link']" [(ngModel)]="video.link">
-          <mat-error *ngIf="form.controls['link'].hasError('required')">
-            Link is required
-          </mat-error>
-          <mat-error *ngIf="form.controls['link'].hasError('pattern')">
-            Link must be a valid url format
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
           <input matInput placeholder="Description" type="text" [formControl]="form.controls['description']" [(ngModel)]="video.description">
           <mat-error *ngIf="form.controls['description'].hasError('required')">
             Description is required
           </mat-error>
           <mat-error *ngIf="form.controls['description'].hasError('maxlength')">
             Description is cannot exceed 500 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Link" type="url" [formControl]="form.controls['link']" [(ngModel)]="video.link">
+          <mat-error *ngIf="form.controls['link'].hasError('required')">
+            Link is required
+          </mat-error>
+          <mat-error *ngIf="form.controls['link'].hasError('pattern')">
+            Link must be a valid url format
           </mat-error>
         </mat-form-field>
         <div class="actions layout-row layout-align-end-center m-v-25">

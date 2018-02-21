@@ -16,6 +16,7 @@ export class AddVideoComponent {
 
   video: any = {};
   form: FormGroup;
+  loaded: boolean = true;
 
   constructor(private router: Router, private _videosService: VideosService, private fb: FormBuilder, public snackBar: MatSnackBar) {
     this.form = this.fb.group({
@@ -27,6 +28,7 @@ export class AddVideoComponent {
 
   addVideo() {
     if (this.form.valid) {
+      this.loaded = false;
       let now = new Date().toDateString();
 
       let video = {
@@ -39,7 +41,10 @@ export class AddVideoComponent {
 
       console.log(video);
 
-      this._videosService.addVideo(video);
+      this._videosService.addVideo(video)
+        .then((data) => {
+          this.loaded = true;
+        });
       this.openSnackBar('Video Added!', 'OKAY');
       this.form.reset();
     }

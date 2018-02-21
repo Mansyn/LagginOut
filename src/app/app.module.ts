@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatCardModule,
+  MatDialogModule,
   MatToolbarModule,
   MatSidenavModule,
   MatSnackBarModule,
@@ -37,6 +38,7 @@ import { VideosComponent } from './videos/videos.component';
 import { AddVideoComponent } from './videos/add/add.component';
 import { EditVideoComponent } from './videos/edit/edit.component';
 import { VideosService } from './videos/videos.service';
+import { RemoveVideoDialog } from './videos/videos.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { VideosService } from './videos/videos.service';
     FooterComponent,
     VideosComponent,
     AddVideoComponent,
-    EditVideoComponent
+    EditVideoComponent,
+    RemoveVideoDialog
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { VideosService } from './videos/videos.service';
     AppRoutingModule,
     CoreModule,
     MatCardModule,
+    MatDialogModule,
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
@@ -71,6 +75,7 @@ import { VideosService } from './videos/videos.service';
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
+  entryComponents: [RemoveVideoDialog],
   providers: [VideosService],
   bootstrap: [AppComponent]
 })

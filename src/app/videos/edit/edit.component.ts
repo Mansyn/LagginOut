@@ -19,7 +19,6 @@ export class EditVideoComponent implements OnInit, OnDestroy {
     video: any = {};
     form: FormGroup;
     loaded: boolean = false;
-    buffer: number = 0;
 
     constructor(private route: ActivatedRoute, private router: Router, private _videosService: VideosService, private fb: FormBuilder, public snackBar: MatSnackBar) {
         this.form = this.fb.group({
@@ -30,14 +29,11 @@ export class EditVideoComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.buffer = 10;
         this.sub = this.route.params.subscribe(params => {
             this.id = params['id'];
-            this.buffer = 20;
             this._videosService.getVideos().subscribe(videos => {
                 let _videos = videos;
                 this.video = _videos.find(v => v.$key == this.id);
-                this.buffer = 100;
                 this.loaded = true;
             });
         });
@@ -45,6 +41,7 @@ export class EditVideoComponent implements OnInit, OnDestroy {
 
     updateVideo() {
         if (this.form.valid) {
+            this.loaded = false;
             let now = new Date().toDateString();
 
             let updateVideo = {
@@ -57,7 +54,13 @@ export class EditVideoComponent implements OnInit, OnDestroy {
 
             console.log(updateVideo);
 
-            this._videosService.updateVideo(this.id, updateVideo);
+            this._videosService.updateVideo(this.id, updateVideo)
+                .then((data) => {
+                    this.loaded = true;
+                })
+                .catch((error) => {
+                    this.openSnackBar(error, 'OKAY');
+                });
             this.openSnackBar('Video Updated!', 'OKAY');
             this.router.navigate(["/videos"]);
         }

@@ -8,7 +8,7 @@
         <span class="spacer"></span>
       </mat-toolbar-row>
     </mat-toolbar>
-    <mat-progress-bar mode="determinate" color="accent" [value]="buffer" *ngIf="!loaded"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="!loaded"></mat-progress-bar>
     <div class="form-padding">
       <form [formGroup]="form">
         <mat-form-field class="full-width">
