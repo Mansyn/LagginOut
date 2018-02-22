@@ -19,6 +19,7 @@ import {
 import { environment } from '../environments/environment';
 
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
@@ -29,10 +30,10 @@ import { NavbarComponent } from './components/navbar/navbar.component'
 import { FooterComponent } from './components/footer/footer.component'
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { SuperSecretComponent } from './super-secret/super-secret.component';
-import { UserLoginComponent } from './user-login/user-login.component';
-
-import { SubscriberPageComponent } from './subscriber-page/subscriber-page.component';
+import { UserLoginComponent } from './account/user-login/user-login.component';
+import { AccountComponent } from './account/account.component';
+//import { SuperSecretComponent } from './super-secret/super-secret.component';
+//import { SubscriberPageComponent } from './subscriber-page/subscriber-page.component';
 import { VideosComponent } from './videos/videos.component';
 import { AddVideoComponent } from './videos/add/add.component';
 import { EditVideoComponent } from './videos/edit/edit.component';
@@ -43,9 +44,8 @@ import { RemoveVideoDialog } from './videos/videos.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    SuperSecretComponent,
     UserLoginComponent,
-    SubscriberPageComponent,
+    AccountComponent,
     NavbarComponent,
     FooterComponent,
     VideosComponent,
@@ -74,7 +74,7 @@ import { RemoveVideoDialog } from './videos/videos.component';
     AngularFireAuthModule
   ],
   entryComponents: [RemoveVideoDialog],
-  providers: [VideosService],
+  providers: [AngularFirestore, VideosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

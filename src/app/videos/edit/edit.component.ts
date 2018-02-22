@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { VideosService } from '../shared/videos.service';
-import { Video } from '../shared/Video';
+import { Video } from '../shared/video';
 
 @Component({
     selector: 'edit-video',

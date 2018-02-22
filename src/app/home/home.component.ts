@@ -12,6 +12,7 @@ import { VideosService } from '../videos/shared/videos.service';
 })
 export class HomeComponent implements OnInit {
     videos: Video[];
+    videosTop: Video[];
     loaded: boolean = false;
 
     constructor(private _videosService: VideosService) { }
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
                 y["$key"] = element.key;
                 this.videos.push(y as Video);
             });
+            this.videosTop = this.videos.slice(0, 3);
             this.loaded = true;
         });
     }

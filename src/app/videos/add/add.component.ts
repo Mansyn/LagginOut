@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
 import { VideosService } from '../shared/videos.service';
-import { Video } from '../shared/Video';
+import { Video } from '../shared/video';
 
 @Component({
   selector: 'add-video',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { AuthService } from '../core/auth.service';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'subscriber-page',
