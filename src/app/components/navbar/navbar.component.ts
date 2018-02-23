@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { MatIconModule } from '@angular/material';
 import { AuthService } from '../../core/auth.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'navbar',
@@ -8,5 +9,28 @@ import { AuthService } from '../../core/auth.service';
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-    constructor(public auth: AuthService) { }
+
+    userRoles: Array<string>;
+
+    constructor(public auth: AuthService) {
+        auth.user$.map(user => {
+            return this.userRoles = _.keys(_.get(user, 'roles'))
+        })
+            .subscribe()
+    }
+
+    get isEditor(): boolean {
+        const allowed = ['editor', 'admin']
+        return this.matchingRole(allowed)
+    }
+
+    canAccessVideos() {
+        return this.isEditor;
+    }
+
+    /// Helper to determine if any matching roles exist
+    private matchingRole(allowedRoles): boolean {
+        return !_.isEmpty(_.intersection(allowedRoles, this.userRoles))
+    }
+
 }

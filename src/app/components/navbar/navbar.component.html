@@ -5,28 +5,28 @@
       <span>Home</span>
     </span>
   </a>
-  <a class="docs-navbar-hide-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/videos']">
+  <a *ngIf="canAccessVideos()" class="docs-navbar-hide-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/videos']">
     <span class="mat-button-wrapper">Videos</span>
   </a>
   <div class="flex-spacer"></div>
   <a class="docs-navbar-hide-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/account']">
     <span class="mat-button-wrapper">
-      <span *ngIf="auth.user$ | async; then authenticated else guest"></span>
+      <span *ngIf="auth.user$ | async; then account else login"></span>
     </span>
   </a>
   <a class="docs-navbar-show-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/account']">
-    <span>Login</span>
+    <span *ngIf="auth.user$ | async; then account else login"></span>
   </a>
 </nav>
 <nav class="docs-navbar docs-navbar-show-small">
-  <a class="docs-navbar-link" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/videos']">
+  <a *ngIf="canAccessVideos()" class="docs-navbar-link" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/videos']">
     <span class="mat-button-wrapper">Videos</span>
   </a>
 </nav>
 
-<ng-template #guest>
-    <span>Login</span>
-  </ng-template>
-  <ng-template #authenticated>
-      <span>Account</span>
-  </ng-template>
+<ng-template #login>
+  <span>Login</span>
+</ng-template>
+<ng-template #account>
+  <span>Account</span>
+</ng-template>

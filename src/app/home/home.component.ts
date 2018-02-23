@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import * as _ from 'lodash';
 
 import { Video } from '../videos/shared/video';
 import { VideosService } from '../videos/shared/videos.service';
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
                 y["$key"] = element.key;
                 this.videos.push(y as Video);
             });
-            this.videosTop = this.videos.slice(0, 3);
+            this.videosTop = _.orderBy(this.videos.slice(0, 3), ['timeStamp'], ['desc']);;
             this.loaded = true;
         });
     }

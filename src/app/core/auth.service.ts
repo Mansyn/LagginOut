@@ -11,6 +11,7 @@ import { User } from './user';
 export class AuthService {
 
   user$: Observable<User>;
+  userDetails: firebase.User = null;
 
   constructor(private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
@@ -19,8 +20,10 @@ export class AuthService {
     this.user$ = this.afAuth.authState
       .switchMap(user => {
         if (user) {
+          this.userDetails = user;
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
         } else {
+          this.userDetails = null;
           return Observable.of(null)
         }
       })
@@ -51,6 +54,7 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email,
+      displayName: user.displayName,
       photoURL: user.photoURL,
       roles: {
         subscriber: true
