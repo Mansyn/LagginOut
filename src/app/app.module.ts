@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import {
   MatCardModule,
@@ -24,6 +25,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { EmbedVideo } from 'ngx-embed-video';
+
 import { CoreModule } from './core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,7 +34,6 @@ import { NavbarComponent } from './components/navbar/navbar.component'
 import { FooterComponent } from './components/footer/footer.component'
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { UserLoginComponent } from './account/user-login/user-login.component';
 import { AccountComponent } from './account/account.component';
 //import { SuperSecretComponent } from './super-secret/super-secret.component';
 //import { SubscriberPageComponent } from './subscriber-page/subscriber-page.component';
@@ -45,7 +47,6 @@ import { RemoveVideoDialog } from './videos/videos.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    UserLoginComponent,
     AccountComponent,
     NavbarComponent,
     FooterComponent,
@@ -59,6 +60,8 @@ import { RemoveVideoDialog } from './videos/videos.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpModule,
+    EmbedVideo.forRoot(),
     CoreModule,
     MatCardModule,
     MatDialogModule,

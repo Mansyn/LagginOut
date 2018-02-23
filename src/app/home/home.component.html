@@ -22,14 +22,18 @@
         <div class='mock-card vid-box'>Recent Video Here</div>
         <span class="stretch"></span>
       </div>
+    </section>
+    <section id='recentvids'>
       <div class='section-title-container'>
         <div class='section-title'>
-          Test: vids from DB
+          Recent Videos
         </div>
       </div>
-      <div class='mock-recents'>
-        <div class='mock-card vid-box' *ngFor="let video of videosTop">{{ video.title }}</div>
-        <span class="stretch"></span>
+      <div class='recents layout-row layout-align-space-between-center'>
+        <div *ngFor="let video of videosTop">
+          {{ video.title }}
+          <div [innerHtml]="video.iframe_html"></div>
+        </div>
       </div>
     </section>
     <section id='articles'>

@@ -4,7 +4,7 @@
   }
 
   header {
-    margin:0 auto;
+    margin: 0 auto;
     background-color: #000;
     height: auto;
     width: 100%;
@@ -115,7 +115,7 @@
     font-weight: bold;
   }
 
-  .pad-5{
+  .pad-5 {
     padding: 0 5px;
   }
 
@@ -124,20 +124,17 @@
     display: inline-block;
     font-size: 0;
     line-height: 0
-  }
-  
-
-  // Mockup components....delete all of these with a global search for 'mock'
-
+  } // Mockup components....delete all of these with a global search for 'mock'
   .mock-carousel {
     min-height: 24rem;
-    background:rgb(37, 37, 37);
+    background: rgb(37, 37, 37);
     margin: 0 -5px;
     padding: 1rem;
     color: #e9e8e8;
   }
-  .mock-carousel *{
-    color:#e9e8e8;
+
+  .mock-carousel * {
+    color: #e9e8e8;
   }
 
   .mock-carousel a:hover {
@@ -146,12 +143,16 @@
 
   .mock-recents {
     min-height: 18rem;
-    min-width:100%;
-    color:#e9e8e8;
-    padding: 1rem;
+    min-width: 100%;
+    color: #e9e8e8;
+    padding: 1rem 1rem 2rem 1rem;
     text-align: justify;
     -ms-text-justify: distribute-all-lines;
     text-justify: distribute-all-lines;
+  }
+
+  .recents {
+    padding: 1rem 1rem 2rem 1rem;
   }
 
   .mock-card {

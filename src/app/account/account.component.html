@@ -20,7 +20,7 @@
 
 <!-- User NOT logged in -->
 <ng-template #guest>
-  <h3>Howdy, GUEST</h3>
+  <h3>GUEST</h3>
   <p>Login to get started...</p>
 
   <button (click)="auth.googleLogin()" class="button btn-social btn-google">
@@ -31,22 +31,20 @@
 <!-- User logged in -->
 <ng-template #authenticated>
   <div *ngIf="auth.user$ | async as user">
-    <h3>Howdy, {{ user.displayName }}</h3>
-    <img [src]="user.photoURL || 'assets/avatar.svg'" style="max-width: 250px;" />
-
-    <hr> Subscriber:
-    <span class="tag" [class.is-success]="user.roles?.subscriber">
-      {{ user.roles?.subscriber }}
-    </span>
-    <br> Editor:
-    <span class="tag" [class.is-success]="user.roles?.editor">
-      {{ user.roles?.editor }}
-    </span>
-    <br> Admin:
-    <span class="tag" [class.is-success]="user.roles?.admin">
-      {{ user.roles?.admin }}
-    </span>
-    <br>
+    <div class="layout-row">
+      <div class="flex-33">
+        <h3>{{ user.displayName }}</h3>
+        <img [src]="user.photoURL || 'assets/avatar.svg'" style="max-width: 250px;" />
+      </div>
+      <div class="flex-66">
+        <h5>Roles</h5>
+        <mat-selection-list>
+          <mat-list-option [selected]="user.roles?.subscriber" disabled="true"> Subscriber </mat-list-option>
+          <mat-list-option [selected]="user.roles?.editor" disabled="true"> Editor </mat-list-option>
+          <mat-list-option [selected]="user.roles?.admin" disabled="true"> Admin </mat-list-option>
+        </mat-selection-list>
+      </div>
+    </div>
   </div>
 </ng-template>
 
