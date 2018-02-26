@@ -21,7 +21,7 @@ import {
 import { environment } from '../environments/environment';
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
@@ -76,10 +76,11 @@ import { RemoveVideoDialog } from './videos/videos.component';
     MatProgressBarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   entryComponents: [RemoveVideoDialog],
-  providers: [AngularFirestore, VideosService],
+  providers: [VideosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

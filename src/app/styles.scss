@@ -31,6 +31,15 @@ app-root {
   flex-direction: column;
 }
 
+
+.main-body {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  min-height: calc(100vh - 13rem);
+}
+
 .flex-container {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
