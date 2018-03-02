@@ -5,17 +5,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import {
+  MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
   MatDialogModule,
-  MatToolbarModule,
-  MatTooltipModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatButtonModule,
-  MatIconModule,
-  MatListModule,
-  MatInputModule,
-  MatProgressBarModule
+  MatSortModule,
+  MatToolbarModule,
+  MatTableModule,
+  MatTabsModule,
+  MatTooltipModule
 } from '@angular/material'
 
 import { environment } from '../environments/environment';
@@ -24,6 +30,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 import { EmbedVideo } from 'ngx-embed-video';
 
@@ -35,13 +43,13 @@ import { FooterComponent } from './components/footer/footer.component'
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
-//import { SuperSecretComponent } from './super-secret/super-secret.component';
-//import { SubscriberPageComponent } from './subscriber-page/subscriber-page.component';
 import { VideosComponent } from './videos/videos.component';
 import { AddVideoComponent } from './videos/add/add.component';
 import { EditVideoComponent } from './videos/edit/edit.component';
 import { VideosService } from './videos/shared/videos.service';
 import { RemoveVideoDialog } from './videos/videos.component';
+import { AdminComponent } from './admin/admin.component';
+import { VideoDialog } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +61,10 @@ import { RemoveVideoDialog } from './videos/videos.component';
     VideosComponent,
     AddVideoComponent,
     EditVideoComponent,
-    RemoveVideoDialog
+    RemoveVideoDialog,
+    AdminComponent,
+    VideoDialog,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
@@ -63,23 +74,29 @@ import { RemoveVideoDialog } from './videos/videos.component';
     HttpModule,
     EmbedVideo.forRoot(),
     CoreModule,
-    MatCardModule,
-    MatDialogModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatSidenavModule,
     MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDialogModule,
     MatIconModule,
-    MatSnackBarModule,
-    MatListModule,
     MatInputModule,
+    MatListModule,
+    MatPaginatorModule,
     MatProgressBarModule,
+    MatSidenavModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatTabsModule,
+    MatTooltipModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule
   ],
-  entryComponents: [RemoveVideoDialog],
+  entryComponents: [RemoveVideoDialog, VideoDialog],
   providers: [VideosService],
   bootstrap: [AppComponent]
 })

@@ -24,8 +24,17 @@ export class NavbarComponent {
         return this.matchingRole(allowed)
     }
 
+    get isAdmin(): boolean {
+        const allowed = ['admin']
+        return this.matchingRole(allowed)
+    }
+
     canAccessVideos() {
         return this.isEditor;
+    }
+
+    canAccessAdmin() {
+        return this.isAdmin;
     }
 
     /// Helper to determine if any matching roles exist

@@ -1,20 +1,23 @@
 <nav class="docs-navbar-header">
   <img src='assets/images/aniLogo.gif' class='img-responsive top-logo' />
-  <a aria-label="Laggin-Out" class='first-link' mat-button [routerLink]="['/']" tabindex="0" aria-disabled="false">
+  <a aria-label="Laggin-Out" class='first-link' mat-button [routerLink]="['/']">
     <span class="mat-button-wrapper">
       <span>Home</span>
     </span>
   </a>
-  <a *ngIf="canAccessVideos()" class="docs-navbar-hide-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/videos']">
+  <a *ngIf="canAccessVideos()" class="docs-navbar-hide-small" mat-button [routerLink]="['/videos']">
     <span class="mat-button-wrapper">Videos</span>
   </a>
+  <a *ngIf="canAccessAdmin()" class="docs-navbar-hide-small" mat-button [routerLink]="['/admin']">
+    <span class="mat-button-wrapper">Admin</span>
+  </a>
   <div class="flex-spacer"></div>
-  <a class="docs-navbar-hide-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/account']">
+  <a class="docs-navbar-hide-small" mat-button [routerLink]="['/account']">
     <span class="mat-button-wrapper">
       <span *ngIf="auth.user$ | async; then account else login"></span>
     </span>
   </a>
-  <a class="docs-navbar-show-small" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/account']">
+  <a class="docs-navbar-show-small" mat-button [routerLink]="['/account']">
     <span *ngIf="auth.user$ | async; then account else login"></span>
   </a>
 </nav>

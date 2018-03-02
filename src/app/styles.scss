@@ -40,6 +40,15 @@ app-root {
   min-height: calc(100vh - 13rem);
 }
 
+.spacer {
+  flex: 1 1 auto;
+}
+
+.form-padding {
+  padding: 2em;
+  background-color: mat-color($candy-app-primary, 100);
+}
+
 .flex-container {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
