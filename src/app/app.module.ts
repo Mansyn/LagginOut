@@ -5,24 +5,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import {
-  MatButtonModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDialogModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatSidenavModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatToolbarModule,
-  MatTableModule,
-  MatTabsModule,
-  MatTooltipModule
-} from '@angular/material'
+	MatButtonModule,
+	MatCardModule,
+	MatCheckboxModule,
+	MatChipsModule,
+	MatDialogModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatPaginatorModule,
+	MatProgressBarModule,
+	MatSidenavModule,
+	MatSnackBarModule,
+	MatSortModule,
+	MatToolbarModule,
+	MatTableModule,
+	MatTabsModule,
+	MatTooltipModule
+} from '@angular/material';
 
 import { environment } from '../environments/environment';
 
@@ -38,8 +38,8 @@ import { EmbedVideo } from 'ngx-embed-video';
 import { CoreModule } from './core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
-import { NavbarComponent } from './components/navbar/navbar.component'
-import { FooterComponent } from './components/footer/footer.component'
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
@@ -50,54 +50,56 @@ import { VideosService } from './videos/shared/videos.service';
 import { RemoveVideoDialog } from './videos/videos.component';
 import { AdminComponent } from './admin/admin.component';
 import { VideoDialog } from './admin/admin.component';
+import { UserDialog } from './admin/admin.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    AccountComponent,
-    NavbarComponent,
-    FooterComponent,
-    VideosComponent,
-    AddVideoComponent,
-    EditVideoComponent,
-    RemoveVideoDialog,
-    AdminComponent,
-    VideoDialog,
-    TruncatePipe
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    HttpModule,
-    EmbedVideo.forRoot(),
-    CoreModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDialogModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatSidenavModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatToolbarModule,
-    MatTableModule,
-    MatTabsModule,
-    MatTooltipModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    AngularFirestoreModule
-  ],
-  entryComponents: [RemoveVideoDialog, VideoDialog],
-  providers: [VideosService],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		HomeComponent,
+		AccountComponent,
+		NavbarComponent,
+		FooterComponent,
+		VideosComponent,
+		AddVideoComponent,
+		EditVideoComponent,
+		RemoveVideoDialog,
+		AdminComponent,
+		VideoDialog,
+		UserDialog,
+		TruncatePipe
+	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		ReactiveFormsModule,
+		AppRoutingModule,
+		HttpModule,
+		EmbedVideo.forRoot(),
+		CoreModule,
+		MatButtonModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatChipsModule,
+		MatDialogModule,
+		MatIconModule,
+		MatInputModule,
+		MatListModule,
+		MatPaginatorModule,
+		MatProgressBarModule,
+		MatSidenavModule,
+		MatSnackBarModule,
+		MatSortModule,
+		MatToolbarModule,
+		MatTableModule,
+		MatTabsModule,
+		MatTooltipModule,
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireDatabaseModule,
+		AngularFireAuthModule,
+		AngularFirestoreModule
+	],
+	entryComponents: [ RemoveVideoDialog, VideoDialog, UserDialog ],
+	providers: [ VideosService ],
+	bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {}
