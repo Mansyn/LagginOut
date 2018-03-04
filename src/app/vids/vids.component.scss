@@ -1,0 +1,42 @@
+.vids-body {
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: calc(100vh - 13rem);
+}
+.vids-main {
+  flex-direction: row;
+  flex-wrap: wrap;
+  display: flex;
+}
+.vids-main > div {
+  width: 32rem;
+  flex-grow: 1;
+  margin: 0;
+  text-align: center;
+  padding: 1rem;
+  border: 1px solid #a7a7a7;
+  background-color: rgb(228, 228, 228);
+  cursor: pointer;
+}
+.vids-main > div:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+.vid-container {
+  flex-grow: 1;
+}
+
+.vid-image {
+  max-width: 80%;
+  margin:1.5rem 0;
+}
+.vid-title {
+  width: 100%;
+  font-size: 1.5;
+  text-align: left;
+}
+.vid-lead {
+  width: 100%;
+  text-align: left;
+}

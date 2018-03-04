@@ -1,4 +1,12 @@
 @import "../theme";
+:host {
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  min-height: calc(100vh - 10.3rem);
+}
+
 .spacer {
   flex: 1 1 auto;
 }

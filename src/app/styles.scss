@@ -33,7 +33,7 @@ app-root {
 
 
 .main-body {
-  max-width: 1280px;
+  max-width: 1600px;
   width: 100%;
   margin: 0 auto;
   background: #fff;
@@ -78,6 +78,10 @@ app-root {
   min-width: 300px;
 }
 
+.pad-5 {
+  padding: 0 5px;
+}
+
 .top-logo {
   margin-top: 1rem;
   max-width: 53px;
@@ -95,7 +99,7 @@ app-root {
 
 .section-title-container {
   border-bottom: 5px solid #f00;
-  margin: 1rem 50% .5rem 0;
+  margin: 1rem 0 .5rem;
 }
 
 .section-title {

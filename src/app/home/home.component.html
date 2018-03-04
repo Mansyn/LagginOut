@@ -2,14 +2,32 @@
   <header>
     <div>
       <img src='assets/images/logoFull.png' class='img-responsive header-logo w-25 flt-rt' />
-      
     </div>
   </header>
   <main class='main-body pad-5'>
     <section id='carousel' class='mock-carousel'>
-      <h2>Thinking about the following carousel:</h2>
+      <!-- <h2>Thinking about the following carousel:</h2>
       <a href='https://www.npmjs.com/package/ngx-carousel' target='_blank'>https://www.npmjs.com/package/ngx-carousel</a> looks pretty nice. Check out the
-      <a href='https://sheikalthaf.github.io/ngx-carousel/' target='_blank'>DEMO </a> and let me know what you think.
+      <a href='https://sheikalthaf.github.io/ngx-carousel/' target='_blank'>DEMO </a> and let me know what you think. -->
+      <ngx-carousel
+        [inputs]="carouselOne"
+        (carouselLoad)="carouselLoad($event)">
+          <ngx-item NgxCarouselItem *ngFor="let video of videosTop" style="touch-action: pan-y; user-select: none; text-align:center; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+              {{ video.title }}
+              <div [innerHtml]="video.iframe_html"></div>
+          </ngx-item>
+          <button NgxCarouselPrev class='leftRs'>&lt;</button>
+          <button NgxCarouselNext class='rightRs'>&gt;</button>
+    </ngx-carousel>
+    <!-- <ngx-carousel
+      [inputs]="carouselTile"
+      (carouselLoad)="carouselTileLoad($event)">
+            <ngx-tile NgxCarouselItem *ngFor="let video of videosTop">
+                <h1>{{ video.title }}</h1>
+            </ngx-tile>
+          <button NgxCarouselPrev class='leftRs'>&lt;</button>
+          <button NgxCarouselNext class='rightRs'>&gt;</button>
+    </ngx-carousel> -->
     </section>
     <section id='recentvids'>
       <div class='section-title-container'>
@@ -113,4 +131,4 @@
     </section>
   </main>
 </div>
-<app-footer></app-footer>
+

@@ -11,11 +11,15 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './core/admin.guard';
 import { EditorGuard } from './core/editor.guard';
 import { CanReadGuard } from './core/can-read.guard';
+import { ArticlesComponent } from './articles/articles.component';
+import { VidsComponent } from './vids/vids.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'account', component: AccountComponent },
+  { path: 'articles', component: ArticlesComponent},
+  { path: 'vids', component: VidsComponent},
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path: 'videos', component: VideosComponent },
   { path: 'video/add', component: AddVideoComponent },
