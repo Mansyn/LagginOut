@@ -7,7 +7,7 @@
       <option>By Most Popular</option>
       <option>By Trending</option>
     </select> -->
-    <mat-select [(ngModel)]='options' placeholder='Placeholder'>
+    <mat-select placeholder='Placeholder'>
       <mat-option *ngFor='let option of options' [value]='options.value' >
         {{option.viewValue}}
       </mat-option>

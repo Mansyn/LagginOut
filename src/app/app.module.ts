@@ -32,6 +32,9 @@ import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
+
 import { TruncatePipe } from './pipes/truncate.pipe';
 
 import { EmbedVideo } from 'ngx-embed-video';
@@ -52,6 +55,8 @@ import { RemoveVideoDialog } from './videos/videos.component';
 import { AdminComponent } from './admin/admin.component';
 import { VideoDialog } from './admin/admin.component';
 import { UserDialog } from './admin/admin.component';
+import { VidsComponent } from './vids/vids.component';
+import { ArticlesComponent } from './articles/articles.component';
 
 @NgModule({
 	declarations: [
@@ -60,7 +65,9 @@ import { UserDialog } from './admin/admin.component';
 		AccountComponent,
 		NavbarComponent,
 		FooterComponent,
-		VideosComponent,
+    VideosComponent,
+    VidsComponent,
+    ArticlesComponent,
 		AddVideoComponent,
 		EditVideoComponent,
 		RemoveVideoDialog,
@@ -94,7 +101,8 @@ import { UserDialog } from './admin/admin.component';
 		MatToolbarModule,
 		MatTableModule,
 		MatTabsModule,
-		MatTooltipModule,
+    MatTooltipModule,
+    NgxCarouselModule,
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFireDatabaseModule,
 		AngularFireAuthModule,
