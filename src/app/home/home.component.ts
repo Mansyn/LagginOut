@@ -3,8 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
-import { Video } from '../videos/video';
-import { VideosService } from '../videos/videos.service';
+import { Video } from '../videos/shared/video';
+import { VideosService } from '../videos/shared/videos.service';
 
 import { EmbedVideoService } from 'ngx-embed-video';
 import { NgxCarousel } from 'ngx-carousel';

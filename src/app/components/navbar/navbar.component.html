@@ -11,6 +11,9 @@
   <a class="docs-navbar-hide-small" mat-button [routerLink]="['/videos']">
     <span class="mat-button-wrapper">Videos</span>
   </a>
+  <a *ngIf="canAccessEditor()" class="docs-navbar-hide-small" mat-button [routerLink]="['/editor']">
+    <span class="mat-button-wrapper">Editor</span>
+  </a>
   <a *ngIf="canAccessAdmin()" class="docs-navbar-hide-small" mat-button [routerLink]="['/admin']">
     <span class="mat-button-wrapper">Admin</span>
   </a>

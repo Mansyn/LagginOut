@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { EditorComponent } from './editor/editor.component';
+import { EditorArticlesComponent } from './editor/articles/articles.component';
 
 import { AdminGuard } from './core/admin.guard';
 import { EditorGuard } from './core/editor.guard';
@@ -20,6 +21,7 @@ const routes: Routes = [
 	{ path: 'videos', component: VidsComponent },
 	{ path: 'admin', component: AdminComponent, canActivate: [ AdminGuard ] },
 	{ path: 'editor', component: EditorComponent, canActivate: [ EditorGuard ] },
+	{ path: 'editor/articles', component: EditorArticlesComponent, canActivate: [ EditorGuard ] },
 	{ path: '*', redirectTo: 'home' }
 ];
 

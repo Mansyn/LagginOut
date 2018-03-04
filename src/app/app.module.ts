@@ -47,13 +47,15 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
-import { VideosService } from './videos/videos.service';
+import { VideosService } from './videos/shared/videos.service';
 import { AdminComponent } from './admin/admin.component';
 import { VideoDialog } from './admin/admin.component';
 import { UserDialog } from './admin/admin.component';
 import { VidsComponent } from './vids/vids.component';
 import { ArticlesComponent } from './articles/articles.component';
+import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
+import { EditorArticlesComponent } from './editor/articles/articles.component';
 
 @NgModule({
 	declarations: [
@@ -65,6 +67,7 @@ import { EditorComponent } from './editor/editor.component';
 		VidsComponent,
 		ArticlesComponent,
 		AdminComponent,
+		EditorArticlesComponent,
 		VideoDialog,
 		UserDialog,
 		TruncatePipe,
@@ -103,7 +106,7 @@ import { EditorComponent } from './editor/editor.component';
 		AngularFirestoreModule
 	],
 	entryComponents: [ VideoDialog, UserDialog ],
-	providers: [ VideosService ],
+	providers: [ VideosService, ArticleService ],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule {}

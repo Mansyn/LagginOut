@@ -1,3 +1,21 @@
-<p>
-  editor works!
-</p>
+<div class="layout-row">
+  <div class="flex-5 flex-gt-xs-15"></div>
+  <div class="flex-90 flex-gt-xs-70">
+      <mat-card class="card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Articles</mat-card-title>
+            <mat-card-subtitle>Manage your articles</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              As an editor you can manage your articles from here
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button [routerLink]="['/editor/articles']">GO</button>
+          </mat-card-actions>
+        </mat-card>
+  </div>
+  <div class="flex-5 flex-gt-xs-15"></div>
+</div>
