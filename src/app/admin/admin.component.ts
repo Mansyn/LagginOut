@@ -16,8 +16,8 @@ import _ from 'lodash';
 
 import { AuthService } from '../core/auth.service';
 import { User } from '../core/user';
-import { VideosService } from '../videos/shared/videos.service';
-import { Video } from '../videos/shared/video';
+import { VideosService } from '../videos/videos.service';
+import { Video } from '../videos/video';
 
 @Component({
 	selector: 'admin',

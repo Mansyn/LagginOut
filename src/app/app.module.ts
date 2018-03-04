@@ -14,8 +14,8 @@ import {
 	MatInputModule,
 	MatListModule,
 	MatPaginatorModule,
-  MatProgressBarModule,
-  MatSelectModule,
+	MatProgressBarModule,
+	MatSelectModule,
 	MatSidenavModule,
 	MatSnackBarModule,
 	MatSortModule,
@@ -47,16 +47,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
-import { VideosComponent } from './videos/videos.component';
-import { AddVideoComponent } from './videos/add/add.component';
-import { EditVideoComponent } from './videos/edit/edit.component';
-import { VideosService } from './videos/shared/videos.service';
-import { RemoveVideoDialog } from './videos/videos.component';
+import { VideosService } from './videos/videos.service';
 import { AdminComponent } from './admin/admin.component';
 import { VideoDialog } from './admin/admin.component';
 import { UserDialog } from './admin/admin.component';
 import { VidsComponent } from './vids/vids.component';
 import { ArticlesComponent } from './articles/articles.component';
+import { EditorComponent } from './editor/editor.component';
 
 @NgModule({
 	declarations: [
@@ -65,16 +62,13 @@ import { ArticlesComponent } from './articles/articles.component';
 		AccountComponent,
 		NavbarComponent,
 		FooterComponent,
-    VideosComponent,
-    VidsComponent,
-    ArticlesComponent,
-		AddVideoComponent,
-		EditVideoComponent,
-		RemoveVideoDialog,
+		VidsComponent,
+		ArticlesComponent,
 		AdminComponent,
 		VideoDialog,
 		UserDialog,
-		TruncatePipe
+		TruncatePipe,
+		EditorComponent
 	],
 	imports: [
 		BrowserModule,
@@ -93,22 +87,22 @@ import { ArticlesComponent } from './articles/articles.component';
 		MatInputModule,
 		MatListModule,
 		MatPaginatorModule,
-    MatProgressBarModule,
-    MatSelectModule,
+		MatProgressBarModule,
+		MatSelectModule,
 		MatSidenavModule,
 		MatSnackBarModule,
 		MatSortModule,
 		MatToolbarModule,
 		MatTableModule,
 		MatTabsModule,
-    MatTooltipModule,
-    NgxCarouselModule,
+		MatTooltipModule,
+		NgxCarouselModule,
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFireDatabaseModule,
 		AngularFireAuthModule,
 		AngularFirestoreModule
 	],
-	entryComponents: [ RemoveVideoDialog, VideoDialog, UserDialog ],
+	entryComponents: [ VideoDialog, UserDialog ],
 	providers: [ VideosService ],
 	bootstrap: [ AppComponent ]
 })
