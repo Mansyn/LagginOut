@@ -1,9 +1,9 @@
 export class Article {
-	$key: string;
-	title: string;
+	id: number;
+	editor_id: number
+	date: Date;
 	content: string;
-	links: string;
-	author: string;
-	timeStamp: number;
-	active: boolean = true;
+	title: string;
+	status: string;
+	name: string;
 }
