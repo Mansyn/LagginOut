@@ -15,7 +15,9 @@ export class ArticlesComponent implements OnInit {
 
   articles: Article[];
   articlesTop: Article[];
+  articleOpen: boolean;
   loaded: boolean = false;
+  openArticle: any
 
   constructor(private articleService: ArticleService) { }
 
@@ -29,23 +31,28 @@ export class ArticlesComponent implements OnInit {
         let articles = [];
         data.forEach((element) => {
           var y = element.payload.toJSON();
-          let x = (y as Article)
-          console.log(x.type)
+          let x = (y as Article);
           x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
           if (x.content.includes('assets/images/') && x.type === 'post') {
             this.articles.push(x);
           }
         });
-        // for (let x = 0; x < filter.length; x++) {
-        //   // console.log(filter[x].type)
-        //   if (filter[x].status === 'inherit') {
-        //     console.log(filter[x].id, filter[x].type)
-        //     this.articles.push(filter[x] as Article);
-        //   }
-        // }
-        this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 25);
+        this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 21);
         this.loaded = true;
       });
+  }
+  handleOpenArticle(index) {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+    document.body.style.overflowY = 'hidden';
+    document.getElementsByTagName('html')[0].style.overflow = "hidden";
+    this.openArticle = this.articlesTop[index]
+    this.articleOpen = true;
+    console.log(this.articlesTop[index].title)
+  }
+  closeArticle(){
+    document.body.style.overflowY = 'auto'
+    document.getElementsByTagName('html')[0].style.overflow = "auto";
+    this.articleOpen = false;
   }
 
 }

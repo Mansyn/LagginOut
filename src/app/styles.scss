@@ -31,6 +31,12 @@ app-root {
   flex-direction: column;
 }
 
+header {
+  background-color: #000;
+  height: auto;
+  width: 100%;
+  max-width: 1600px;
+}
 
 .main-body {
   max-width: 1600px;
@@ -42,6 +48,9 @@ app-root {
 
 .spacer {
   flex: 1 1 auto;
+}
+.height-fix {
+  height: auto !important;
 }
 
 .form-padding {
