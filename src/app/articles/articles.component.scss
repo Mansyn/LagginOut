@@ -31,6 +31,8 @@
 
 .article-container {
   flex-grow: 1;
+  height: 30rem;
+  overflow: hidden;
 }
 .article-date {
   text-align: left;
@@ -48,6 +50,11 @@
 .article-lead {
   width: 100%;
   text-align: left;
+}
+
+.size-large {
+  max-height: 280px !important;
+  width: 500px;
 }
 
 .articles-sort {

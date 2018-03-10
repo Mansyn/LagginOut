@@ -1,18 +1,4 @@
-<div class='articles-header'>
-  <div>
-    <span labelFor='sorter'>Sort By </span>
-    <!-- <select id='sorter'>
-      <option>By Date Ascending</option>
-      <option>By Date Descending</option>
-      <option>By Most Popular</option>
-      <option>By Trending</option>
-    </select> -->
-    <mat-select placeholder='Placeholder'>
-      <mat-option *ngFor='let option of options' [value]='options.value'>
-        {{option.viewValue}}
-      </mat-option>
-    </mat-select>
-  </div>
+<!-- <div class='articles-header'>
   <div class='articles-main'>
     <div class='article-container'>
       <p class='article-date'>03/02/2018</p>
@@ -22,16 +8,16 @@
       <p class='article-lead'>Article lead goes here. It can be a total of maybe this many characters? Or a few more...Yeah, this many.</p>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class='articles-body'>
   <div class='articles-main'>
     <div *ngFor="let article of articlesTop" class='article-container'>
       <p class='article-date'>{{article.date}}</p>
-      <img src='assets/images/logoFull.png' class='article-image'>
+      <!-- <img src='assets/images/logoFull.png' class='article-image'> -->
       <br />
       <h4 class='article-title'>{{article.title}}</h4>
-      <p class='article-lead'>{{article.content}}</p>
+      <p class='article-lead' innerHTML={{article.content}}></p>
     </div>
   </div>
 </div>

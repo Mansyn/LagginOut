@@ -5,5 +5,6 @@ export class Article {
 	content: string;
 	title: string;
 	status: string;
+	type: string;
 	name: string;
 }

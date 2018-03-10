@@ -12,12 +12,6 @@ import { ArticleService } from './shared/article.service';
   styleUrls: ['./articles.component.scss']
 })
 export class ArticlesComponent implements OnInit {
-  options = [
-    { value: 'Newest', viewValue: 'Newest' },
-    { value: 'Oldest', viewValue: 'Oldest' },
-    { value: 'Trending', viewValue: 'Trending' },
-    { value: 'Popularity', viewValue: 'Popularity' }
-  ];
 
   articles: Article[];
   articlesTop: Article[];
@@ -26,6 +20,7 @@ export class ArticlesComponent implements OnInit {
   constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
+    const filter = []
     this.articles = [];
     this.articlesTop = [];
     this.articleService.getArticles()
@@ -34,9 +29,21 @@ export class ArticlesComponent implements OnInit {
         let articles = [];
         data.forEach((element) => {
           var y = element.payload.toJSON();
-          this.articles.push(y as Article);
+          let x = (y as Article)
+          console.log(x.type)
+          x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
+          if (x.content.includes('assets/images/') && x.type === 'post') {
+            this.articles.push(x);
+          }
         });
-        this.articlesTop = _.orderBy(this.articles.slice(0, 15), ['date'], ['desc']);
+        // for (let x = 0; x < filter.length; x++) {
+        //   // console.log(filter[x].type)
+        //   if (filter[x].status === 'inherit') {
+        //     console.log(filter[x].id, filter[x].type)
+        //     this.articles.push(filter[x] as Article);
+        //   }
+        // }
+        this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 25);
         this.loaded = true;
       });
   }
