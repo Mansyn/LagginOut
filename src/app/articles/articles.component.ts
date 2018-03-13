@@ -34,6 +34,7 @@ export class ArticlesComponent implements OnInit {
           let x = (y as Article);
           x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
           if (x.content.includes('assets/images/') && x.type === 'post') {
+            
             this.articles.push(x);
           }
         });
