@@ -6,4 +6,5 @@ export class Article {
 	title: string;
 	status: string;
 	name: string;
+	timeStamp: Date;
 }

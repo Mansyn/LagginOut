@@ -1,0 +1,23 @@
+@import "../../theme";
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-toolbar {
+  background-color: mat-color($candy-app-primary, 200);
+}
+
+.mat-toolbar button {
+  margin: 0 8px;
+}
+
+.mat-column-select {
+  overflow: initial;
+}
+
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1),
+  {
+  flex: 0 0 5%;
+}

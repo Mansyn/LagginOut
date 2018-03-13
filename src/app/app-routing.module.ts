@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
+import { ContentComponent } from './admin/content/content.component';
+import { UsersComponent } from './admin/users/users.component';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
 
@@ -19,14 +21,16 @@ const routes: Routes = [
 	{ path: 'account', component: AccountComponent },
 	{ path: 'articles', component: ArticlesComponent },
 	{ path: 'videos', component: VidsComponent },
-	{ path: 'admin', component: AdminComponent, canActivate: [ AdminGuard ] },
-	{ path: 'editor', component: EditorComponent, canActivate: [ EditorGuard ] },
-	{ path: 'editor/articles', component: EditorArticlesComponent, canActivate: [ EditorGuard ] },
+	{ path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
+	{ path: 'admin/content', component: ContentComponent, canActivate: [AdminGuard] },
+	{ path: 'admin/users', component: UsersComponent, canActivate: [AdminGuard] },
+	{ path: 'editor', component: EditorComponent, canActivate: [EditorGuard] },
+	{ path: 'editor/articles', component: EditorArticlesComponent, canActivate: [EditorGuard] },
 	{ path: '*', redirectTo: 'home' }
 ];
 
 @NgModule({
-	imports: [ RouterModule.forRoot(routes) ],
-	exports: [ RouterModule ]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

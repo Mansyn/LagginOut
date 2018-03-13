@@ -11,12 +11,6 @@
   <a class="docs-navbar-hide-small" mat-button [routerLink]="['/videos']">
     <span class="mat-button-wrapper">Videos</span>
   </a>
-  <a *ngIf="canAccessEditor()" class="docs-navbar-hide-small" mat-button [routerLink]="['/editor']">
-    <span class="mat-button-wrapper">Editor</span>
-  </a>
-  <a *ngIf="canAccessAdmin()" class="docs-navbar-hide-small" mat-button [routerLink]="['/admin']">
-    <span class="mat-button-wrapper">Admin</span>
-  </a>
   <div class="flex-spacer"></div>
   <a class="docs-navbar-hide-small" mat-button [routerLink]="['/account']">
     <span class="mat-button-wrapper">
@@ -26,12 +20,29 @@
   <a class="docs-navbar-show-small" mat-button [routerLink]="['/account']">
     <span *ngIf="auth.user$ | async; then account else login"></span>
   </a>
+  <button *ngIf="canAccessAdmin() || canAccessEditor()" mat-icon-button [matMenuTriggerFor]="excessMenu" color="accent">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #excessMenu="matMenu" xPosition="before">
+    <button mat-menu-item [matMenuTriggerFor]="adminMenu">Admin</button>
+    <button *ngIf="canAccessEditor()" mat-menu-item [routerLink]="['/editor']">Editor</button>
+  </mat-menu>
+  <mat-menu #adminMenu="matMenu" xPosition="before">
+    <button mat-menu-item [routerLink]="['/admin/content']">
+      <mat-icon>assignment</mat-icon>
+      <span>Content</span>
+    </button>
+    <button mat-menu-item [routerLink]="['/admin/users']">
+      <mat-icon>supervisor_account</mat-icon>
+      <span>Users</span>
+    </button>
+  </mat-menu>
 </nav>
 <nav class="docs-navbar docs-navbar-show-small">
-  <a class="docs-navbar-link" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/articles']">
+  <a class="docs-navbar-link" mat-button [routerLink]="['/articles']">
     <span class="mat-button-wrapper">Articles</span>
   </a>
-  <a class="docs-navbar-link" mat-button tabindex="0" aria-disabled="false" [routerLink]="['/videos']">
+  <a class="docs-navbar-link" mat-button [routerLink]="['/videos']">
     <span class="mat-button-wrapper">Videos</span>
   </a>
 </nav>

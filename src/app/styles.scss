@@ -3,7 +3,7 @@ html,
 body {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
-  min-height: 100%;
+  height: 100%;
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -12,8 +12,10 @@ body {
   background-color: gray;
 }
 
-html {
-  overflow-y: auto;
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
 }
 
 app-root {
@@ -30,7 +32,6 @@ app-root {
   -ms-flex-direction: column;
   flex-direction: column;
 }
-
 
 .main-body {
   max-width: 1600px;

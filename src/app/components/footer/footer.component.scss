@@ -1,17 +1,12 @@
 @import "../../theme";
-.foot {
-  width: 100%;
-  background-color: #000;
-  color: #fff;
+:host {
+  flex-shrink: 0;
+  margin-top: 53px;
 }
+
 .foot {
-  position: absolute;
-  width: 100%;
   background-color: #000;
   color: #fff;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
 }
 
 .ul-link {
@@ -19,12 +14,10 @@
   cursor: pointer;
 }
 
-.ul-link a{
+.ul-link a {
   color: #fff;
 }
 
 .ul-link a:hover {
   color: #ffeb01
 }
-
-
