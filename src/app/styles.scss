@@ -45,6 +45,10 @@ app-root {
   flex: 1 1 auto;
 }
 
+.height-fix {
+  height: auto !important;
+}
+
 .form-padding {
   padding: 2em;
   background-color: mat-color($candy-app-primary, 100);

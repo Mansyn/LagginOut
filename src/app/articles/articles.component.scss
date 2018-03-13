@@ -1,13 +1,13 @@
 .articles-header {
   max-width: 1600px;
   width: 100%;
-  margin: 0 auto 2rem;
+  margin: 2rem auto;
 }
 
 .articles-body {
   max-width: 1600px;
   width: 100%;
-  margin: 0 auto;
+  margin: 2rem auto;
   min-height: calc(100vh - 13rem);
 }
 .articles-main {
@@ -30,8 +30,19 @@
 }
 
 .article-container {
+  position: relative;
   flex-grow: 1;
+  height: 30rem;
+  overflow: hidden;
 }
+.article-container-lead {
+  position: relative;
+  flex-grow: 1;
+  height: 50rem;
+  overflow: hidden;
+  margin-bottom: 2rem !important;
+}
+
 .article-date {
   text-align: left;
   font-size:0.7rem;
@@ -50,8 +61,42 @@
   text-align: left;
 }
 
+.size-large {
+  max-height: 280px !important;
+  width: 500px;
+}
+
 .articles-sort {
   margin-left: 1rem;
   width: 12rem;
   color:#fff;
+}
+
+.fadeout {
+  position: absolute; 
+  bottom: 0em;
+  width:100%;
+  height: 4em;
+  margin: 0 -1rem;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0) 0%,
+      rgba(228, 228, 228,1) 90%
+  );
+}
+.open-modal {
+  position: absolute;
+  margin-top: -2.5rem;
+  z-index: 1;
+  width: 100%;
+  height: calc(100vh - 2.5rem);
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: auto;
+}
+.open-article {
+  position: relative;
+  padding: 1rem;
+  max-width: 1500px;
+  background-color: rgb(228, 228, 228);
+  margin: 0 auto 12rem;
+  overflow-y: auto;
 }
