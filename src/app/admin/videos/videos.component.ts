@@ -27,6 +27,7 @@ export class AdminVideosComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  loading: boolean;
   tabIndex = 0;
   displayedColumns = ['select', 'title', 'description', 'link'];
   dataSource = new MatTableDataSource<Video>();
@@ -34,7 +35,9 @@ export class AdminVideosComponent implements AfterViewInit {
 
   constructor(public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    private videosService: VideosService) { }
+    private videosService: VideosService) {
+    this.loading = true;
+  }
 
   ngAfterViewInit() {
     this.videosService.getVideos().snapshotChanges().subscribe((data) => {
@@ -46,6 +49,7 @@ export class AdminVideosComponent implements AfterViewInit {
       });
 
       this.dataSource.data = videos;
+      this.loading = false;
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -138,7 +142,7 @@ export class AdminVideosComponent implements AfterViewInit {
               </form>
            </div>
            <div mat-dialog-actions align="end">
-             <button mat-button (click)="saveVideo()" [disabled]="!form.valid" color="primary">Ok</button>
+             <button mat-raised-button (click)="saveVideo()" [disabled]="!form.valid" color="primary">Ok</button>
              <button mat-button [mat-dialog-close]="false">Cancel</button>
            </div>`
 })

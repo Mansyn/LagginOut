@@ -125,7 +125,7 @@ export class UsersComponent implements AfterViewInit {
              <p *ngIf="!data.add">Are you sure you want to remove user(s) from {{data.role}}?</p>
            </div>
            <div mat-dialog-actions align="end">
-             <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+             <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
              <button mat-button [mat-dialog-close]="false">Cancel</button>
            </div>`
 })

@@ -9,11 +9,13 @@ import {
 	MatCardModule,
 	MatCheckboxModule,
 	MatChipsModule,
+	MatDatepickerModule,
 	MatDialogModule,
 	MatIconModule,
 	MatInputModule,
 	MatListModule,
 	MatMenuModule,
+	MatNativeDateModule,
 	MatPaginatorModule,
 	MatProgressBarModule,
 	MatSelectModule,
@@ -25,6 +27,7 @@ import {
 	MatTabsModule,
 	MatTooltipModule
 } from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 import { environment } from '../environments/environment';
 
@@ -58,7 +61,7 @@ import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
 import { AdminVideosComponent, AdminVideoDialog } from './admin/videos/videos.component';
-import { AdminArticlesComponent, AdminArticleDialog } from './admin/articles/articles.component';
+import { AdminArticlesComponent, AdminArticleDialog, AdminArticleDeleteDialog } from './admin/articles/articles.component';
 
 @NgModule({
 	declarations: [
@@ -78,7 +81,8 @@ import { AdminArticlesComponent, AdminArticleDialog } from './admin/articles/art
 		UsersComponent,
 		AdminArticlesComponent,
 		AdminVideoDialog,
-		AdminArticleDialog
+		AdminArticleDialog,
+		AdminArticleDeleteDialog
 	],
 	imports: [
 		BrowserModule,
@@ -92,11 +96,13 @@ import { AdminArticlesComponent, AdminArticleDialog } from './admin/articles/art
 		MatCardModule,
 		MatCheckboxModule,
 		MatChipsModule,
+		MatDatepickerModule,
 		MatDialogModule,
 		MatIconModule,
 		MatInputModule,
 		MatListModule,
 		MatMenuModule,
+		MatNativeDateModule,
 		MatPaginatorModule,
 		MatProgressBarModule,
 		MatSelectModule,
@@ -113,7 +119,7 @@ import { AdminArticlesComponent, AdminArticleDialog } from './admin/articles/art
 		AngularFireAuthModule,
 		AngularFirestoreModule
 	],
-	entryComponents: [AdminVideoDialog, AdminArticleDialog, UserDialog],
+	entryComponents: [AdminVideoDialog, AdminArticleDialog, AdminArticleDeleteDialog, UserDialog],
 	providers: [VideosService, ArticleService],
 	bootstrap: [AppComponent]
 })
