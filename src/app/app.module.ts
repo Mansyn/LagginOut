@@ -50,15 +50,15 @@ import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
 import { VideosService } from './videos/shared/videos.service';
 import { AdminComponent } from './admin/admin.component';
-import { ContentComponent } from './admin/content/content.component';
 import { UsersComponent } from './admin/users/users.component';
-import { VideoDialog } from './admin/content/content.component';
 import { UserDialog } from './admin/users/users.component';
 import { VidsComponent } from './vids/vids.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
+import { AdminVideosComponent, AdminVideoDialog } from './admin/videos/videos.component';
+import { AdminArticlesComponent, AdminArticleDialog } from './admin/articles/articles.component';
 
 @NgModule({
 	declarations: [
@@ -71,12 +71,14 @@ import { EditorArticlesComponent } from './editor/articles/articles.component';
 		ArticlesComponent,
 		AdminComponent,
 		EditorArticlesComponent,
-		VideoDialog,
 		UserDialog,
 		TruncatePipe,
 		EditorComponent,
-		ContentComponent,
-		UsersComponent
+		AdminVideosComponent,
+		UsersComponent,
+		AdminArticlesComponent,
+		AdminVideoDialog,
+		AdminArticleDialog
 	],
 	imports: [
 		BrowserModule,
@@ -111,7 +113,7 @@ import { EditorArticlesComponent } from './editor/articles/articles.component';
 		AngularFireAuthModule,
 		AngularFirestoreModule
 	],
-	entryComponents: [VideoDialog, UserDialog],
+	entryComponents: [AdminVideoDialog, AdminArticleDialog, UserDialog],
 	providers: [VideosService, ArticleService],
 	bootstrap: [AppComponent]
 })

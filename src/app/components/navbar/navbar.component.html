@@ -24,13 +24,17 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #excessMenu="matMenu" xPosition="before">
-    <button mat-menu-item [matMenuTriggerFor]="adminMenu">Admin</button>
+    <button *ngIf="canAccessAdmin()" mat-menu-item [matMenuTriggerFor]="adminMenu">Admin</button>
     <button *ngIf="canAccessEditor()" mat-menu-item [routerLink]="['/editor']">Editor</button>
   </mat-menu>
   <mat-menu #adminMenu="matMenu" xPosition="before">
-    <button mat-menu-item [routerLink]="['/admin/content']">
+    <button mat-menu-item [routerLink]="['/admin/videos']">
+      <mat-icon>videocam</mat-icon>
+      <span>Videos</span>
+    </button>
+    <button mat-menu-item [routerLink]="['/admin/articles']">
       <mat-icon>assignment</mat-icon>
-      <span>Content</span>
+      <span>Articles</span>
     </button>
     <button mat-menu-item [routerLink]="['/admin/users']">
       <mat-icon>supervisor_account</mat-icon>

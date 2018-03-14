@@ -1,0 +1,71 @@
+<div class="layout-row">
+  <div class="flex-5 flex-gt-xs-15"></div>
+  <div class="flex-90 flex-gt-xs-70 mat-elevation-z4">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <span>Admin Articles</span>
+        <span class="spacer"></span>
+
+        <!-- Article Functions -->
+        <button mat-raised-button *ngIf="selection.selected.length > 0" color="primary" (click)="articleDialog(false)" class="button">
+          Edit
+        </button>
+
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="form-padding">
+      <div class="layout-column layout-gt-sm-row">
+        <div class="full-width">
+          <div class="header">
+            <mat-form-field>
+              <input matInput (keyup)="applyArticleFilter($event.target.value)" placeholder="Filter Articles">
+            </mat-form-field>
+          </div>
+          <mat-table #table matSort [dataSource]="dataSource">
+
+            <!-- Selection Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef>
+                &nbsp;
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.title | truncate : 30}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.name | truncate : 30 }} </mat-cell>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.status }} </mat-cell>
+            </ng-container>
+
+            <!-- Date Column -->
+            <ng-container matColumnDef="date">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.date }} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-5 flex-gt-xs-15"></div>
+</div>
