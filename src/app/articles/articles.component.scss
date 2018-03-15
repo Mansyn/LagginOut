@@ -16,6 +16,7 @@
   display: flex;
 }
 .articles-main > div {
+  box-sizing: border-box;
   width: 32rem;
   flex-grow: 1;
   margin: 0;
@@ -34,6 +35,7 @@
   flex-grow: 1;
   height: 30rem;
   overflow: hidden;
+
 }
 .article-container-lead {
   position: relative;
@@ -59,6 +61,10 @@
 .article-lead {
   width: 100%;
   text-align: left;
+}
+
+.article-lead img {
+  max-width:100%;
 }
 
 .size-large {

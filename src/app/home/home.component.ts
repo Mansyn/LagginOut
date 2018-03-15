@@ -7,7 +7,6 @@ import { Video } from '../videos/shared/video';
 import { VideosService } from '../videos/shared/videos.service';
 
 import { EmbedVideoService } from 'ngx-embed-video';
-import { NgxCarousel } from 'ngx-carousel';
 
 @Component({
 	selector: 'home',
@@ -18,7 +17,6 @@ export class HomeComponent implements OnInit {
 	videos: Video[];
 	videosTop: Video[];
 	loaded: boolean = false;
-	carouselOne: NgxCarousel;
 
 	constructor(private _videosService: VideosService, private embedService: EmbedVideoService) {}
 
@@ -39,18 +37,5 @@ export class HomeComponent implements OnInit {
 			this.videosTop = _.orderBy(this.videos.slice(0, 3), [ 'timeStamp' ], [ 'desc' ]);
 			this.loaded = true;
 		});
-		this.carouselOne = {
-			grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
-			slide: 1,
-			speed: 400,
-			interval: 4000,
-			point: {
-				visible: true
-			},
-			load: 2,
-			touch: true,
-			loop: true,
-			custom: 'banner'
-		};
 	}
 }

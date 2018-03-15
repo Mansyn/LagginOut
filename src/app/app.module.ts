@@ -36,9 +36,6 @@ import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-import { NgxCarouselModule } from 'ngx-carousel';
-import 'hammerjs';
-
 import { TruncatePipe } from './pipes/truncate.pipe';
 
 import { EmbedVideo } from 'ngx-embed-video';
@@ -113,7 +110,6 @@ import { AdminArticlesComponent, AdminArticleDialog, AdminArticleDeleteDialog } 
 		MatTableModule,
 		MatTabsModule,
 		MatTooltipModule,
-		NgxCarouselModule,
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFireDatabaseModule,
 		AngularFireAuthModule,
