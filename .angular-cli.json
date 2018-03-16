@@ -21,7 +21,9 @@
     "styles": [
       "app/styles.scss",
       "app/standards.scss",
-      "app/flex.scss"
+      "app/flex.scss",
+      "../node_modules/tinymce/skins/lightgray/content.min.css",
+      "../node_modules/tinymce/skins/lightgray/skin.min.css"
     ],
     "scripts": [],
     "environmentSource": "environments/environment.ts",

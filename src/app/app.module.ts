@@ -1,9 +1,11 @@
+// angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// third party libraries
 import {
 	MatButtonModule,
 	MatCardModule,
@@ -28,20 +30,15 @@ import {
 	MatTooltipModule
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-
-import { environment } from '../environments/environment';
-
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { EmbedVideo } from 'ngx-embed-video'; 
+import { TinymceModule } from 'angular2-tinymce';
 
-import { TruncatePipe } from './pipes/truncate.pipe';
-
-import { EmbedVideo } from 'ngx-embed-video';
-
-import { CoreModule } from './core/core.module';
-
+// app code
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -57,8 +54,17 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
-import { AdminVideosComponent, AdminVideoDialog, AdminVideoDeleteDialog } from './admin/videos/videos.component';
-import { AdminArticlesComponent, AdminArticleDialog, AdminArticleDeleteDialog } from './admin/articles/articles.component';
+import { AdminVideosComponent } from './admin/videos/videos.component';
+import { AdminVideoDialog } from './admin/videos/dialogs/video.component';
+import { AdminVideoDeleteDialog } from './admin/videos/dialogs/delete.component';
+import { AdminArticlesComponent } from './admin/articles/articles.component';
+import { AdminArticleDialog } from './admin/articles/dialogs/article.component';
+import { AdminArticleDeleteDialog } from './admin/articles/dialogs/delete.component';
+import { PipeResolver } from '@angular/compiler/src/pipe_resolver';
+
+// utilities, pipes, etc
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
 	declarations: [
@@ -83,13 +89,16 @@ import { AdminArticlesComponent, AdminArticleDialog, AdminArticleDeleteDialog } 
 		AdminArticleDeleteDialog
 	],
 	imports: [
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireDatabaseModule,
+		AngularFireAuthModule,
+		AngularFirestoreModule,
+		AppRoutingModule,
 		BrowserModule,
 		BrowserAnimationsModule,
-		ReactiveFormsModule,
-		AppRoutingModule,
-		HttpModule,
 		EmbedVideo.forRoot(),
 		CoreModule,
+		HttpModule,
 		MatButtonModule,
 		MatCardModule,
 		MatCheckboxModule,
@@ -111,10 +120,8 @@ import { AdminArticlesComponent, AdminArticleDialog, AdminArticleDeleteDialog } 
 		MatTableModule,
 		MatTabsModule,
 		MatTooltipModule,
-		AngularFireModule.initializeApp(environment.firebase),
-		AngularFireDatabaseModule,
-		AngularFireAuthModule,
-		AngularFirestoreModule
+		ReactiveFormsModule,
+		TinymceModule.withConfig({})
 	],
 	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, UserDialog],
 	providers: [VideosService, ArticleService],

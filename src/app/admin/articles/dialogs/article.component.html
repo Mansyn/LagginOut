@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>
+  <span *ngIf="create">Create Article</span>
+  <span *ngIf="!create">Edit Article</span>
+</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']" [(ngModel)]="data.article.title">
+      <mat-error *ngIf="form.controls['title'].hasError('required')">
+        Title is required
+      </mat-error>
+      <mat-error *ngIf="form.controls['title'].hasError('maxlength')">
+        Title is cannot exceed 50 characters
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Name" type="text" [formControl]="form.controls['name']" [(ngModel)]="data.article.name">
+      <mat-error *ngIf="form.controls['name'].hasError('required')">
+        Name is required
+      </mat-error>
+      <mat-error *ngIf="form.controls['name'].hasError('maxlength')">
+        Name is cannot exceed 50 characters
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="half-width">
+      <input matInput [matDatepicker]="pickerDate" [formControl]="form.controls['date']" [(ngModel)]="data.article.date" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerDate></mat-datepicker>
+      <mat-error *ngIf="form.controls['date'].hasError('required')">
+        Date is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Type" type="text" [formControl]="form.controls['type']" [(ngModel)]="data.article.type">
+      <mat-error *ngIf="form.controls['type'].hasError('required')">
+        Type is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Excerpt" type="text" [formControl]="form.controls['excerpt']" [(ngModel)]="data.article.excerpt">
+      <mat-error *ngIf="form.controls['excerpt'].hasError('maxlength')">
+        Excerpt is cannot exceed 50 characters
+      </mat-error>
+    </mat-form-field>
+    <!-- <mat-form-field class="full-width">
+      <textarea rows="10" matInput placeholder="Content" type="text" [formControl]="form.controls['content']" [(ngModel)]="data.article.content"></textarea>
+      <mat-error *ngIf="form.controls['content'].hasError('required')">
+        Content is required
+      </mat-error>
+    </mat-form-field> -->
+    <app-tinymce></app-tinymce>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button (click)="saveArticle()" [disabled]="!form.valid" color="primary">Ok</button>
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+</div>
