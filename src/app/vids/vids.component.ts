@@ -42,9 +42,7 @@ export class VidsComponent implements OnInit {
 
   getVideos() {
     let response = this.httpGet('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=25&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
-    console.log(response)
     let yt = JSON.parse(response)
     this.videos = yt.items
-    console.log(this.videos)
   }
 }

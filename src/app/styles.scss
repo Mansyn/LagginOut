@@ -33,7 +33,15 @@ app-root {
   flex-direction: column;
 }
 
+.main-header {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1600px;
+  background-color: #000;
+}
+
 .main-body {
+  box-sizing: border-box;
   max-width: 1600px;
   width: 100%;
   margin: 0 auto;

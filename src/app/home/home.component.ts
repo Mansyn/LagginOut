@@ -6,7 +6,12 @@ import * as _ from 'lodash';
 import { Video } from '../videos/shared/video';
 import { VideosService } from '../videos/shared/videos.service';
 
+
+import { Article } from '../articles/shared/article';
+import { ArticleService } from '../articles/shared/article.service';
+
 import { EmbedVideoService } from 'ngx-embed-video';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
 	selector: 'home',
@@ -15,12 +20,22 @@ import { EmbedVideoService } from 'ngx-embed-video';
 })
 export class HomeComponent implements OnInit {
 	videos: Video[];
-	videosTop: Video[];
-	loaded: boolean = false;
+	videosTop: Video[];  
+	articles: Article[];
+	articlesTop: Article[];
+	newArticles: Article[];
+	articlesImages = []
+	vloaded: boolean = false;
+	aloaded: boolean = false;
 
-	constructor(private _videosService: VideosService, private embedService: EmbedVideoService) {}
+	constructor(private _videosService: VideosService, private embedService: EmbedVideoService, private articleService: ArticleService) {}
 
 	ngOnInit() {
+		this.handleVideos()
+		this.handleArticles()
+	}
+
+	handleVideos() {
 		var x = this._videosService.getVideos();
 		x.snapshotChanges().subscribe((data) => {
 			this.videos = [];
@@ -35,7 +50,42 @@ export class HomeComponent implements OnInit {
 				this.videos.push(y as Video);
 			});
 			this.videosTop = _.orderBy(this.videos.slice(0, 3), [ 'timeStamp' ], [ 'desc' ]);
-			this.loaded = true;
+			this.vloaded = true;
 		});
+	}
+
+	handleArticles() {
+		const filter = []
+    this.articles = [];
+    this.articlesTop = [];
+    this.articleService.getArticles()
+      .snapshotChanges()
+      .subscribe((data) => {
+        let articles = [];
+				this.newArticles = [];
+        data.forEach((element) => {
+          var y = element.payload.toJSON();
+          let x = (y as Article);
+					x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
+          if (x.content.includes('assets/images/') && x.type === 'post') {
+            this.articles.push(x);
+          }
+        });
+				this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 11);
+				
+				for (let i = 0; i < this.articlesTop.length; i++) {
+					console.log('in slicer')
+					let x = this.articlesTop[i]
+					// x.content = null
+					let img = x.content.slice(x.content.indexOf('<img src'), (x.content.indexOf('width="100%" />')+ 15))
+					this.articlesImages.push(img)
+					x.content = x.content.replace(new RegExp('<img src', 'g'), '<img style="display:none" src')
+					this.articlesTop[i].content = x.content
+					this.newArticles[i]=x
+				}
+				// this.newArticles = this.articlesTop
+
+        this.aloaded = true;
+			});
 	}
 }
