@@ -48,7 +48,6 @@ export class ArticlesComponent implements OnInit {
     document.getElementsByTagName('html')[0].style.overflow = "hidden";
     this.openArticle = this.articlesTop[index]
     this.articleOpen = true;
-    console.log(this.articlesTop[index].title)
   }
   closeArticle(){
     document.body.style.overflowY = 'auto'

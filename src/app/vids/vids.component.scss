@@ -31,6 +31,11 @@
   box-sizing: border-box;
   flex-grow: 1;
 }
+.vid-container-head {
+  background-color:rgb(27, 27, 27) !important;
+  border: 1px solid rgb(27, 27, 27) !important;
+  color: #fff;
+}
 
 .vid-image {
   max-width: 80%;

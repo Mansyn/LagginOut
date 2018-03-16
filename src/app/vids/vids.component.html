@@ -1,6 +1,6 @@
 <div class='vids-body'>
   <div class='vids-main'>
-    <div class='vid-container'>
+    <div class='vid-container vid-container-head'>
       <h2>Newest Video</h2>
       <iframe width="600" height="340" src="http://www.youtube.com/embed?max-results=1&controls=0&showinfo=0&rel=0&listType=user_uploads&list=LagginOut"
         frameborder="0" allowfullscreen=""></iframe>
@@ -12,91 +12,32 @@
   <br />
   <h2>Playlists</h2>
 </div>
+
 <div class='vids-body'>
   <div class='vids-main'>
-    <div class='vid-container'>
-      <h3>Laggin Out Podcast</h3>
-      <iframe width="600" height="340" src="https://www.youtube.com/embed/+lastest?list=PL1hAjE22P9l55gtsscoqS0wWZ4SiPRWiW" width="350"
-        height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h3>Killing it After Dark</h3>
-      <iframe width="600" height="340" src="https://www.youtube.com/embed/+lastest?list=PL1hAjE22P9l4ALyQ5d_1FawMq1z7vaVMT" width="350"
-        height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h3>Laggin Out Specials</h3>
-      <iframe width="600" height="340" src="https://www.youtube.com/embed/+lastest?list=PL1hAjE22P9l4_w5_m5LOxqlPrhFCV4e2-" width="350"
-        height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h3>Peaved Peavii Plays</h3>
-      <iframe width="600" height="340" src="https://www.youtube.com/embed/+lastest?list=PL1hAjE22P9l6GwdgxKyUITzp8xsb76dFs" width="350"
-        height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h3>Nerd Realm</h3>
-      <iframe width="600" height="340" src="https://www.youtube.com/embed/+lastest?list=PL1hAjE22P9l6l6sGU0dd25NHdeTpyED7q" width="350"
-        height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h3>Reviews</h3>
-      <iframe width="600" height="340" src="https://www.youtube.com/embed/+lastest?list=PL1hAjE22P9l53uhgGaOWeH3ByCDMVjt7J" width="350"
-        height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h3>Dungeons &amp; Dragons</h3>
-      <iframe width="600" height="340" src="https://www.youtube.com/embed/+lastest?list==PL1hAjE22P9l7ZJq_5OU8-vU9R1Thpyj-v" width="350"
-        height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h3>Advertisements</h3>
-      <iframe width="600" height="340" src="https://www.youtube.com/embed/+lastest?list=PL1hAjE22P9l7PRdNSQlCo8wze0jmh62Ii" width="350"
-        height="250" frameborder="0" allowfullscreen=""></iframe>
+    <div *ngFor='let list of playLists; let i = index' class='vid-container'>
+      <h4>{{list.snippet.title}}</h4>
+      <a href='{{playListURLs[i]}}' target='_blank'>
+        <img src='{{list.snippet.thumbnails.high.url}}' class='img-responsive' alt='{{list.snippet.title}}'>
+      </a>
+      <p>{{list.snippet.description}}</p>
     </div>
   </div>
 </div>
+
 <div class='vids-title'>
   <br />
-  <h2>Gimme Some More</h2>
+  <h2>Most Recent Videos</h2>
 </div>
+
 <div class='vids-body'>
   <div class='vids-main'>
-    <div class='vid-container'>
-      <h4>Gimme Some More</h4>
-      <iframe src="//www.youtube.com/embed/IdLijcLwIhk?portrait=0&amp;color=333" width="350" height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h4>Gimme Some More</h4>
-      <iframe src="//www.youtube.com/embed/IdLijcLwIhk?portrait=0&amp;color=333" width="350" height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h4>Gimme Some More</h4>
-      <iframe src="//www.youtube.com/embed/IdLijcLwIhk?portrait=0&amp;color=333" width="350" height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h4>Gimme Some More</h4>
-      <iframe src="//www.youtube.com/embed/IdLijcLwIhk?portrait=0&amp;color=333" width="350" height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h4>Gimme Some More</h4>
-      <iframe src="//www.youtube.com/embed/IdLijcLwIhk?portrait=0&amp;color=333" width="350" height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h4>Gimme Some More</h4>
-      <iframe src="//www.youtube.com/embed/IdLijcLwIhk?portrait=0&amp;color=333" width="350" height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h4>Gimme Some More</h4>
-      <iframe src="//www.youtube.com/embed/IdLijcLwIhk?portrait=0&amp;color=333" width="350" height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h4>Gimme Some More</h4>
-      <iframe src="//www.youtube.com/embed/IdLijcLwIhk?portrait=0&amp;color=333" width="350" height="250" frameborder="0" allowfullscreen=""></iframe>
-    </div>
-    <div class='vid-container'>
-      <h4>Gimme Some More</h4>
-      <iframe src="//www.youtube.com/embed/IdLijcLwIhk?portrait=0&amp;color=333" width="350" height="250" frameborder="0" allowfullscreen=""></iframe>
+    <div *ngFor='let video of videos; let i = index' class='vid-container'>
+      <h4>{{video.snippet.title}}</h4>
+      <p>{{video.snippet.publishedAt}}</p>
+      <a href='https://www.youtube.com/watch?v={{video.id.videoId}}' target='_blank'>
+        <img src='{{video.snippet.thumbnails.high.url}}' class='img-responsive' alt='{{video.snippet.title}}'>
+      </a>
     </div>
   </div>
 </div>
