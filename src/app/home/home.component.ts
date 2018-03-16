@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 	videosTop: Video[];  
 	articles: Article[];
 	articlesTop: Article[];
-	newArticles: Article[];
+	newArticles = [];
 	articlesImages = []
 	vloaded: boolean = false;
 	aloaded: boolean = false;
@@ -74,16 +74,12 @@ export class HomeComponent implements OnInit {
 				this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 11);
 				
 				for (let i = 0; i < this.articlesTop.length; i++) {
-					console.log('in slicer')
 					let x = this.articlesTop[i]
-					// x.content = null
 					let img = x.content.slice(x.content.indexOf('<img src'), (x.content.indexOf('width="100%" />')+ 15))
 					this.articlesImages.push(img)
-					x.content = x.content.replace(new RegExp('<img src', 'g'), '<img style="display:none" src')
-					this.articlesTop[i].content = x.content
-					this.newArticles[i]=x
+          this.newArticles[i]=x.content.replace(new RegExp('<img src', 'g'), '<img style="display:none" src')
+          console.log(this.newArticles[i])
 				}
-				// this.newArticles = this.articlesTop
 
         this.aloaded = true;
 			});
