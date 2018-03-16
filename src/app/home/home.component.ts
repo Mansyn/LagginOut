@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
 					let x = this.articlesTop[i]
 					let img = x.content.slice(x.content.indexOf('<img src'), (x.content.indexOf('width="100%" />')+ 15))
 					this.articlesImages.push(img)
-          this.newArticles[i]=x.content.replace(new RegExp('<img src', 'g'), '<img style="display:none" src')
+          this.newArticles[i]=x.content.replace(new RegExp(this.articlesImages[i], 'g'), '')
           console.log(this.newArticles[i])
 				}
 
