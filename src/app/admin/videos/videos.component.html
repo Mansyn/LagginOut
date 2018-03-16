@@ -7,11 +7,14 @@
         <span class="spacer"></span>
 
         <!-- Video Functions -->
-        <button mat-raised-button *ngIf="selection.selected.length > 0" color="primary" (click)="videoDialog(false)" class="button">
+        <button mat-raised-button color="accent" (click)="videoDialog(true)">
+          Create
+        </button>
+        <button mat-raised-button *ngIf="selection.selected.length == 1" color="primary" (click)="videoDialog(false)">
           Edit
         </button>
-        <button mat-raised-button color="accent" (click)="videoDialog(true)" class="button">
-          Create
+        <button mat-raised-button *ngIf="selection.selected.length > 0" color="warn" (click)="videoDeleteDialog()">
+          Delete
         </button>
 
       </mat-toolbar-row>
@@ -30,7 +33,8 @@
             <!-- Selection Column -->
             <ng-container matColumnDef="select">
               <mat-header-cell *matHeaderCellDef>
-                &nbsp;
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">

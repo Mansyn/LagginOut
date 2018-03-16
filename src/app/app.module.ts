@@ -57,7 +57,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
-import { AdminVideosComponent, AdminVideoDialog } from './admin/videos/videos.component';
+import { AdminVideosComponent, AdminVideoDialog, AdminVideoDeleteDialog } from './admin/videos/videos.component';
 import { AdminArticlesComponent, AdminArticleDialog, AdminArticleDeleteDialog } from './admin/articles/articles.component';
 
 @NgModule({
@@ -74,10 +74,11 @@ import { AdminArticlesComponent, AdminArticleDialog, AdminArticleDeleteDialog } 
 		UserDialog,
 		TruncatePipe,
 		EditorComponent,
-		AdminVideosComponent,
 		UsersComponent,
-		AdminArticlesComponent,
+		AdminVideosComponent,
 		AdminVideoDialog,
+		AdminVideoDeleteDialog,
+		AdminArticlesComponent,
 		AdminArticleDialog,
 		AdminArticleDeleteDialog
 	],
@@ -115,7 +116,7 @@ import { AdminArticlesComponent, AdminArticleDialog, AdminArticleDeleteDialog } 
 		AngularFireAuthModule,
 		AngularFirestoreModule
 	],
-	entryComponents: [AdminVideoDialog, AdminArticleDialog, AdminArticleDeleteDialog, UserDialog],
+	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, UserDialog],
 	providers: [VideosService, ArticleService],
 	bootstrap: [AppComponent]
 })

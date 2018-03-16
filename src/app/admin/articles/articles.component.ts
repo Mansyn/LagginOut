@@ -127,11 +127,11 @@ export class AdminArticlesComponent implements AfterViewInit {
       if (result) {
         targets.forEach((target) => {
           this.articlesService.deleteArticle(target.$key);
-          this.openSnackBar(
-            targets.length + ' article(s) deleted',
-            'OKAY'
-          );
         });
+        this.openSnackBar(
+          targets.length + ' article(s) deleted',
+          'OKAY'
+        );
         this.selection.clear();
       }
     });
@@ -195,7 +195,7 @@ export class AdminArticlesComponent implements AfterViewInit {
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field class="full-width">
-                  <textarea  matInput placeholder="Content" type="text" [formControl]="form.controls['content']" [(ngModel)]="data.article.content"></textarea>
+                  <textarea rows="10" matInput placeholder="Content" type="text" [formControl]="form.controls['content']" [(ngModel)]="data.article.content"></textarea>
                   <mat-error *ngIf="form.controls['content'].hasError('required')">
                     Content is required
                   </mat-error>
@@ -263,7 +263,7 @@ export class AdminArticleDialog {
 @Component({
   selector: 'admin-article-delete-dialog',
   template: `<h1 mat-dialog-title>
-              <span *ngIf="!data.add">Remove Article</span>
+              <span>Remove Article</span>
               </h1>
            <div mat-dialog-content>
              <p>Are you sure you want to remove {{data.count}} {{data.count > 1 ? 'articles' : 'article'}}?</p>

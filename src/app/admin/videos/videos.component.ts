@@ -31,7 +31,7 @@ export class AdminVideosComponent implements AfterViewInit {
   tabIndex = 0;
   displayedColumns = ['select', 'title', 'description', 'link'];
   dataSource = new MatTableDataSource<Video>();
-  selection = new SelectionModel<Video>(false, []);
+  selection = new SelectionModel<Video>(true, []);
 
   constructor(public dialog: MatDialog,
     public snackBar: MatSnackBar,
@@ -66,6 +66,18 @@ export class AdminVideosComponent implements AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected == numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
   videoDialog(isNew: boolean): void {
     let target = isNew ? new Video() : this.selection.selected[0];
 
@@ -96,7 +108,29 @@ export class AdminVideosComponent implements AfterViewInit {
       }
     });
   }
+  
+  videoDeleteDialog(): void {
+    let targets = this.selection.selected;
 
+    let dialogRef = this.dialog.open(AdminVideoDeleteDialog, {
+      width: '400px',
+      data: { count: targets.length }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        targets.forEach((target) => {
+          this.videosService.deleteVideo(target.$key);
+        });
+        this.openSnackBar(
+          targets.length + ' article(s) deleted',
+          'OKAY'
+        );
+        this.selection.clear();
+      }
+    });
+  }
+  
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000
@@ -186,4 +220,21 @@ export class AdminVideoDialog {
       this.dialogRef.close(video);
     }
   }
+}
+
+@Component({
+  selector: 'admin-vidoe-delete-dialog',
+  template: `<h1 mat-dialog-title>
+              <span>Remove Video</span>
+              </h1>
+           <div mat-dialog-content>
+             <p>Are you sure you want to remove {{data.count}} {{data.count > 1 ? 'videos' : 'video'}}?</p>
+           </div>
+           <div mat-dialog-actions align="end">
+             <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+             <button mat-button [mat-dialog-close]="false">Cancel</button>
+           </div>`
+})
+export class AdminVideoDeleteDialog {
+  constructor(public dialogRef: MatDialogRef<AdminVideoDeleteDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 }
