@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
 				y['iframe_html'] = this.embedService.embed(y['link'], {
 					image: 'mqdefault',
 					query: { portrait: 0, color: '333' },
-					attr: { width: 350, height: 250 }
+					attr: { width: 450, height: 321 }
 				});
 				this.videos.push(y as Video);
 			});

@@ -44,7 +44,13 @@
   overflow: hidden;
   margin-bottom: 2rem !important;
 }
-
+.lead-excerpt {
+  font-weight: 400;
+}
+.article-excerpt {
+  text-align: left;
+  height:2.2rem;
+}
 .article-date {
   text-align: left;
   font-size:0.7rem;
