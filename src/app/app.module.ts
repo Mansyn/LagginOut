@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // third party libraries
@@ -34,8 +34,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { EmbedVideo } from 'ngx-embed-video'; 
-import { TinymceModule } from 'angular2-tinymce';
+import { EmbedVideo } from 'ngx-embed-video';
+import { QuillEditorModule } from 'ngx-quill-editor';
 
 // app code
 import { environment } from '../environments/environment';
@@ -120,8 +120,9 @@ import { CoreModule } from './core/core.module';
 		MatTableModule,
 		MatTabsModule,
 		MatTooltipModule,
-		ReactiveFormsModule,
-		TinymceModule.withConfig({})
+		QuillEditorModule,
+		FormsModule,
+		ReactiveFormsModule
 	],
 	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, UserDialog],
 	providers: [VideosService, ArticleService],

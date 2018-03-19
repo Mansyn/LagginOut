@@ -48,7 +48,7 @@
         Content is required
       </mat-error>
     </mat-form-field> -->
-    <app-tinymce></app-tinymce>
+    <quill-editor [(ngModel)]="data.article.content" [formControl]="form.controls['content']" [options]="quillOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
   </form>
 </div>
 <div mat-dialog-actions align="end">

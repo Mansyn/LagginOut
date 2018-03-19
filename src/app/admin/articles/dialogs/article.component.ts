@@ -19,6 +19,10 @@ const moment = _rollupMoment || _moment;
 export class AdminArticleDialog {
   create: boolean;
   form: FormGroup;
+  public quill;
+  public quillOptions = {
+    placeholder: "insert content..."
+  };
 
   constructor(
     public dialogRef: MatDialogRef<AdminArticleDialog>,
@@ -35,8 +39,25 @@ export class AdminArticleDialog {
       date: [data.article.date || moment(), Validators.required],
       type: [data.article.type || null, Validators.required],
       excerpt: [data.article.excerpt || null, Validators.maxLength(50)],
-      content: [data.article.content || null, Validators.required],
+      content: [data.article.content || null],
     });
+  }
+
+  onEditorBlured(quill) {
+    console.log('editor blur!', quill);
+  }
+
+  onEditorFocused(quill) {
+    console.log('editor focus!', quill);
+  }
+
+  onEditorCreated(quill) {
+    this.quill = quill;
+    console.log('quill is ready! this is current quill instance object', quill);
+  }
+
+  onContentChanged({ quill, html, text }) {
+    console.log('quill content is changed!', quill, html, text);
   }
 
   saveArticle() {
@@ -45,7 +66,7 @@ export class AdminArticleDialog {
 
       let article = {
         comment_status: this.data.article.comment_status,
-        content: this.data.article.content,
+        content: this.data.article.content || '',
         date: moment(this.data.article.date).format('l'),
         date_gmt: this.data.article.date_gmt,
         editor_id: this.data.article.editor_id,
