@@ -20,9 +20,10 @@
   <div class='articles-main'>
     <div class='article-container-lead' (click)='handleOpenArticle(0)'>
       <div class='txt-center'><h2>Newest Article</h2></div>
+      <hr />
       <p class='article-date'>{{articlesTop[0]?.date}}</p>
       <br />
-      <h4 class='article-title'>{{articlesTop[0]?.title}}</h4>
+      <h4 class='article-title'>{{articlesTop[0]?.title}} - <span class='lead-excerpt'>{{articlesTop[0]?.excerpt}}</span></h4>
       <div class='article-lead' innerHTML={{articlesTop[0]?.content}}></div>
       <div class='fadeout'></div>
     </div>
@@ -35,6 +36,7 @@
       <p class='article-date'>{{article.date}}</p>
       <br />
       <h4 class='article-title'>{{article.title}}</h4>
+      <p class='article-excerpt'>{{article.excerpt}}</p>
       <div class='article-lead' innerHTML={{article.content}}></div>
       <div class='fadeout'></div>
     </div>
