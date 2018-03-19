@@ -39,7 +39,7 @@
     <mat-form-field class="full-width">
       <input matInput placeholder="Excerpt" type="text" [formControl]="form.controls['excerpt']" [(ngModel)]="data.article.excerpt">
       <mat-error *ngIf="form.controls['excerpt'].hasError('maxlength')">
-        Excerpt is cannot exceed 50 characters
+        Excerpt is cannot exceed 80 characters
       </mat-error>
     </mat-form-field>
     <!-- <mat-form-field class="full-width">

@@ -84,8 +84,6 @@ export class HomeComponent implements OnInit {
 						this.articlesImages.push(img)
 					}
 				}
-				console.log(this.articlesImages)
-
         this.aloaded = true;
 			});
 	}

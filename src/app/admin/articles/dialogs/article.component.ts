@@ -38,7 +38,7 @@ export class AdminArticleDialog {
       name: [data.article.name || null, Validators.maxLength(50)],
       date: [data.article.date || moment(), Validators.required],
       type: [data.article.type || null, Validators.required],
-      excerpt: [data.article.excerpt || null, Validators.maxLength(50)],
+      excerpt: [data.article.excerpt || null, Validators.maxLength(100)],
       content: [data.article.content || null],
     });
   }
