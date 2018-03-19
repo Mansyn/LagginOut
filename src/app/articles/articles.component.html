@@ -1,10 +1,10 @@
 <div class='open-modal' *ngIf='articleOpen'>
   <div class='open-article'>
-    <a class='btn button' (click)='closeArticle()'>Close</a>
+    <a class='btn button mat-raised-button mat-primary' (click)='closeArticle()'>Close</a>
     <p class='article-date'>{{openArticle?.date}}</p>
     <h4 class='article-title'>{{openArticle?.title}}</h4>
     <p innerHTML={{openArticle?.content}}></p>
-    <a class='btn button' (click)='closeArticle()'>Close</a>
+    <a class='btn button mat-raised-button mat-primary' (click)='closeArticle()'>Close</a>
   </div>
 </div>
 

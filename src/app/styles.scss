@@ -33,6 +33,10 @@ app-root {
   flex-direction: column;
 }
 
+::selection {
+  background: rgb(255, 251, 3); /* WebKit/Blink Browsers */
+}
+
 .main-header {
   box-sizing: border-box;
   width: 100%;
@@ -55,6 +59,14 @@ app-root {
 
 .height-fix {
   height: auto !important;
+}
+
+.article-title-link {
+  text-decoration: none;
+  color: rgb(34, 34, 34);
+}
+.article-title-link:hover {
+  color: #f00;
 }
 
 .form-padding {

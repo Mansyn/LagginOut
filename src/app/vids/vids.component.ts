@@ -21,8 +21,13 @@ export class VidsComponent implements OnInit {
     let yt = JSON.parse(response)
     this.playLists = yt.items
     for(let i = 0; i < this.playLists.length; i++) {
+      if(this.playLists[i].snippet.title === 'Advertisements') {
+        this.playLists.splice(i, 1)
+      }
       this.playListURLs.push(this.getHref(this.playLists[i].snippet.thumbnails.default.url, this.playLists[i].id))
     }
+    console.log(this.playListURLs)
+    console.log(yt.items)
   }
 
   httpGet(Url)
@@ -41,7 +46,7 @@ export class VidsComponent implements OnInit {
   }
 
   getVideos() {
-    let response = this.httpGet('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=25&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
+    let response = this.httpGet('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=15&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
     let yt = JSON.parse(response)
     this.videos = yt.items
   }

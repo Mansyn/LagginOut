@@ -131,6 +131,10 @@ blockquote p {
   margin: 0.5rem;
 }
 
+.img-card > img {
+  width: 100%;
+}
+
 .article-text {
   flex-wrap: wrap;
   flex-grow: 2;

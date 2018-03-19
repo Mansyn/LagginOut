@@ -33,7 +33,7 @@ export class ArticlesComponent implements OnInit {
           var y = element.payload.toJSON();
           let x = (y as Article);
           x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
-          if (x.content.includes('assets/images/') && x.type === 'post') {
+          if ((x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) && x.type === 'post') {
             
             this.articles.push(x);
           }

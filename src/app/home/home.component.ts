@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
           var y = element.payload.toJSON();
           let x = (y as Article);
 					x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
-          if (x.content.includes('assets/images/') && x.type === 'post') {
+          if ((x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) && x.type === 'post') {
             this.articles.push(x);
           }
         });
@@ -75,13 +75,20 @@ export class HomeComponent implements OnInit {
 				
 				for (let i = 0; i < this.articlesTop.length; i++) {
 					let x = this.articlesTop[i]
-					let img = x.content.slice(x.content.indexOf('<img src'), (x.content.indexOf('width="100%" />')+ 15))
-					this.articlesImages.push(img)
-          this.newArticles[i]=x.content.replace(new RegExp(this.articlesImages[i], 'g'), '')
-          console.log(this.newArticles[i])
+					if(x.content.includes('width="100%" />')) {
+						let img = x.content.slice(x.content.indexOf('<img src'), (x.content.indexOf('width="100%" />') + 15))
+						this.articlesImages.push(img)
+					} else {
+						let img = x.content.slice(x.content.indexOf('<img src'), (x.content.indexOf('">') + 2))
+						img = img.replace(new RegExp('img src', 'g'), 'img width="100%" src')
+						this.articlesImages.push(img)
+					}
 				}
+				console.log(this.articlesImages)
 
         this.aloaded = true;
 			});
 	}
+
+	handleRouteToArticle(i) {}
 }

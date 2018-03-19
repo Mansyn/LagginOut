@@ -32,13 +32,17 @@
       </div>
       <div *ngFor='let article of articlesTop; let i = index' class='home-article-container'>
         <div class='article-content'>
+          <a [routerLink]="['/articles']">
             <div class='img-card' innerHTML='{{articlesImages[i]}}'></div>
-            <div class='article-text'>
+          </a>
+          <div class='article-text'>
+            <a class='article-title-link' [routerLink]="['/articles']">
               <h3>{{article.title}}</h3>
-              <p class='article-date'>{{article.date}}</p>
-              <p class='article-excerpt'>{{article.excerpt}}</p>
-              <div class='article-body' innerHTML='{{newArticles[i]}}'></div>
-            </div>
+            </a>
+            <p class='article-date'>{{article.date}}</p>
+            <p class='article-excerpt'>{{article.excerpt}}</p>
+            <!-- <div class='article-body' innerHTML='{{newArticles[i]}}'></div> -->
+          </div>
         </div>
       </div>
     </section>
