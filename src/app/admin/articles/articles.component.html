@@ -7,10 +7,13 @@
         <span class="spacer"></span>
 
         <!-- Article Functions -->
-        <button mat-raised-button *ngIf="selection.selected.length == 1" color="primary" (click)="articleDialog(false)" class="button">
+        <button mat-raised-button color="accent" (click)="articleDialog(true)">
+          Create
+        </button>
+        <button mat-raised-button *ngIf="selection.selected.length == 1" color="primary" (click)="articleDialog(false)">
           Edit
         </button>
-        <button mat-raised-button *ngIf="selection.selected.length > 0" color="warn" (click)="articleDeleteDialog()" class="button">
+        <button mat-raised-button *ngIf="selection.selected.length > 0" color="warn" (click)="articleDeleteDialog()">
           Delete
         </button>
       </mat-toolbar-row>

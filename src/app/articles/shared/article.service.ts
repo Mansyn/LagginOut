@@ -20,6 +20,11 @@ export class ArticleService {
 		return this.db.object('/articles/' + key);
 	}
 
+	getUserArticles(uid: string) {
+		this.articles = this.db.list('articles', ref => ref.orderByChild('editor_id').equalTo(uid)) as AngularFireList<Article[]>;
+		return this.articles;
+	}
+
 	getRecentArticles() {
 		this.articles = this.db.list('articles', (ref) => ref.orderByChild('timestamp')) as AngularFireList<Article[]>;
 		return this.articles;

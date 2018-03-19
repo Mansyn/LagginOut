@@ -1,7 +1,7 @@
 export class Article {
 	$key: string;
 	id: number;
-	editor_id: number
+	editor_id: string;
 	date: Date;
 	excerpt: string;
 	guid: string;
