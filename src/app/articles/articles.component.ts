@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import * as _ from 'lodash';
 
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
+const moment = _rollupMoment || _moment;
+
 import { Article } from './shared/article';
 import { ArticleService } from './shared/article.service';
 
@@ -16,7 +20,6 @@ export class ArticlesComponent implements OnInit {
   articles: Article[];
   articlesTop: Article[];
   articleOpen: boolean;
-  loaded: boolean = false;
   openArticle: any
 
   constructor(private articleService: ArticleService) { }
@@ -38,10 +41,16 @@ export class ArticlesComponent implements OnInit {
             this.articles.push(x);
           }
         });
-        this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 21);
-        this.loaded = true;
+        this.articlesTop = _.sortBy(this.articles, function (o) { return moment(o.date); }).reverse();
       });
   }
+
+  orderByDate(arr, dateProp) {
+    return arr.slice().sort(function (a, b) {
+      return a[dateProp] < b[dateProp] ? -1 : 1;
+    });
+  }
+
   handleOpenArticle(index) {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     document.body.style.overflowY = 'hidden';
@@ -49,7 +58,7 @@ export class ArticlesComponent implements OnInit {
     this.openArticle = this.articlesTop[index]
     this.articleOpen = true;
   }
-  closeArticle(){
+  closeArticle() {
     document.body.style.overflowY = 'auto'
     document.getElementsByTagName('html')[0].style.overflow = "auto";
     this.articleOpen = false;

@@ -44,20 +44,25 @@ export class AdminArticleDialog {
   }
 
   onEditorBlured(quill) {
-    console.log('editor blur!', quill);
+    //console.log('editor blur!', quill);
   }
 
   onEditorFocused(quill) {
-    console.log('editor focus!', quill);
+    //console.log('editor focus!', quill);
   }
 
   onEditorCreated(quill) {
     this.quill = quill;
-    console.log('quill is ready! this is current quill instance object', quill);
+    //console.log('quill is ready! this is current quill instance object', quill);
   }
 
   onContentChanged({ quill, html, text }) {
-    console.log('quill content is changed!', quill, html, text);
+    //console.log('quill content is changed!', quill, html, text);
+  }
+
+  goToFullscreen() {
+    let result = { fullscreen: true, new: this.create };
+    this.dialogRef.close(result);
   }
 
   saveArticle() {

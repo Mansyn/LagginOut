@@ -1,4 +1,5 @@
 import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
@@ -40,7 +41,9 @@ export class AdminArticlesComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<Article>();
   selection = new SelectionModel<Article>(true, []);
 
-  constructor(public dialog: MatDialog,
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
     public snackBar: MatSnackBar,
     private articlesService: ArticleService) {
     this.loading = true;
@@ -95,19 +98,26 @@ export class AdminArticlesComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       if (result) {
-        if (isNew) {
-          this.articlesService.addArticle(result).then((data) => {
-            this.openSnackBar('Article Saved', 'OKAY');
-          });
-        } else {
-          this.articlesService
-            .updateArticle(this.selection.selected[0].$key, result)
-            .then((data) => {
+        // to go fullscreen
+        if (result.fullscreen) {
+
+          this.router.navigate(['/admin/article', result.new ? '' : target.$key]);
+        }
+        else {
+          if (isNew) {
+            this.articlesService.addArticle(result).then((data) => {
               this.openSnackBar('Article Saved', 'OKAY');
-            })
-            .catch((error) => {
-              this.openSnackBar(error, 'OKAY');
             });
+          } else {
+            this.articlesService
+              .updateArticle(this.selection.selected[0].$key, result)
+              .then((data) => {
+                this.openSnackBar('Article Saved', 'OKAY');
+              })
+              .catch((error) => {
+                this.openSnackBar(error, 'OKAY');
+              });
+          }
         }
 
         this.selection.clear();

@@ -20,6 +20,7 @@ import {
 	MatNativeDateModule,
 	MatPaginatorModule,
 	MatProgressBarModule,
+	MatProgressSpinnerModule,
 	MatSelectModule,
 	MatSidenavModule,
 	MatSnackBarModule,
@@ -58,6 +59,7 @@ import { AdminVideosComponent } from './admin/videos/videos.component';
 import { AdminVideoDialog } from './admin/videos/dialogs/video.component';
 import { AdminVideoDeleteDialog } from './admin/videos/dialogs/delete.component';
 import { AdminArticlesComponent } from './admin/articles/articles.component';
+import { AdminArticleComponent } from './admin/articles/article.component';
 import { AdminArticleDialog } from './admin/articles/dialogs/article.component';
 import { AdminArticleDeleteDialog } from './admin/articles/dialogs/delete.component';
 import { PipeResolver } from '@angular/compiler/src/pipe_resolver';
@@ -85,6 +87,7 @@ import { CoreModule } from './core/core.module';
 		AdminVideoDialog,
 		AdminVideoDeleteDialog,
 		AdminArticlesComponent,
+		AdminArticleComponent,
 		AdminArticleDialog,
 		AdminArticleDeleteDialog
 	],
@@ -112,6 +115,7 @@ import { CoreModule } from './core/core.module';
 		MatNativeDateModule,
 		MatPaginatorModule,
 		MatProgressBarModule,
+		MatProgressSpinnerModule,
 		MatSelectModule,
 		MatSidenavModule,
 		MatSnackBarModule,
