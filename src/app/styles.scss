@@ -139,6 +139,10 @@ app-root {
   font-size: 1em;
 }
 
+.img-responsive {
+  max-width: 100%;
+}
+
 @media (max-width:720px) {
   .docs-hide-small {
     display: none
