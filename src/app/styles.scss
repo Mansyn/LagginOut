@@ -9,7 +9,7 @@ body {
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: gray !important;
+  background-color: #555 !important;
 }
 
 body {
@@ -49,7 +49,8 @@ app-root {
   max-width: 1600px;
   width: 100%;
   margin: 0 auto;
-  background: #fff;
+  background: rgb(0, 0, 0);
+  color: #fff;
   min-height: calc(100vh - 13rem);
 }
 
@@ -63,7 +64,7 @@ app-root {
 
 .article-title-link {
   text-decoration: none;
-  color: rgb(34, 34, 34);
+  color: #bebebe;
 }
 .article-title-link:hover {
   color: #f00;
@@ -110,8 +111,8 @@ app-root {
 .top-logo {
   margin-top: 1rem;
   max-width: 53px;
-  float: left;
   position: absolute;
+  right: 1rem;
 }
 
 .flt-rt {

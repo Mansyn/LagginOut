@@ -15,11 +15,12 @@
   margin: 0;
   text-align: center;
   padding: 1rem;
-  border: 1px solid #a7a7a7;
-  background-color: rgb(228, 228, 228);
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
 }
 .vids-main > div:hover {
-  background-color: rgb(245, 245, 245);
+  background-color: #2e2e2e;
 }
 .vids-body iframe {
   max-width: 100%;

@@ -3,12 +3,10 @@
   width: 100%;
 }
 
-.vid-box {
-  vertical-align: top;
-  display: inline-block;
-  *display: inline;
-  zoom: 1;
+.main-body {
+  margin-top:2rem;
 }
+
 
 .home-article-container {
   display: flex;
@@ -76,7 +74,7 @@ blockquote h2 {
 blockquote p {
   display: block;
   margin: 0;
-  color: #777;
+  color: #bebebe;
 }
 
 .stretch {
@@ -121,7 +119,7 @@ blockquote p {
 
 .article-date {
   font-size: .8rem;
-  color: #2b2b2b
+  color: #bebebe
 }
 
 .article-body {
@@ -133,7 +131,7 @@ blockquote p {
 }
 
 .article-header {
-  color: #2b2b2b
+  color: #bebebe
 }
 
 .leftRs {

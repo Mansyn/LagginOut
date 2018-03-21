@@ -22,12 +22,13 @@
   margin: 0;
   text-align: center;
   padding: 1rem;
-  border: 1px solid #a7a7a7;
-  background-color: rgb(228, 228, 228);
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
   cursor: pointer;
 }
 .articles-main > div:hover {
-  background-color: rgb(245, 245, 245);
+  background-color: #2e2e2e;
 }
 
 .article-container {
@@ -91,8 +92,8 @@
   height: 4em;
   margin: 0 -1rem;
   background-image: linear-gradient(
-      rgba(255, 255, 255, 0) 0%,
-      rgba(228, 228, 228,1) 90%
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 90%
   );
 }
 .open-modal {
@@ -108,7 +109,8 @@
   position: relative;
   padding: 1rem;
   max-width: 1500px;
-  background-color: rgb(228, 228, 228);
+  background-color:#000;
+  color: #fff;
   margin: 0 auto 12rem;
   overflow-y: auto;
 }

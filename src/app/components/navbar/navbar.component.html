@@ -1,15 +1,14 @@
 <nav class="docs-navbar-header">
-  <img src='assets/images/aniLogo.gif' class='top-logo' />
   <a aria-label="Laggin-Out" class='first-link' mat-button [routerLink]="['/']">
     <span class="mat-button-wrapper">
       <span>Home</span>
     </span>
   </a>
-  <a class="docs-navbar-hide-small" mat-button [routerLink]="['/articles']">
-    <span class="mat-button-wrapper">Articles</span>
-  </a>
   <a class="docs-navbar-hide-small" mat-button [routerLink]="['/videos']">
     <span class="mat-button-wrapper">Videos</span>
+  </a>
+  <a class="docs-navbar-hide-small" mat-button [routerLink]="['/articles']">
+    <span class="mat-button-wrapper">Articles</span>
   </a>
   <div class="flex-spacer"></div>
   <a class="docs-navbar-hide-small" mat-button [routerLink]="['/account']">
@@ -41,6 +40,8 @@
       <span>Users</span>
     </button>
   </mat-menu>
+  <div class='right-spacer'>&nbsp;</div>
+  <img src='assets/images/aniLogo.gif' class='top-logo' />
 </nav>
 <nav class="docs-navbar docs-navbar-show-small">
   <a class="docs-navbar-link" mat-button [routerLink]="['/articles']">
