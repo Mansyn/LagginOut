@@ -21,6 +21,11 @@ export class VideosService {
     return this.db.object('/videos/' + key);
   }
 
+  getHighlightedVideos() {
+    this.videos = this.db.list('videos', ref => ref.orderByChild('highlight').equalTo(true)) as AngularFireList<Video[]>;
+    return this.videos;
+  }
+
   getRecentVideos() {
     this.videos = this.db.list('videos', ref => ref.orderByChild('timestamp')) as AngularFireList<Video[]>;
     return this.videos;

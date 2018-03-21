@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { PipeResolver } from '@angular/compiler/src/pipe_resolver';
 
 // third party libraries
 import {
@@ -62,7 +63,7 @@ import { AdminArticlesComponent } from './admin/articles/articles.component';
 import { AdminArticleComponent } from './admin/articles/article.component';
 import { AdminArticleDialog } from './admin/articles/dialogs/article.component';
 import { AdminArticleDeleteDialog } from './admin/articles/dialogs/delete.component';
-import { PipeResolver } from '@angular/compiler/src/pipe_resolver';
+import { AdminVideoHighlightDialog } from './admin/videos/dialogs/highlight.component';
 
 // utilities, pipes, etc
 import { TruncatePipe } from './pipes/truncate.pipe';
@@ -89,7 +90,8 @@ import { CoreModule } from './core/core.module';
 		AdminArticlesComponent,
 		AdminArticleComponent,
 		AdminArticleDialog,
-		AdminArticleDeleteDialog
+		AdminArticleDeleteDialog,
+		AdminVideoHighlightDialog
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebase),
@@ -128,7 +130,7 @@ import { CoreModule } from './core/core.module';
 		FormsModule,
 		ReactiveFormsModule
 	],
-	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, UserDialog],
+	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, UserDialog],
 	providers: [VideosService, ArticleService],
 	bootstrap: [AppComponent]
 })

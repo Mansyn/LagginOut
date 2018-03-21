@@ -6,4 +6,5 @@ export class Video {
     link: string;
     timeStamp: number;
     active: boolean = true;
+    highlight: boolean = false;
 }

@@ -16,11 +16,11 @@ import { forEach } from '@angular/router/src/utils/collection';
 @Component({
 	selector: 'home',
 	templateUrl: './home.component.html',
-	styleUrls: [ './home.component.scss' ]
+	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 	videos: Video[];
-	videosTop: Video[];  
+	videosTop: Video[];
 	articles: Article[];
 	articlesTop: Article[];
 	newArticles = [];
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 	vloaded: boolean = false;
 	aloaded: boolean = false;
 
-	constructor(private _videosService: VideosService, private embedService: EmbedVideoService, private articleService: ArticleService) {}
+	constructor(private _videosService: VideosService, private embedService: EmbedVideoService, private articleService: ArticleService) { }
 
 	ngOnInit() {
 		this.handleVideos()
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	handleVideos() {
-		var x = this._videosService.getVideos();
+		var x = this._videosService.getHighlightedVideos();
 		x.snapshotChanges().subscribe((data) => {
 			this.videos = [];
 			data.forEach((element) => {
@@ -49,33 +49,33 @@ export class HomeComponent implements OnInit {
 				});
 				this.videos.push(y as Video);
 			});
-			this.videosTop = _.orderBy(this.videos.slice(0, 3), [ 'timeStamp' ], [ 'desc' ]);
+			this.videosTop = _.orderBy(this.videos.slice(0, 3), ['timeStamp'], ['desc']);
 			this.vloaded = true;
 		});
 	}
 
 	handleArticles() {
 		const filter = []
-    this.articles = [];
-    this.articlesTop = [];
-    this.articleService.getArticles()
-      .snapshotChanges()
-      .subscribe((data) => {
-        let articles = [];
+		this.articles = [];
+		this.articlesTop = [];
+		this.articleService.getArticles()
+			.snapshotChanges()
+			.subscribe((data) => {
+				let articles = [];
 				this.newArticles = [];
-        data.forEach((element) => {
-          var y = element.payload.toJSON();
-          let x = (y as Article);
+				data.forEach((element) => {
+					var y = element.payload.toJSON();
+					let x = (y as Article);
 					x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
-          if ((x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) && x.type === 'post') {
-            this.articles.push(x);
-          }
-        });
+					if ((x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) && x.type === 'post') {
+						this.articles.push(x);
+					}
+				});
 				this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 11);
-				
+
 				for (let i = 0; i < this.articlesTop.length; i++) {
 					let x = this.articlesTop[i]
-					if(x.content.includes('width="100%" />')) {
+					if (x.content.includes('width="100%" />')) {
 						let img = x.content.slice(x.content.indexOf('<img src'), (x.content.indexOf('width="100%" />') + 15))
 						this.articlesImages.push(img)
 					} else {
@@ -84,9 +84,9 @@ export class HomeComponent implements OnInit {
 						this.articlesImages.push(img)
 					}
 				}
-        this.aloaded = true;
+				this.aloaded = true;
 			});
 	}
 
-	handleRouteToArticle(i) {}
+	handleRouteToArticle(i) { }
 }

@@ -41,7 +41,7 @@ export class ArticlesComponent implements OnInit {
             this.articles.push(x);
           }
         });
-        this.articlesTop = _.sortBy(this.articles, function (o) { return moment(o.date); }).reverse();
+        this.articlesTop = _.sortBy(this.articles, function (o) { return moment(o.date, "M/D/YYYY"); }).reverse();
       });
   }
 

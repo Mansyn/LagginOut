@@ -18,6 +18,7 @@ import { VideosService } from '../../videos/shared/videos.service';
 import { Video } from '../../videos/shared/video';
 import { AdminVideoDeleteDialog } from './dialogs/delete.component';
 import { AdminVideoDialog } from './dialogs/video.component';
+import { AdminVideoHighlightDialog } from './dialogs/highlight.component';
 
 @Component({
   selector: 'admin-videos',
@@ -31,9 +32,10 @@ export class AdminVideosComponent implements AfterViewInit {
 
   loading: boolean;
   tabIndex = 0;
-  displayedColumns = ['select', 'title', 'description', 'link'];
+  displayedColumns = ['select', 'title', 'description', 'link', 'highlight'];
   dataSource = new MatTableDataSource<Video>();
   selection = new SelectionModel<Video>(true, []);
+  highlighted: Video[];
 
   constructor(public dialog: MatDialog,
     public snackBar: MatSnackBar,
@@ -55,6 +57,7 @@ export class AdminVideosComponent implements AfterViewInit {
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.getHighlighted();
   }
 
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
@@ -78,6 +81,18 @@ export class AdminVideosComponent implements AfterViewInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  getHighlighted() {
+    var x = this.videosService.getHighlightedVideos();
+    x.snapshotChanges().subscribe((data) => {
+      this.highlighted = [];
+      data.forEach((element) => {
+        var y = element.payload.toJSON();
+        y['$key'] = element.key;
+        this.highlighted.push(y as Video);
+      });
+    });
   }
 
   videoDialog(isNew: boolean): void {
@@ -110,7 +125,7 @@ export class AdminVideosComponent implements AfterViewInit {
       }
     });
   }
-  
+
   videoDeleteDialog(): void {
     let targets = this.selection.selected;
 
@@ -132,7 +147,38 @@ export class AdminVideosComponent implements AfterViewInit {
       }
     });
   }
-  
+
+  hightlightDialog() {
+    let target = this.selection.selected[0];
+
+    if (!target.highlight && this.highlighted.length > 2) {
+      this.openSnackBar('Only 3 videos can be highlighted', 'OKAY');
+    } else {
+      let key = target.$key;
+
+      let dialogRef = this.dialog.open(AdminVideoHighlightDialog, {
+        width: '500px',
+        data: { title: target.title, highlighted: target.highlight }
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          delete target.$key;
+          target.highlight = !target.highlight;
+          this.videosService
+            .updateVideo(key, target)
+            .then((data) => {
+              this.openSnackBar('Highlight Set', 'OKAY');
+            })
+            .catch((error) => {
+              this.openSnackBar(error, 'OKAY');
+            });
+          this.selection.clear();
+        }
+      });
+    }
+  }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000
