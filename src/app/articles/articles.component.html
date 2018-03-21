@@ -32,7 +32,7 @@
 
 <div class='articles-body'>
   <div class='articles-main'>
-    <div *ngFor='let article of articlesTop; let i = index' class='article-container' (click)='handleOpenArticle(i)'>
+    <div *ngFor='let article of articlesTop.slice(1); let i = index' class='article-container' (click)='handleOpenArticle(i)'>
       <p class='article-date'>{{article.date}}</p>
       <br />
       <h4 class='article-title'>{{article.title}}</h4>

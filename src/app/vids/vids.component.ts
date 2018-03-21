@@ -46,6 +46,14 @@ export class VidsComponent implements OnInit {
   getVideos() {
     let response = this.httpGet('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=15&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
     let yt = JSON.parse(response)
+    console.log('getVideos()')
+    for(let i = 0; i < yt.items.length; i++){
+      let dt = yt.items[i].snippet.publishedAt
+      console.log(i)
+      dt = new Date(dt)
+      console.log(dt)
+      yt.items[i].snippet.publishedAt = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear()
+    }
     this.videos = yt.items
   }
 }
