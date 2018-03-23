@@ -7,7 +7,6 @@ import {
   MatSort,
   MatPaginator,
   MatDialog,
-  MatTabChangeEvent,
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatSnackBar
@@ -59,11 +58,6 @@ export class AdminVideosComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.getHighlighted();
   }
-
-  tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
-    this.tabIndex = tabChangeEvent.index;
-    console.log('tab => ', tabChangeEvent.index);
-  };
 
   applyVideoFilter(filterValue: string) {
     filterValue = filterValue.trim();
@@ -140,7 +134,7 @@ export class AdminVideosComponent implements AfterViewInit {
           this.videosService.deleteVideo(target.$key);
         });
         this.openSnackBar(
-          targets.length + ' article(s) deleted',
+          targets.length + ' video(s) deleted',
           'OKAY'
         );
         this.selection.clear();

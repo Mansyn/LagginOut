@@ -1,0 +1,64 @@
+<div class="layout-row">
+  <div class="flex-5 flex-gt-xs-15"></div>
+  <div class="flex-90 flex-gt-xs-70 mat-elevation-z4">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <span>Admin Playlists</span>
+        <span class="spacer"></span>
+
+        <!-- Playlists Functions -->
+        <button mat-raised-button color="primary" (click)="playlistDialog(true)">
+          Create
+        </button>
+        <button mat-raised-button *ngIf="selection.selected.length == 1" color="primary" (click)="playlistDialog(false)">
+          Edit
+        </button>
+        <button mat-raised-button *ngIf="selection.selected.length > 0" color="warn" (click)="playlistDeleteDialog()">
+          Delete
+        </button>
+
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <div class="form-padding">
+      <div class="layout-column layout-gt-sm-row">
+        <div class="full-width">
+          <mat-table #table matSort [dataSource]="dataSource">
+
+            <!-- Selection Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+            </ng-container>
+
+            <!-- URL Column -->
+            <ng-container matColumnDef="url">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Url </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <a href="{{element.url}}" target="_blank">Url</a>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': row.highlight}"></mat-row>
+          </mat-table>
+          <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-5 flex-gt-xs-15"></div>
+</div>

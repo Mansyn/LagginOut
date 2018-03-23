@@ -48,10 +48,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
 import { VideosService } from './videos/shared/videos.service';
+import { PlaylistsService } from './videos/shared/playlists.service';
 import { AdminComponent } from './admin/admin.component';
 import { UsersComponent } from './admin/users/users.component';
 import { UserDialog } from './admin/users/users.component';
-import { VidsComponent } from './vids/vids.component';
+import { VideosComponent } from './videos/videos.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
@@ -64,6 +65,9 @@ import { AdminArticleComponent } from './admin/articles/article.component';
 import { AdminArticleDialog } from './admin/articles/dialogs/article.component';
 import { AdminArticleDeleteDialog } from './admin/articles/dialogs/delete.component';
 import { AdminVideoHighlightDialog } from './admin/videos/dialogs/highlight.component';
+import { AdminPlaylistsComponent } from './admin/playlists/playlists.component';
+import { AdminPlaylistDialog } from './admin/playlists/dialogs/playlist.component';
+import { AdminPlaylistDeleteDialog } from './admin/playlists/dialogs/delete.component';
 
 // utilities, pipes, etc
 import { TruncatePipe } from './pipes/truncate.pipe';
@@ -76,7 +80,7 @@ import { CoreModule } from './core/core.module';
 		AccountComponent,
 		NavbarComponent,
 		FooterComponent,
-		VidsComponent,
+		VideosComponent,
 		ArticlesComponent,
 		AdminComponent,
 		EditorArticlesComponent,
@@ -91,7 +95,10 @@ import { CoreModule } from './core/core.module';
 		AdminArticleComponent,
 		AdminArticleDialog,
 		AdminArticleDeleteDialog,
-		AdminVideoHighlightDialog
+		AdminVideoHighlightDialog,
+		AdminPlaylistsComponent,
+		AdminPlaylistDialog,
+		AdminPlaylistDeleteDialog
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebase),
@@ -130,8 +137,9 @@ import { CoreModule } from './core/core.module';
 		FormsModule,
 		ReactiveFormsModule
 	],
-	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, UserDialog],
-	providers: [VideosService, ArticleService],
+	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
+		AdminPlaylistDeleteDialog, UserDialog],
+	providers: [VideosService, ArticleService, PlaylistsService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

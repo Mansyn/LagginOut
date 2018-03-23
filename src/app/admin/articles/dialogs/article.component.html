@@ -45,12 +45,6 @@
         Excerpt is cannot exceed 80 characters
       </mat-error>
     </mat-form-field>
-    <!-- <mat-form-field class="full-width">
-      <textarea rows="10" matInput placeholder="Content" type="text" [formControl]="form.controls['content']" [(ngModel)]="data.article.content"></textarea>
-      <mat-error *ngIf="form.controls['content'].hasError('required')">
-        Content is required
-      </mat-error>
-    </mat-form-field> -->
     <quill-editor [(ngModel)]="data.article.content" [formControl]="form.controls['content']" [options]="quillOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
   </form>
 </div>
