@@ -3,7 +3,51 @@
   flex: 1 1 auto;
 }
 
-.form-padding {
-  padding: 2em;
-  background-color: mat-color($candy-app-primary, 100);
+#top {
+  margin-top: 3rem;
+}
+
+@media (max-width:720px) {
+  #top {
+    margin-top: 4rem;
+  }
+}
+
+.mat-toolbar {
+  background-color: mat-color($candy-app-primary, 200);
+}
+
+.photo {
+  border-radius: 6px !important;
+}
+
+.names {
+  line-height: 1;
+  margin: 0;
+  padding: 16px 0;
+  max-width: 250px;
+}
+
+.fullname {
+  font-size: 26px;
+}
+
+.email {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 24px;
+  color: #666;
+}
+
+.volunteer-msg {
+  font-size: 12px;
+  vertical-align: super;
+  font-weight: 300;
+  margin-left: 5px;
+}
+
+.signout {
+  text-align: right;
+  max-width: 250px;
 }

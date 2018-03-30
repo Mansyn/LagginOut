@@ -1,56 +1,101 @@
-<div class="layout-row">
-  <div class="flex-66 flex-offset-15 mat-elevation-z4">
-    <mat-toolbar color="primary">
-      <mat-toolbar-row>
-        <span *ngIf="auth.user$ | async; then account else login"></span>
-        <span class="spacer"></span>
-        <button mat-button *ngIf="auth.user$ | async" mat-mini-fab color="accent" (click)="auth.signOut()" class="button">
-          <mat-icon aria-label="delete video" matTooltip="Logout" matTooltipPosition="before">exit_to_app</mat-icon>
-        </button>
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <div class="form-padding">
-      <div *ngIf="auth.user$ | async; then authenticated else guest">
-        <!-- template will replace this div -->
-      </div>
-    </div>
+<div id="top" class="layout-row">
+  <div *ngIf="auth.user$ | async; then authenticated else guest">
+    <!-- template will replace this div -->
   </div>
-  <div class="flex"></div>
 </div>
 
 <!-- User NOT logged in -->
 <ng-template #guest>
-  <h3>GUEST</h3>
-  <p>Login to get started...</p>
-
-  <button mat-raised-button color="primary" (click)="auth.googleLogin()">
-    Connect Google
-  </button>
+  <div class="flex-5 flex-gt-xs-25"></div>
+  <div class="flex-90 flex-gt-xs-50">
+    <div class="layout-row">
+      <div class="flex-offset-gt-sm-20 flex-100 flex-gt-sm-60 mat-elevation-z4">
+        <mat-toolbar>
+          <mat-toolbar-row>
+            <span>Login to get started...</span>
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-progress-bar mode="indeterminate" *ngIf="working"></mat-progress-bar>
+        <form [formGroup]="form" class="form-padding">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" type="email" [formControl]="form.controls['email']" [disableControl]="working" [(ngModel)]="email">
+            <mat-error *ngIf="form.controls['email'].hasError('required')">
+              Email is required
+            </mat-error>
+            <mat-error *ngIf="form.controls['email'].hasError('email')">
+              Email is formatted incorrectly
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width m-v-15">
+            <input matInput placeholder="Password" type="password" [formControl]="form.controls['password']" [disableControl]="working"
+              [(ngModel)]="password">
+            <mat-error *ngIf="form.controls['password'].hasError('required')">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+          <div class="layout-row layout-align-space-between-center">
+            <button mat-raised-button [routerLink]="['/register']" color="warn">Register</button>
+            <button mat-raised-button (click)="login()" [disabled]="!form.valid" color="primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="layout-row">
+      <div class="flex-offset-gt-sm-20 flex-100 flex-gt-sm-60 txt-center">
+        <h5>OR</h5>
+        <button mat-raised-button (click)="auth.googleLogin()" color="primary">
+          Google Login
+        </button>
+        <button mat-raised-button (click)="auth.facebookLogin()" color="primary">
+          Facebook Login
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="flex-5 flex-gt-xs-25"></div>
 </ng-template>
 
 <!-- User logged in -->
 <ng-template #authenticated>
-  <div *ngIf="auth.user$ | async as user">
-    <div class="layout-row">
-      <div class="flex-33">
-        <h3>{{ user.displayName }}</h3>
-        <img [src]="user.photoURL || 'assets/avatar.svg'" style="max-width: 250px;" />
-      </div>
-      <div class="flex-66">
-        <h5>Roles</h5>
-        <mat-selection-list>
-          <mat-list-option [selected]="user.roles?.subscriber" disabled="true"> Subscriber </mat-list-option>
-          <mat-list-option [selected]="user.roles?.editor" disabled="true"> Editor </mat-list-option>
-          <mat-list-option [selected]="user.roles?.admin" disabled="true"> Admin </mat-list-option>
-        </mat-selection-list>
+  <div class="flex-5 flex-gt-xs-15"></div>
+  <div class="flex-90 flex-gt-xs-70">
+    <div *ngIf="auth.user$ | async as user">
+      <div class="layout-row layout-align-start-start" style="min-width: 1100px">
+        <div class="flex-25">
+          <img [src]="user.photoURL || 'assets/avatar.svg'" width="250" class="photo" />
+          <h1 class="names">
+            <span class="fullname">{{ user.displayName }}</span>
+            <span class="email">{{ user.email }}</span>
+          </h1>
+          <div *ngIf="user.roles?.admin" class="signout">
+            <button mat-button [routerLink]="['/admin']" color="primary">
+              <span class="mat-button-wrapper">
+                <span>Admin</span>
+                <mat-icon aria-label="Contact">settings</mat-icon>
+              </span>
+            </button>
+          </div>
+          <div class="signout">
+            <button mat-button (click)="auth.signOut()" color="warn">
+              <span class="mat-button-wrapper">
+                <span>Sign Out</span>
+                <mat-icon aria-label="Contact">exit_to_app</mat-icon>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="flex-75">
+          <h3>
+            My Roles
+          </h3>
+          <mat-chip-list>
+            <mat-chip *ngIf="user.roles?.subscriber" color="accent"> Subscriber </mat-chip>
+            <mat-chip *ngIf="user.roles?.editor" color="primary"> Editor </mat-chip>
+            <mat-chip *ngIf="user.roles?.admin" color="warn"> Admin </mat-chip>
+          </mat-chip-list>
+        </div>
       </div>
     </div>
   </div>
-</ng-template>
-
-<ng-template #login>
-  <span>Login</span>
-</ng-template>
-<ng-template #account>
-  <span>Account</span>
+  <div class="flex-5 flex-gt-xs-15"></div>
 </ng-template>

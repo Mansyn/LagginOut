@@ -11,17 +11,19 @@ import { UsersComponent } from './admin/users/users.component';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
 import { AdminPlaylistsComponent } from './admin/playlists/playlists.component';
+import { ArticlesComponent } from './articles/articles.component';
+import { VideosComponent } from './videos/videos.component';
+import { RegisterComponent } from './account/register/register.component';
 
 import { AdminGuard } from './core/admin.guard';
 import { EditorGuard } from './core/editor.guard';
 import { CanReadGuard } from './core/can-read.guard';
-import { ArticlesComponent } from './articles/articles.component';
-import { VideosComponent } from './videos/videos.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'home', pathMatch: 'full' },
 	{ path: 'home', component: HomeComponent },
 	{ path: 'account', component: AccountComponent },
+	{ path: 'register', component: RegisterComponent },
 	{ path: 'articles', component: ArticlesComponent },
 	{ path: 'videos', component: VideosComponent },
 	{ path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },

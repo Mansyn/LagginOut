@@ -72,6 +72,8 @@ import { AdminPlaylistDeleteDialog } from './admin/playlists/dialogs/delete.comp
 // utilities, pipes, etc
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { CoreModule } from './core/core.module';
+import { DisableControlDirective } from './directives/disable-control';
+import { RegisterComponent } from './account/register/register.component';
 
 @NgModule({
 	declarations: [
@@ -98,7 +100,9 @@ import { CoreModule } from './core/core.module';
 		AdminVideoHighlightDialog,
 		AdminPlaylistsComponent,
 		AdminPlaylistDialog,
-		AdminPlaylistDeleteDialog
+		AdminPlaylistDeleteDialog,
+		DisableControlDirective,
+		RegisterComponent
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebase),

@@ -16,16 +16,20 @@
         </button>
 
         <!-- User Functions -->
-        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && isRole('editor')" color="primary" (click)="userDialog(false, 'editor')" class="button">
+        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && isRole('editor')" color="primary"
+          (click)="userDialog(false, 'editor')" class="button">
           Remove Editor
         </button>
-        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && isRole('admin')" color="primary" (click)="userDialog(false, 'admin')" class="button">
+        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && isRole('admin')" color="primary"
+          (click)="userDialog(false, 'admin')" class="button">
           Remove Admin
         </button>
-        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && !isRole('editor')" color="primary" (click)="userDialog(true, 'editor')" class="button">
+        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && !isRole('editor')" color="primary"
+          (click)="userDialog(true, 'editor')" class="button">
           Set Editor
         </button>
-        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && !isRole('admin')" color="primary" (click)="userDialog(true, 'admin')" class="button">
+        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && !isRole('admin')" color="primary"
+          (click)="userDialog(true, 'admin')" class="button">
           Set Admin
         </button>
       </mat-toolbar-row>
@@ -34,7 +38,7 @@
       <mat-tab label="VIDEOS">
         <div class="form-padding">
           <div class="layout-column layout-gt-sm-row">
-            <div class="container">
+            <div class="full-width">
               <div class="header">
                 <mat-form-field>
                   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">

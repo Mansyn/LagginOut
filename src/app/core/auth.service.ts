@@ -26,6 +26,17 @@ export class AuthService {
 		});
 	}
 
+	updateUser(response) {
+		const user: User = {
+			uid: response.uid,
+			displayName: response.displayName,
+			email: response.email,
+			photoURL: response.photoURL,
+			roles: {}
+		}
+		this.updateUserData(user);
+	}
+
 	getAllUsers() {
 		this.usersCollection = this.afs.collection<User>('users');
 		this.users = this.usersCollection.valueChanges();
@@ -36,6 +47,11 @@ export class AuthService {
 
 	googleLogin() {
 		const provider = new firebase.auth.GoogleAuthProvider();
+		return this.oAuthLogin(provider);
+	}
+
+	facebookLogin() {
+		var provider = new firebase.auth.FacebookAuthProvider();
 		return this.oAuthLogin(provider);
 	}
 
@@ -97,17 +113,17 @@ export class AuthService {
 	///// Role-based Authorization //////
 
 	canRead(user: User): boolean {
-		const allowed = [ 'admin', 'editor', 'subscriber' ];
+		const allowed = ['admin', 'editor', 'subscriber'];
 		return this.checkAuthorization(user, allowed);
 	}
 
 	canEdit(user: User): boolean {
-		const allowed = [ 'admin', 'editor' ];
+		const allowed = ['admin', 'editor'];
 		return this.checkAuthorization(user, allowed);
 	}
 
 	canDelete(user: User): boolean {
-		const allowed = [ 'admin' ];
+		const allowed = ['admin'];
 		return this.checkAuthorization(user, allowed);
 	}
 
