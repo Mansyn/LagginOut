@@ -26,12 +26,13 @@ export class AuthService {
 		});
 	}
 
-	updateUser(response) {
+	updateUser(response, mailing) {
 		const user: User = {
 			uid: response.uid,
 			displayName: response.displayName,
 			email: response.email,
 			photoURL: response.photoURL,
+			mailing: mailing,
 			roles: {}
 		}
 		this.updateUserData(user);
@@ -73,6 +74,7 @@ export class AuthService {
 			email: user.email,
 			displayName: user.displayName,
 			photoURL: user.photoURL,
+			mailing: user.mailing,
 			roles: {
 				subscriber: true
 			}
@@ -88,6 +90,7 @@ export class AuthService {
 			displayName: user.displayName,
 			email: user.email,
 			photoURL: user.photoURL,
+			mailing: user.mailing,
 			roles: {
 				editor: isEditor
 			}
@@ -103,6 +106,7 @@ export class AuthService {
 			displayName: user.displayName,
 			email: user.email,
 			photoURL: user.photoURL,
+			mailing: user.mailing,
 			roles: {
 				admin: isAdmin
 			}

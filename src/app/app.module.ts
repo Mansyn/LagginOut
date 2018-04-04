@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { PipeResolver } from '@angular/compiler/src/pipe_resolver';
+import 'hammerjs';
 
 // third party libraries
 import {
@@ -24,6 +25,7 @@ import {
 	MatProgressSpinnerModule,
 	MatSelectModule,
 	MatSidenavModule,
+	MatSlideToggleModule,
 	MatSnackBarModule,
 	MatSortModule,
 	MatToolbarModule,
@@ -131,6 +133,7 @@ import { RegisterComponent } from './account/register/register.component';
 		MatProgressSpinnerModule,
 		MatSelectModule,
 		MatSidenavModule,
+		MatSlideToggleModule,
 		MatSnackBarModule,
 		MatSortModule,
 		MatToolbarModule,

@@ -27,8 +27,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width m-v-15">
-            <input matInput placeholder="Password" type="password" [formControl]="form.controls['password']" [disableControl]="working"
-              [(ngModel)]="password">
+            <input matInput placeholder="Password" type="password" [formControl]="form.controls['password']" [disableControl]="working" [(ngModel)]="password">
             <mat-error *ngIf="form.controls['password'].hasError('required')">
               Password is required
             </mat-error>
@@ -67,6 +66,9 @@
             <span class="fullname">{{ user.displayName }}</span>
             <span class="email">{{ user.email }}</span>
           </h1>
+          <div class="settings">
+            <mat-slide-toggle [(ngModel)]="user.mailing">Mailing List</mat-slide-toggle>
+          </div>
           <div *ngIf="user.roles?.admin" class="signout">
             <button mat-button [routerLink]="['/admin']" color="primary">
               <span class="mat-button-wrapper">
@@ -93,6 +95,19 @@
             <mat-chip *ngIf="user.roles?.editor" color="primary"> Editor </mat-chip>
             <mat-chip *ngIf="user.roles?.admin" color="warn"> Admin </mat-chip>
           </mat-chip-list>
+          <h3>
+            My Articles
+          </h3>
+          <p *ngIf="articles.length == 0">
+            You currently have no articles
+          </p>
+          <mat-list *ngIf="articles.length > 0">
+            <mat-list-item *ngFor="let article of articles">
+              <mat-icon mat-list-icon>assignment</mat-icon>
+              <h4 mat-line>{{article.title}}</h4>
+              <p mat-line>{{article.date}}</p>
+            </mat-list-item>
+          </mat-list>
         </div>
       </div>
     </div>

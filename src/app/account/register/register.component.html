@@ -20,13 +20,13 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width m-v-15">
-            <input matInput placeholder="Password" type="password" [formControl]="form.controls['password']" [disableControl]="working"
-              [(ngModel)]="password">
+            <input matInput placeholder="Password" type="password" [formControl]="form.controls['password']" [disableControl]="working" [(ngModel)]="password">
             <mat-error *ngIf="form.controls['password'].hasError('required')">
               Password is required
             </mat-error>
           </mat-form-field>
-          <div class="layout-row layout-align-end-center">
+          <div class="layout-row layout-align-space-between-center">
+            <mat-slide-toggle [formControl]="form.controls['mailing']" [disableControl]="working" [(ngModel)]="mailing">Mailing List</mat-slide-toggle>
             <button mat-raised-button (click)="register()" [disabled]="!form.valid || working" color="primary">Register</button>
           </div>
         </form>

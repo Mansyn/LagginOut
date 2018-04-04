@@ -13,6 +13,7 @@ import {
   MatSnackBar
 } from '@angular/material';
 import _ from 'lodash';
+import { saveAs } from 'file-saver/FileSaver';
 
 import { AuthService } from '../../core/auth.service';
 import { User } from '../../core/user';
@@ -31,6 +32,7 @@ export class UsersComponent implements AfterViewInit {
   displayedColumns = ['select', 'displayName', 'email', 'roles'];
   dataSource = new MatTableDataSource<User>();
   selection = new SelectionModel<User>(true, []);
+  users: User[]
 
   constructor(
     public auth: AuthService,
@@ -40,7 +42,8 @@ export class UsersComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.auth.getAllUsers().subscribe((data) => {
-      this.dataSource.data = data;
+      this.dataSource.data = data
+      this.users = data
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -105,6 +108,22 @@ export class UsersComponent implements AfterViewInit {
         this.selection.clear();
       }
     });
+  }
+
+  downloadMailingList() {
+    var rightNow = new Date();
+    var res = rightNow.toISOString().slice(0, 10).replace(/-/g, '');
+
+    let mailingUsers = this.users.filter(u => u.mailing == true)
+    if (mailingUsers.length) {
+      let result = mailingUsers.map(a => a.email)
+      const blob = new Blob([result], { type: 'text/plain' })
+      saveAs(blob, 'mailing_list_' + res)
+    } else {
+      let emptyResult = []
+      const blob = new Blob([emptyResult], { type: 'text/plain' })
+      saveAs(blob, 'mailing_list_' + res)
+    }
   }
 
   openSnackBar(message: string, action: string) {

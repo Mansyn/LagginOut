@@ -16,6 +16,7 @@ export class RegisterComponent {
   form: FormGroup
   email: string
   password: string
+  mailing: boolean = false
   working: boolean
 
   constructor(private afAuth: AngularFireAuth,
@@ -26,7 +27,8 @@ export class RegisterComponent {
     this.working = false;
     this.form = this.fb.group({
       'email': ['', Validators.compose([Validators.email, Validators.required])],
-      'password': ['', Validators.required]
+      'password': ['', Validators.required],
+      'mailing': [false]
     })
   }
 
@@ -36,7 +38,7 @@ export class RegisterComponent {
       this.working = true;
       this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password)
         .then((response) => {
-          _this.auth.updateUser(response)
+          _this.auth.updateUser(response, _this.mailing)
           _this.router.navigate(['/account'])
         })
         .catch(function (error) {

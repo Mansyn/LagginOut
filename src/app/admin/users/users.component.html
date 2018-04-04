@@ -19,6 +19,10 @@
         <button mat-raised-button *ngIf="selection.selected.length > 0 && !isRole('admin')" color="primary" (click)="userDialog(true, 'admin')">
           Set Admin
         </button>
+
+        <button class="m-l-15" mat-button color="primary" (click)="downloadMailingList()">
+          Mailing List
+        </button>
       </mat-toolbar-row>
     </mat-toolbar>
     <div class="form-padding">
