@@ -16,8 +16,8 @@
       <span *ngIf="auth.user$ | async; then account else login"></span>
     </span>
   </a>
-  <a class="docs-navbar-show-small" mat-button [routerLink]="['/account']">
-    <span *ngIf="auth.user$ | async; then account else login"></span>
+  <a class="docs-navbar-show-small" mat-icon-button [routerLink]="['/account']">
+    <mat-icon aria-label="Account">account_circle</mat-icon>
   </a>
   <button *ngIf="canAccessAdmin() || canAccessEditor()" mat-icon-button [matMenuTriggerFor]="excessMenu" color="accent">
     <mat-icon>more_vert</mat-icon>
