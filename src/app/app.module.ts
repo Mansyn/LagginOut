@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { PipeResolver } from '@angular/compiler/src/pipe_resolver';
-import 'hammerjs';
 
 // third party libraries
 import {
