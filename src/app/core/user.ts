@@ -10,6 +10,11 @@ export interface User {
     email: string;
     displayName: string;
     photoURL: string;
-    mailing: boolean;
     roles: Roles;
+}
+
+export interface Profile {
+    uid: string
+    user_uid: string
+    mailing: boolean
 }

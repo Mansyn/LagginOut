@@ -114,16 +114,16 @@ export class UsersComponent implements AfterViewInit {
     var rightNow = new Date();
     var res = rightNow.toISOString().slice(0, 10).replace(/-/g, '');
 
-    let mailingUsers = this.users.filter(u => u.mailing == true)
-    if (mailingUsers.length) {
-      let result = mailingUsers.map(a => a.email)
-      const blob = new Blob([result], { type: 'text/plain' })
-      saveAs(blob, 'mailing_list_' + res)
-    } else {
-      let emptyResult = []
-      const blob = new Blob([emptyResult], { type: 'text/plain' })
-      saveAs(blob, 'mailing_list_' + res)
-    }
+    // let mailingUsers = this.users.filter(u => u.mailing == true)
+    // if (mailingUsers.length) {
+    //   let result = mailingUsers.map(a => a.email)
+    //   const blob = new Blob([result], { type: 'text/plain' })
+    //   saveAs(blob, 'mailing_list_' + res)
+    // } else {
+    //   let emptyResult = []
+    //   const blob = new Blob([emptyResult], { type: 'text/plain' })
+    //   saveAs(blob, 'mailing_list_' + res)
+    // }
   }
 
   openSnackBar(message: string, action: string) {

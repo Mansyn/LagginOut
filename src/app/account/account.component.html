@@ -18,7 +18,7 @@
         <mat-progress-bar mode="indeterminate" *ngIf="working"></mat-progress-bar>
         <form [formGroup]="form" class="form-padding">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Email" type="email" [formControl]="form.controls['email']" [disableControl]="working" [(ngModel)]="email">
+            <input matInput placeholder="Email" type="email" [formControl]="form.controls['email']" [disableControl]="working">
             <mat-error *ngIf="form.controls['email'].hasError('required')">
               Email is required
             </mat-error>
@@ -27,7 +27,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width m-v-15">
-            <input matInput placeholder="Password" type="password" [formControl]="form.controls['password']" [disableControl]="working" [(ngModel)]="password">
+            <input matInput placeholder="Password" type="password" [formControl]="form.controls['password']" [disableControl]="working">
             <mat-error *ngIf="form.controls['password'].hasError('required')">
               Password is required
             </mat-error>
@@ -66,8 +66,10 @@
             <span class="fullname">{{ user.displayName }}</span>
             <span class="email">{{ user.email }}</span>
           </h1>
-          <div class="settings">
-            <mat-slide-toggle [(ngModel)]="user.mailing">Mailing List</mat-slide-toggle>
+          <div class="settings" *ngIf="profile">
+            <form [formGroup]="mailingForm">
+              <mat-slide-toggle [formControl]="mailingForm.controls['mailingList']" [(ngModel)]="profile.mailing">Mailing List</mat-slide-toggle>
+            </form>
           </div>
           <div *ngIf="user.roles?.admin" class="signout">
             <button mat-button [routerLink]="['/admin']" color="primary">

@@ -1,3 +1,5 @@
+import './polyfills';
+
 // angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -58,6 +60,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
+import { ProfileService } from './core/profile.service';
 import { AdminVideosComponent } from './admin/videos/videos.component';
 import { AdminVideoDialog } from './admin/videos/dialogs/video.component';
 import { AdminVideoDeleteDialog } from './admin/videos/dialogs/delete.component';
@@ -145,7 +148,7 @@ import { RegisterComponent } from './account/register/register.component';
 	],
 	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog, UserDialog],
-	providers: [VideosService, ArticleService, PlaylistsService],
+	providers: [VideosService, ArticleService, PlaylistsService, ProfileService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
