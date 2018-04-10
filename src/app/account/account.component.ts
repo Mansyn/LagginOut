@@ -45,39 +45,43 @@ export class AccountComponent implements OnInit {
 
   getUserData() {
     this.auth.user$.subscribe(user => {
-      this.profileService.getUserProfiles(user.uid)
-        .snapshotChanges()
-        .subscribe((profiles) => {
-          if (profiles.length == 0) {
-            let newProfile = {
-              user_uid: user.uid,
-              mailing: false
-            }
-            this.profileService.addProfile(newProfile)
-              .then((data) => {
-                this.profile = {
-                  uid: data.key,
+      if (user) {
+        this.profileService.getUserProfiles(user.uid)
+          .snapshotChanges()
+          .subscribe((profiles) => {
+            if (!this.profile) {
+              if (profiles.length == 0) {
+                let newProfile = {
                   user_uid: user.uid,
                   mailing: false
                 }
-              })
-          } else {
-            let p = profiles[0].payload.toJSON()
-            p["uid"] = profiles[0].key
-            this.profile = p as Profile
-          }
-        })
-      let isEditor = this.auth.canEdit(user)
-      if (isEditor) {
-        this.articleService.getUserArticles(user.uid)
-          .snapshotChanges()
-          .subscribe((data) => {
-            data.forEach(element => {
-              var x = element.payload.toJSON()
-              x["$key"] = element.key
-              this.articles.push(x as Article)
-            })
+                this.profileService.addProfile(newProfile)
+                  .then((data) => {
+                    this.profile = {
+                      uid: data.key,
+                      user_uid: user.uid,
+                      mailing: false
+                    }
+                  })
+              } else {
+                let p = profiles[0].payload.toJSON()
+                p["uid"] = profiles[0].key
+                this.profile = p as Profile
+              }
+            }
           })
+        let isEditor = this.auth.canEdit(user)
+        if (isEditor) {
+          this.articleService.getUserArticles(user.uid)
+            .snapshotChanges()
+            .subscribe((data) => {
+              data.forEach(element => {
+                var x = element.payload.toJSON()
+                x["$key"] = element.key
+                this.articles.push(x as Article)
+              })
+            })
+        }
       }
     })
   }
