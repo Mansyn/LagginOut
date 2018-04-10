@@ -75,6 +75,7 @@ import { AdminPlaylistDeleteDialog } from './admin/playlists/dialogs/delete.comp
 
 // utilities, pipes, etc
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { ReversePipe } from './pipes/reverse.pipe';
 import { CoreModule } from './core/core.module';
 import { DisableControlDirective } from './directives/disable-control';
 import { RegisterComponent } from './account/register/register.component';
@@ -91,7 +92,8 @@ import { RegisterComponent } from './account/register/register.component';
 		AdminComponent,
 		EditorArticlesComponent,
 		UserDialog,
-		TruncatePipe,
+    TruncatePipe,
+    ReversePipe,
 		EditorComponent,
 		UsersComponent,
 		AdminVideosComponent,
