@@ -38,7 +38,7 @@ export class RegisterComponent {
       this.working = true;
       this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password)
         .then((response) => {
-          _this.auth.updateUser(response, _this.mailing)
+          _this.auth.updateUser(response)
           _this.router.navigate(['/account'])
         })
         .catch(function (error) {

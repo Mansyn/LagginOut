@@ -26,7 +26,7 @@
 
 <div class='vids-body'>
   <div class='vids-main'>
-    <div *ngFor='let list of playLists; let i = index' class='vid-container'>
+    <div *ngFor='let list of playLists | reverse; let i = index' class='vid-container'>
       <h4>{{list.snippet.title}}</h4>
       <a href='{{playListURLs[i]}}' target='_blank'>
         <img src='{{list.snippet.thumbnails.high.url}}' class='img-responsive' alt='{{list.snippet.title}}'>

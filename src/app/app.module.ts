@@ -1,3 +1,5 @@
+import './polyfills';
+
 // angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -5,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { PipeResolver } from '@angular/compiler/src/pipe_resolver';
-import 'hammerjs';
 
 // third party libraries
 import {
@@ -59,6 +60,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
+import { ProfileService } from './core/profile.service';
 import { AdminVideosComponent } from './admin/videos/videos.component';
 import { AdminVideoDialog } from './admin/videos/dialogs/video.component';
 import { AdminVideoDeleteDialog } from './admin/videos/dialogs/delete.component';
@@ -76,6 +78,7 @@ import { TwitchVideoComponent } from './components/twitch-video/twitch-video.com
 
 // utilities, pipes, etc
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { ReversePipe } from './pipes/reverse.pipe';
 import { CoreModule } from './core/core.module';
 import { DisableControlDirective } from './directives/disable-control';
 
@@ -91,7 +94,8 @@ import { DisableControlDirective } from './directives/disable-control';
 		AdminComponent,
 		EditorArticlesComponent,
 		UserDialog,
-		TruncatePipe,
+    TruncatePipe,
+    ReversePipe,
 		EditorComponent,
 		UsersComponent,
 		AdminVideosComponent,
@@ -150,7 +154,7 @@ import { DisableControlDirective } from './directives/disable-control';
 	],
 	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog, UserDialog],
-	providers: [VideosService, ArticleService, PlaylistsService],
+	providers: [VideosService, ArticleService, PlaylistsService, ProfileService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

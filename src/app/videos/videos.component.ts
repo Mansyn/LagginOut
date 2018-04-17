@@ -21,10 +21,15 @@ export class VideosComponent implements OnInit {
     let yt = JSON.parse(response)
     this.playLists = yt.items
     for (let i = 0; i < this.playLists.length; i++) {
-      if (this.playLists[i].snippet.title === 'Advertisements' || this.playLists[i].snippet.title === 'Diablo') {
+      if (this.playLists[i].snippet.title === 'Laggin Out Podcast' ||
+          this.playLists[i].snippet.title === 'Killing it After Dark' ||
+          this.playLists[i].snippet.title === 'Noob’s Guide'
+      ) {
+        this.playListURLs.push(this.getHref(this.playLists[i].snippet.thumbnails.default.url, this.playLists[i].id))
+      } else {
         this.playLists.splice(i, 1)
+        i--
       }
-      this.playListURLs.push(this.getHref(this.playLists[i].snippet.thumbnails.default.url, this.playLists[i].id))
     }
   }
 
