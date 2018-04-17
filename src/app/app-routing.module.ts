@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
+import { LoginComponent } from './account/login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminVideosComponent } from './admin/videos/videos.component';
 import { AdminArticlesComponent } from './admin/articles/articles.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
 	{ path: '', redirectTo: 'home', pathMatch: 'full' },
 	{ path: 'home', component: HomeComponent },
 	{ path: 'account', component: AccountComponent },
-	{ path: 'register', component: RegisterComponent },
+	{ path: 'account/login', component: LoginComponent },
+	{ path: 'account/register', component: RegisterComponent },
 	{ path: 'articles', component: ArticlesComponent },
 	{ path: 'videos', component: VideosComponent },
 	{ path: 'twitch', component: TwitchComponent },

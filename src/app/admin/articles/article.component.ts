@@ -14,6 +14,7 @@ const moment = _rollupMoment || _moment;
 
 import { ArticleService } from '../../articles/shared/article.service';
 import { Article } from '../../articles/shared/article';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'admin-article',
@@ -22,8 +23,10 @@ import { Article } from '../../articles/shared/article';
 })
 export class AdminArticleComponent implements OnInit, OnDestroy {
 
+  destroy$: Subject<boolean> = new Subject<boolean>()
+
   id: number;
-  private sub: any;
+  sub: any;
 
   article: Article;
   form: FormGroup;
@@ -53,7 +56,9 @@ export class AdminArticleComponent implements OnInit, OnDestroy {
           content: [this.article.content || null],
         })
       } else {
-        this.articlesService.getArticle(this.id).snapshotChanges()
+        this.articlesService.getArticle(this.id)
+          .snapshotChanges()
+          .takeUntil(this.destroy$)
           .subscribe((data) => {
             var y = data.payload.toJSON();
             y['$key'] = data.key;
@@ -134,6 +139,8 @@ export class AdminArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.sub.unsubscribe()
+    this.destroy$.next(true)
+    this.destroy$.unsubscribe()
   }
 }

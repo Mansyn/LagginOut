@@ -49,6 +49,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './account/login/login.component';
 import { AccountComponent } from './account/account.component';
 import { VideosService } from './videos/shared/videos.service';
 import { PlaylistsService } from './videos/shared/playlists.service';
@@ -87,6 +88,7 @@ import { DisableControlDirective } from './directives/disable-control';
 		AppComponent,
 		HomeComponent,
 		AccountComponent,
+		LoginComponent,
 		NavbarComponent,
 		FooterComponent,
 		VideosComponent,
@@ -94,8 +96,8 @@ import { DisableControlDirective } from './directives/disable-control';
 		AdminComponent,
 		EditorArticlesComponent,
 		UserDialog,
-    TruncatePipe,
-    ReversePipe,
+		TruncatePipe,
+		ReversePipe,
 		EditorComponent,
 		UsersComponent,
 		AdminVideosComponent,

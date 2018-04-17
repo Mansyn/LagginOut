@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Inject, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -18,23 +18,27 @@ import { AuthService } from '../core/auth.service';
 import { User } from '../core/user';
 import { VideosService } from '../videos/shared/videos.service';
 import { Video } from '../videos/shared/video';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
 	selector: 'admin',
 	templateUrl: './admin.component.html',
-	styleUrls: [ './admin.component.scss' ]
+	styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent implements AfterViewInit {
+export class AdminComponent implements AfterViewInit, OnDestroy {
+
+	destroy$: Subject<boolean> = new Subject<boolean>()
+
 	@ViewChild(MatSort) user_sort: MatSort;
 	@ViewChild(MatPaginator) user_paginator: MatPaginator;
 	@ViewChild(MatSort) video_sort: MatSort;
 	@ViewChild(MatPaginator) video_paginator: MatPaginator;
 
 	tabIndex = 0;
-	user_displayedColumns = [ 'select', 'displayName', 'email', 'roles' ];
+	user_displayedColumns = ['select', 'displayName', 'email', 'roles'];
 	user_dataSource = new MatTableDataSource<User>();
 	user_selection = new SelectionModel<User>(false, []);
-	video_displayedColumns = [ 'select', 'title', 'description', 'link' ];
+	video_displayedColumns = ['select', 'title', 'description', 'link'];
 	video_dataSource = new MatTableDataSource<Video>();
 	video_selection = new SelectionModel<Video>(false, []);
 
@@ -43,63 +47,68 @@ export class AdminComponent implements AfterViewInit {
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar,
 		private videosService: VideosService
-	) {}
+	) { }
 
 	ngAfterViewInit() {
-		this.auth.getAllUsers().subscribe((data) => {
-			this.user_dataSource.data = data;
-		});
-		this.user_dataSource.paginator = this.user_paginator;
-		this.user_dataSource.sort = this.user_sort;
+		this.auth.getAllUsers()
+			.takeUntil(this.destroy$)
+			.subscribe((data) => {
+				this.user_dataSource.data = data;
+			})
+		this.user_dataSource.paginator = this.user_paginator
+		this.user_dataSource.sort = this.user_sort
 
-		this.videosService.getVideos().snapshotChanges().subscribe((data) => {
-			let videos = [];
-			data.forEach((element) => {
-				var y = element.payload.toJSON();
-				y['$key'] = element.key;
-				videos.push(y as Video);
+		this.videosService.getVideos()
+			.snapshotChanges()
+			.takeUntil(this.destroy$)
+			.subscribe((data) => {
+				let videos = []
+				data.forEach((element) => {
+					var y = element.payload.toJSON()
+					y['$key'] = element.key
+					videos.push(y as Video)
+				});
+
+				this.video_dataSource.data = videos
 			});
-
-			this.video_dataSource.data = videos;
-		});
-		this.video_dataSource.paginator = this.video_paginator;
-		this.video_dataSource.sort = this.video_sort;
+		this.video_dataSource.paginator = this.video_paginator
+		this.video_dataSource.sort = this.video_sort
 	}
 
 	tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
-		this.tabIndex = tabChangeEvent.index;
-		console.log('tab => ', tabChangeEvent.index);
+		this.tabIndex = tabChangeEvent.index
+		console.log('tab => ', tabChangeEvent.index)
 	};
 
 	user_isAllSelected() {
-		const numSelected = this.user_selection.selected.length;
-		const numRows = this.user_dataSource.data.length;
-		return numSelected == numRows;
+		const numSelected = this.user_selection.selected.length
+		const numRows = this.user_dataSource.data.length
+		return numSelected == numRows
 	}
 
 	user_masterToggle() {
 		this.user_isAllSelected()
 			? this.user_selection.clear()
-			: this.user_dataSource.data.forEach((row) => this.user_selection.select(row));
+			: this.user_dataSource.data.forEach((row) => this.user_selection.select(row))
 	}
 
 	applyFilter(filterValue: string) {
-		filterValue = filterValue.trim(); // Remove whitespace
-		filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-		this.video_dataSource.filter = filterValue;
+		filterValue = filterValue.trim()
+		filterValue = filterValue.toLowerCase()
+		this.video_dataSource.filter = filterValue
 	}
 
 	isRole(role: string) {
-		let found = false;
+		let found = false
 		switch (role) {
 			case 'admin':
-				found = this.user_selection.selected[0].roles.admin;
+				found = this.user_selection.selected[0].roles.admin
 				break;
 			case 'editor':
-				found = this.user_selection.selected[0].roles.editor;
+				found = this.user_selection.selected[0].roles.editor
 				break;
 		}
-		return found;
+		return found
 	}
 
 	userDialog(add: boolean, role: string): void {
@@ -169,6 +178,11 @@ export class AdminComponent implements AfterViewInit {
 			duration: 2000
 		});
 	}
+
+	ngOnDestroy() {
+		this.destroy$.next(true)
+		this.destroy$.unsubscribe()
+	}
 }
 
 @Component({
@@ -187,7 +201,7 @@ export class AdminComponent implements AfterViewInit {
            </div>`
 })
 export class UserDialog {
-	constructor(public dialogRef: MatDialogRef<UserDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+	constructor(public dialogRef: MatDialogRef<UserDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 }
 
 @Component({
@@ -243,7 +257,7 @@ export class VideoDialog {
 	) {
 		this.create = data.video.$key == null;
 		this.form = this.fb.group({
-			title: [ data.video.title || null, Validators.compose([ Validators.maxLength(25), Validators.required ]) ],
+			title: [data.video.title || null, Validators.compose([Validators.maxLength(25), Validators.required])],
 			link: [
 				data.video.link || null,
 				Validators.compose([
@@ -253,7 +267,7 @@ export class VideoDialog {
 					Validators.required
 				])
 			],
-			description: [ data.video.description || null, Validators.required ]
+			description: [data.video.description || null, Validators.required]
 		});
 	}
 

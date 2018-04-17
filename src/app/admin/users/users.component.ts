@@ -1,4 +1,4 @@
-import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Inject, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -17,13 +17,16 @@ import { saveAs } from 'file-saver/FileSaver';
 
 import { AuthService } from '../../core/auth.service';
 import { User } from '../../core/user';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements AfterViewInit {
+export class UsersComponent implements AfterViewInit, OnDestroy {
+
+  destroy$: Subject<boolean> = new Subject<boolean>()
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -41,12 +44,14 @@ export class UsersComponent implements AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
-    this.auth.getAllUsers().subscribe((data) => {
-      this.dataSource.data = data
-      this.users = data
-    });
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.auth.getAllUsers()
+      .takeUntil(this.destroy$)
+      .subscribe((data) => {
+        this.dataSource.data = data
+        this.users = data
+      })
+    this.dataSource.paginator = this.paginator
+    this.dataSource.sort = this.sort
   }
 
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
@@ -63,7 +68,7 @@ export class UsersComponent implements AfterViewInit {
   masterToggle() {
     this.isAllSelected()
       ? this.selection.clear()
-      : this.dataSource.data.forEach((row) => this.selection.select(row));
+      : this.dataSource.data.forEach((row) => this.selection.select(row))
   }
 
   isRole(role: string) {
@@ -113,23 +118,17 @@ export class UsersComponent implements AfterViewInit {
   downloadMailingList() {
     var rightNow = new Date();
     var res = rightNow.toISOString().slice(0, 10).replace(/-/g, '');
-
-    // let mailingUsers = this.users.filter(u => u.mailing == true)
-    // if (mailingUsers.length) {
-    //   let result = mailingUsers.map(a => a.email)
-    //   const blob = new Blob([result], { type: 'text/plain' })
-    //   saveAs(blob, 'mailing_list_' + res)
-    // } else {
-    //   let emptyResult = []
-    //   const blob = new Blob([emptyResult], { type: 'text/plain' })
-    //   saveAs(blob, 'mailing_list_' + res)
-    // }
   }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000
-    });
+    })
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true)
+    this.destroy$.unsubscribe()
   }
 }
 
