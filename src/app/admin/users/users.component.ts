@@ -87,7 +87,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
   userDialog(add: boolean, role: string): void {
     let targets = this.selection.selected;
 
-    let dialogRef = this.dialog.open(UserDialog, {
+    let dialogRef = this.dialog.open(AdminUserDialog, {
       width: '350px',
       data: { add: add, role: role }
     });
@@ -147,7 +147,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
              <button mat-button [mat-dialog-close]="false">Cancel</button>
            </div>`
 })
-export class UserDialog {
-  constructor(public dialogRef: MatDialogRef<UserDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+export class AdminUserDialog {
+  constructor(public dialogRef: MatDialogRef<AdminUserDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 }
 

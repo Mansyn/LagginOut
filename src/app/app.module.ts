@@ -53,15 +53,15 @@ import { LoginComponent } from './account/login/login.component';
 import { AccountComponent } from './account/account.component';
 import { VideosService } from './videos/shared/videos.service';
 import { PlaylistsService } from './videos/shared/playlists.service';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent, VideoDialog, UserDialog } from './admin/admin.component';
 import { UsersComponent } from './admin/users/users.component';
-import { UserDialog } from './admin/users/users.component';
 import { VideosComponent } from './videos/videos.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
 import { ProfileService } from './core/profile.service';
+import { AdminUserDialog } from './admin/users/users.component';
 import { AdminVideosComponent } from './admin/videos/videos.component';
 import { AdminVideoDialog } from './admin/videos/dialogs/video.component';
 import { AdminVideoDeleteDialog } from './admin/videos/dialogs/delete.component';
@@ -96,10 +96,12 @@ import { DisableControlDirective } from './directives/disable-control';
 		AdminComponent,
 		EditorArticlesComponent,
 		UserDialog,
+		VideoDialog,
 		TruncatePipe,
 		ReversePipe,
 		EditorComponent,
 		UsersComponent,
+		AdminUserDialog,
 		AdminVideosComponent,
 		AdminVideoDialog,
 		AdminVideoDeleteDialog,
@@ -154,8 +156,8 @@ import { DisableControlDirective } from './directives/disable-control';
 		FormsModule,
 		ReactiveFormsModule
 	],
-	entryComponents: [AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
-		AdminPlaylistDeleteDialog, UserDialog],
+	entryComponents: [AdminUserDialog, AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
+		AdminPlaylistDeleteDialog, UserDialog, VideoDialog],
 	providers: [VideosService, ArticleService, PlaylistsService, ProfileService],
 	bootstrap: [AppComponent]
 })
