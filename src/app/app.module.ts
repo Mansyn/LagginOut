@@ -70,12 +70,14 @@ import { AdminVideoHighlightDialog } from './admin/videos/dialogs/highlight.comp
 import { AdminPlaylistsComponent } from './admin/playlists/playlists.component';
 import { AdminPlaylistDialog } from './admin/playlists/dialogs/playlist.component';
 import { AdminPlaylistDeleteDialog } from './admin/playlists/dialogs/delete.component';
+import { RegisterComponent } from './account/register/register.component';
+import { TwitchComponent } from './twitch/twitch.component';
+import { TwitchVideoComponent } from './components/twitch-video/twitch-video.component';
 
 // utilities, pipes, etc
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { CoreModule } from './core/core.module';
 import { DisableControlDirective } from './directives/disable-control';
-import { RegisterComponent } from './account/register/register.component';
 
 @NgModule({
 	declarations: [
@@ -104,7 +106,9 @@ import { RegisterComponent } from './account/register/register.component';
 		AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog,
 		DisableControlDirective,
-		RegisterComponent
+		RegisterComponent,
+		TwitchComponent,
+		TwitchVideoComponent
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebase),

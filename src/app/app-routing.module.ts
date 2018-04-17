@@ -14,6 +14,7 @@ import { AdminPlaylistsComponent } from './admin/playlists/playlists.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { VideosComponent } from './videos/videos.component';
 import { RegisterComponent } from './account/register/register.component';
+import { TwitchComponent } from './twitch/twitch.component';
 
 import { AdminGuard } from './core/admin.guard';
 import { EditorGuard } from './core/editor.guard';
@@ -26,6 +27,7 @@ const routes: Routes = [
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'articles', component: ArticlesComponent },
 	{ path: 'videos', component: VideosComponent },
+	{ path: 'twitch', component: TwitchComponent },
 	{ path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
 	{ path: 'admin/videos', component: AdminVideosComponent, canActivate: [AdminGuard] },
 	{ path: 'admin/articles', component: AdminArticlesComponent, canActivate: [AdminGuard] },
