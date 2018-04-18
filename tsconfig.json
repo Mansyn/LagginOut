@@ -19,6 +19,8 @@
   },
   "include": [
     "src/**/*",
+    "node_modules/ngx-embed-video/index.ts",
+    "node_modules/ngx-embed-video/src/embed-video.service.ts",
     "node_modules/ngx-quill-editor/quillEditor.component.ts",
     "node_modules/ngx-quill-editor/quillEditor.module.ts",
     "node_modules/ngx-quill-editor/index.ts"

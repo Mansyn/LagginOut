@@ -25,10 +25,12 @@ export class HomeComponent implements OnInit {
 	articlesTop: Article[];
 	newArticles = [];
 	articlesImages = []
-	vloaded: boolean = false;
-	aloaded: boolean = false;
 
-	constructor(private _videosService: VideosService, private embedService: EmbedVideoService, private articleService: ArticleService) { }
+	constructor(
+		private _videosService: VideosService,
+		private embedService: EmbedVideoService,
+		private articleService: ArticleService
+	) { }
 
 	ngOnInit() {
 		this.handleVideos()
@@ -50,7 +52,6 @@ export class HomeComponent implements OnInit {
 				this.videos.push(y as Video);
 			});
 			this.videosTop = _.orderBy(this.videos.slice(0, 3), ['timeStamp'], ['desc']);
-			this.vloaded = true;
 		});
 	}
 
@@ -84,7 +85,6 @@ export class HomeComponent implements OnInit {
 						this.articlesImages.push(img)
 					}
 				}
-				this.aloaded = true;
 			});
 	}
 
