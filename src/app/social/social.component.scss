@@ -40,11 +40,11 @@ a.table-link:hover {
 }
 
 // .main-body {
-//   min-height: calc(100vh - 20rem);
+//   min-height: 940px
 // }
 table {
-  margin: 0 auto;
-  border: 2px solid #ffeb01;
+  margin: -9px auto 0;
+  border: 2px solid rgba(255, 0, 0, 0.49);
   border-radius: 15px;
   border-top: none;
 }
@@ -67,8 +67,8 @@ tr:hover {
   z-index: 2;
   background: #000;
 }
-hr {
-  background-color: #ffeb01;
+.stat-title {
+  color: rgba(255, 0, 0, 0.49);
 }
 .stats-h4 {
   margin:0;

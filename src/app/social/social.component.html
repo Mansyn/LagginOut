@@ -25,11 +25,11 @@
     <div class='stats hide-sm hide-xs' *ngIf='showStats' [@slideInOut]>
       <table>
         <tr *ngFor='let info of socialMediaObservable | async'>
-          <td>Service:</td>
+          <td class='stat-title'>Service:</td>
           <td>{{info.name}}</td>
-          <td> URL: </td>
+          <td class='stat-title'>URL: </td>
           <td><a class='table-link' href='http://{{info.url}}' target='_blank'>http://{{info.url}}</a></td>
-          <td> Name: </td>
+          <td class='stat-title'>Our Name: </td>
           <td>{{info.user}}</td>
         </tr>
       </table>

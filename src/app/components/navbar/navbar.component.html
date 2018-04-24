@@ -10,6 +10,9 @@
   <a class="docs-navbar-hide-small" mat-button [routerLink]="['/articles']">
     <span class="mat-button-wrapper">Articles</span>
   </a>
+  <a class="docs-navbar-hide-small" mat-button [routerLink]="['/social']">
+    <span class="mat-button-wrapper">Links</span>
+  </a>
   <!-- <a class="docs-navbar-hide-small" mat-button [routerLink]="['/twitch']">
     <span class="mat-button-wrapper">Twitch</span>
   </a> -->
@@ -41,8 +44,8 @@
       <span>Users</span>
     </button>
   </mat-menu>
-  <div class='right-spacer'>&nbsp;</div>
-  <img src='assets/images/aniLogo.gif' class='top-logo' />
+  <div class='right-spacer hide-sm hide-xs'></div>
+  <img src='assets/images/aniLogo.gif' class='top-logo hide-sm hide-xs' />
 </nav>
 <nav class="docs-navbar docs-navbar-show-small">
   <a class="docs-navbar-link" mat-button [routerLink]="['/articles']">
@@ -50,6 +53,9 @@
   </a>
   <a class="docs-navbar-link" mat-button [routerLink]="['/videos']">
     <span class="mat-button-wrapper">Videos</span>
+  </a>
+  <a class="docs-navbar-link" mat-button [routerLink]="['/social']">
+    <span class="mat-button-wrapper">Links</span>
   </a>
   <!-- <a class="docs-navbar-link" mat-button [routerLink]="['/twitch']">
     <span class="mat-button-wrapper">Twitch</span>
