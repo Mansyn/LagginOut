@@ -20,6 +20,7 @@ import { TwitchComponent } from './twitch/twitch.component';
 import { AdminGuard } from './core/admin.guard';
 import { EditorGuard } from './core/editor.guard';
 import { CanReadGuard } from './core/can-read.guard';
+import { SocialComponent } from './social/social.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -27,7 +28,8 @@ const routes: Routes = [
 	{ path: 'account', component: AccountComponent },
 	{ path: 'account/login', component: LoginComponent },
 	{ path: 'account/register', component: RegisterComponent },
-	{ path: 'articles', component: ArticlesComponent },
+  { path: 'articles', component: ArticlesComponent },
+  { path: 'social', component: SocialComponent},
 	{ path: 'videos', component: VideosComponent },
 	{ path: 'twitch', component: TwitchComponent },
 	{ path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },

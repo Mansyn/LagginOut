@@ -82,6 +82,8 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { CoreModule } from './core/core.module';
 import { DisableControlDirective } from './directives/disable-control';
+import { SocialService } from './social/social.service';
+import { SocialComponent } from './social/social.component';
 
 @NgModule({
 	declarations: [
@@ -114,7 +116,8 @@ import { DisableControlDirective } from './directives/disable-control';
 		DisableControlDirective,
 		RegisterComponent,
 		TwitchComponent,
-		TwitchVideoComponent
+    TwitchVideoComponent,
+    SocialComponent
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebase),
@@ -156,7 +159,7 @@ import { DisableControlDirective } from './directives/disable-control';
 	],
 	entryComponents: [AdminUserDialog, AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog],
-	providers: [VideosService, ArticleService, PlaylistsService, ProfileService],
+	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
