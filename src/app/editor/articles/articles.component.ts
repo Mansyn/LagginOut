@@ -92,7 +92,9 @@ export class EditorArticlesComponent implements AfterViewInit {
 
 	articleDialog(isNew: boolean): void {
 		let target = isNew ? new Article() : this.selection.selected[0];
+    console.log('in articleDialog()', target)
 
+    
 	}
 
 	articleDeleteDialog(): void {
