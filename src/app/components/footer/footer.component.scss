@@ -7,6 +7,14 @@
 .foot {
   background-color: #000;
   color: #fff;
+  display: flex;
+}
+.foot-brand {
+  width: 50%
+}
+.foot-ul {
+  width: 50%;
+  font-size: .7rem;
 }
 
 .ul-link {

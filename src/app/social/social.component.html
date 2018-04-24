@@ -1,0 +1,38 @@
+<div class="flex-100 layout-column layout-align-start-stretch">
+  <header class='m-0a mt4 mb4 main-header pad-5 shadow'>
+    <div>
+      <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive header-logo' />
+    </div>
+  </header>
+  <div class='spacer'></div>
+
+  <main class='main-body pad-5'>
+    <div class='cover'>
+        <div class='title'>
+            <h1>Social Media Links</h1>
+          </div>
+        <div class='links-container'>
+          <div class='link-container' *ngFor='let link of socialMediaObservable | async'>
+              <a class='socialLink' href='http://{{link.url}}' target='_blank'><span class='icon' [innerHTML]='getIcon(link.name)'></span> {{link.name}}</a>
+          </div>
+        </div>
+        <div class='stats-reveal hide-sm hide-xs' (click)='handleShowStats()'>
+          <hr>
+          <h4 class='stats-h4'>{{statState}} Stats</h4>
+          <hr/>
+        </div>
+    </div>
+    <div class='stats hide-sm hide-xs' *ngIf='showStats' [@slideInOut]>
+      <table>
+        <tr *ngFor='let info of socialMediaObservable | async'>
+          <td class='stat-title'>Service:</td>
+          <td>{{info.name}}</td>
+          <td class='stat-title'>URL: </td>
+          <td><a class='table-link' href='http://{{info.url}}' target='_blank'>http://{{info.url}}</a></td>
+          <td class='stat-title'>Our Name: </td>
+          <td>{{info.user}}</td>
+        </tr>
+      </table>
+    </div>
+  </main>
+</div>

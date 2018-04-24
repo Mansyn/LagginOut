@@ -79,10 +79,12 @@ import { TwitchComponent } from './twitch/twitch.component';
 import { TwitchVideoComponent } from './components/twitch-video/twitch-video.component';
 
 // utilities, pipes, etc
-import { TruncatePipe } from './pipes/truncate.pipe'
-import { ReversePipe } from './pipes/reverse.pipe'
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { ReversePipe } from './pipes/reverse.pipe';
 import { DisableControlDirective } from './utilities/directives/disable-control'
 import { FocusDirective } from './utilities/directives/focus.directive'
+import { SocialService } from './social/social.service';
+import { SocialComponent } from './social/social.component';
 
 @NgModule({
 	declarations: [
@@ -116,7 +118,8 @@ import { FocusDirective } from './utilities/directives/focus.directive'
 		FocusDirective,
 		RegisterComponent,
 		TwitchComponent,
-		TwitchVideoComponent
+		TwitchVideoComponent,
+		SocialComponent
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebase),
@@ -158,7 +161,7 @@ import { FocusDirective } from './utilities/directives/focus.directive'
 	],
 	entryComponents: [AdminUserDialog, AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog],
-	providers: [VideosService, ArticleService, PlaylistsService, ProfileService],
+	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
