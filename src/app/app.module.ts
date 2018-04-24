@@ -53,7 +53,7 @@ import { LoginComponent } from './account/login/login.component';
 import { AccountComponent } from './account/account.component';
 import { VideosService } from './videos/shared/videos.service';
 import { PlaylistsService } from './videos/shared/playlists.service';
-import { AdminComponent, VideoDialog, UserDialog } from './admin/admin.component';
+import { AdminComponent } from './admin/admin.component';
 import { UsersComponent } from './admin/users/users.component';
 import { VideosComponent } from './videos/videos.component';
 import { ArticlesComponent } from './articles/articles.component';
@@ -95,8 +95,6 @@ import { DisableControlDirective } from './directives/disable-control';
 		ArticlesComponent,
 		AdminComponent,
 		EditorArticlesComponent,
-		UserDialog,
-		VideoDialog,
 		TruncatePipe,
 		ReversePipe,
 		EditorComponent,
@@ -157,7 +155,7 @@ import { DisableControlDirective } from './directives/disable-control';
 		ReactiveFormsModule
 	],
 	entryComponents: [AdminUserDialog, AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
-		AdminPlaylistDeleteDialog, UserDialog, VideoDialog],
+		AdminPlaylistDeleteDialog],
 	providers: [VideosService, ArticleService, PlaylistsService, ProfileService],
 	bootstrap: [AppComponent]
 })

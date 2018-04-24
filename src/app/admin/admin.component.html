@@ -1,142 +1,83 @@
-<div class="layout-row">
-  <div class="flex-5 flex-gt-xs-15"></div>
-  <div class="flex-90 flex-gt-xs-70 mat-elevation-z4">
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <span>Admin</span>
-        <span class="spacer"></span>
-
-        <!-- Video Functions -->
-        <button mat-raised-button *ngIf="tabIndex == 0 && video_selection.selected.length > 0" color="primary" (click)="videoDialog(false)"
-          class="button">
-          Edit
-        </button>
-        <button mat-raised-button *ngIf="tabIndex == 0" color="accent" (click)="videoDialog(true)" class="button">
-          Create
-        </button>
-
-        <!-- User Functions -->
-        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && isRole('editor')" color="primary"
-          (click)="userDialog(false, 'editor')" class="button">
-          Remove Editor
-        </button>
-        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && isRole('admin')" color="primary"
-          (click)="userDialog(false, 'admin')" class="button">
-          Remove Admin
-        </button>
-        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && !isRole('editor')" color="primary"
-          (click)="userDialog(true, 'editor')" class="button">
-          Set Editor
-        </button>
-        <button mat-raised-button *ngIf="tabIndex == 1 && user_selection.selected.length > 0 && !isRole('admin')" color="primary"
-          (click)="userDialog(true, 'admin')" class="button">
-          Set Admin
-        </button>
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <mat-tab-group (selectedTabChange)="tabChanged($event)">
-      <mat-tab label="VIDEOS">
-        <div class="form-padding">
-          <div class="layout-column layout-gt-sm-row">
-            <div class="full-width">
-              <div class="header">
-                <mat-form-field>
-                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-                </mat-form-field>
+<div id="top" class="layout-column layout-align-start-stretch">
+  <header>
+    <div class="txt-center layout-column layout-align-center-center h-100 p-20">
+      <h1 color="primary" class="righteous">ADMIN</h1>
+    </div>
+  </header>
+  <div class="layout-row">
+    <div class="flex-5 flex-gt-sm-15"></div>
+    <div class="flex-90 flex-gt-sm-70">
+      <div class="layout-column layout-gt-sm-row layout-align-center-center layout-wrap">
+        <div class="flex-33">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar>
+                <mat-icon>videocam</mat-icon>
               </div>
-              <mat-table #table matSort [dataSource]="video_dataSource">
-
-                <!-- Selection Column -->
-                <ng-container matColumnDef="select">
-                  <mat-header-cell *matHeaderCellDef>
-                    &nbsp;
-                  </mat-header-cell>
-                  <mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? video_selection.toggle(row) : null" [checked]="video_selection.isSelected(row)">
-                    </mat-checkbox>
-                  </mat-cell>
-                </ng-container>
-
-                <!-- Title Column -->
-                <ng-container matColumnDef="title">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
-                </ng-container>
-
-                <!-- Description Column -->
-                <ng-container matColumnDef="description">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.description | truncate : 30 }} </mat-cell>
-                </ng-container>
-
-                <!-- Link Column -->
-                <ng-container matColumnDef="link">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Link </mat-header-cell>
-                  <mat-cell *matCellDef="let element">
-                    <a href="{{element.link}}" target="_blank">Link</a>
-                  </mat-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="video_displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: video_displayedColumns;"></mat-row>
-              </mat-table>
-              <mat-paginator #video_paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
-              </mat-paginator>
-            </div>
-          </div>
+              <mat-card-title>Videos</mat-card-title>
+              <mat-card-subtitle>video management</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>Manage all videos on the site and highlight top videos for front page</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button [routerLink]="['/admin/videos']" color="accent">GO</button>
+            </mat-card-actions>
+          </mat-card>
         </div>
-      </mat-tab>
-      <mat-tab label="USERS">
-        <div class="form-padding">
-          <div class="layout-column layout-gt-sm-row">
-            <div class="container">
-              <mat-table #table matSort [dataSource]="user_dataSource">
-
-                <!-- Selection Column -->
-                <ng-container matColumnDef="select">
-                  <mat-header-cell *matHeaderCellDef>
-                    &nbsp;
-                  </mat-header-cell>
-                  <mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? user_selection.toggle(row) : null" [checked]="user_selection.isSelected(row)">
-                    </mat-checkbox>
-                  </mat-cell>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="displayName">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.displayName}} </mat-cell>
-                </ng-container>
-
-                <!-- Email Column -->
-                <ng-container matColumnDef="email">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
-                </ng-container>
-
-                <!-- Email Column -->
-                <ng-container matColumnDef="roles">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Roles </mat-header-cell>
-                  <mat-cell *matCellDef="let element">
-                    <mat-chip-list>
-                      <mat-chip *ngIf="element.roles?.subscriber" color="accent" selected="true">Subscriber</mat-chip>
-                      <mat-chip *ngIf="element.roles?.editor" color="primary" selected="true">Editor</mat-chip>
-                      <mat-chip *ngIf="element.roles?.admin" color="warn" selected="true">Admin</mat-chip>
-                    </mat-chip-list>
-                  </mat-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="user_displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: user_displayedColumns;"></mat-row>
-              </mat-table>
-              <mat-paginator #user_paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
-              </mat-paginator>
-            </div>
-          </div>
+        <div class="flex-33">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar>
+                <mat-icon>dashboard</mat-icon>
+              </div>
+              <mat-card-title>Playlists</mat-card-title>
+              <mat-card-subtitle>playlist management</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>Tie video playlists to site with a pointer link</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button [routerLink]="['/admin/playlists']" color="accent">GO</button>
+            </mat-card-actions>
+          </mat-card>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+        <div class="flex-33">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar>
+                <mat-icon>assignment</mat-icon>
+              </div>
+              <mat-card-title>Articles</mat-card-title>
+              <mat-card-subtitle>article management</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>Here you're able to access and manage all articles</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button [routerLink]="['/admin/articles']" color="accent">GO</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        <div class="flex-33">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar>
+                <mat-icon>supervisor_account</mat-icon>
+              </div>
+              <mat-card-title>Users</mat-card-title>
+              <mat-card-subtitle>user management</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>Access and manage all site users, set roles, and download mailing list</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button [routerLink]="['/admin/users']" color="accent">GO</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="flex-5 flex-gt-sm-15"></div>
   </div>
-  <div class="flex-5 flex-gt-xs-15"></div>
 </div>

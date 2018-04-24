@@ -9,7 +9,7 @@ body {
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background:linear-gradient(to right, rgba(84,84,84,1) 0%, rgba(46,46,46,1) 30%, rgba(33,33,33,1) 50%, rgba(46,46,46,1) 70%, rgba(84,84,84,1) 100%);
+  background: linear-gradient(to right, rgba(84, 84, 84, 1) 0%, rgba(46, 46, 46, 1) 30%, rgba(33, 33, 33, 1) 50%, rgba(46, 46, 46, 1) 70%, rgba(84, 84, 84, 1) 100%);
 }
 
 body {
@@ -34,7 +34,8 @@ app-root {
 }
 
 ::selection {
-  background: rgb(255, 251, 3); /* WebKit/Blink Browsers */
+  background: rgb(255, 251, 3);
+  /* WebKit/Blink Browsers */
 }
 
 hr {
@@ -79,6 +80,7 @@ hr {
   text-decoration: none;
   color: #bebebe;
 }
+
 .article-title-link:hover {
   color: #f00;
 }
@@ -102,14 +104,6 @@ hr {
 
 .flex-spacer {
   flex: 1 1 auto;
-}
-
-.allan {
-  font-family: 'Allan', cursive;
-}
-
-.cream {
-  font-family: 'Righteous', cursive;
 }
 
 .w-25 {

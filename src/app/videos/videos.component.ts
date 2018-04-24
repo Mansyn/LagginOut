@@ -22,8 +22,8 @@ export class VideosComponent implements OnInit {
     this.playLists = yt.items
     for (let i = 0; i < this.playLists.length; i++) {
       if (this.playLists[i].snippet.title === 'Laggin Out Podcast' ||
-          this.playLists[i].snippet.title === 'Killing it After Dark' ||
-          this.playLists[i].snippet.title === 'Noob’s Guide'
+        this.playLists[i].snippet.title === 'Killing it After Dark' ||
+        this.playLists[i].snippet.title === 'Noob’s Guide'
       ) {
         this.playListURLs.push(this.getHref(this.playLists[i].snippet.thumbnails.default.url, this.playLists[i].id))
       } else {
@@ -50,12 +50,9 @@ export class VideosComponent implements OnInit {
   getVideos() {
     let response = this.httpGet('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=15&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
     let yt = JSON.parse(response)
-    console.log('getVideos()')
     for (let i = 0; i < yt.items.length; i++) {
       let dt = yt.items[i].snippet.publishedAt
-      console.log(i)
       dt = new Date(dt)
-      console.log(dt)
       yt.items[i].snippet.publishedAt = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear()
     }
     this.videos = yt.items
