@@ -5,23 +5,31 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
-import { User } from './user';
+import { User, Profile } from './user';
+import { ProfileService } from './profile.service';
+import 'rxjs/add/operator/take'
 
 @Injectable()
 export class AuthService {
-	user$: Observable<User>;
+
+	user$: Observable<User>
 
 	// only for admin use
-	private usersCollection: AngularFirestoreCollection<User>;
-	users: Observable<User[]>;
+	private usersCollection: AngularFirestoreCollection<User>
+	users: Observable<User[]>
 
-	constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+	constructor(
+		private afAuth: AngularFireAuth,
+		private afs: AngularFirestore,
+		private router: Router,
+		private profileService: ProfileService
+	) {
 		//// Get auth data, then get firestore user document || null
 		this.user$ = this.afAuth.authState.switchMap((user) => {
 			if (user) {
-				return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+				return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
 			} else {
-				return Observable.of(null);
+				return Observable.of(null)
 			}
 		});
 	}
@@ -31,22 +39,27 @@ export class AuthService {
 			uid: response.uid,
 			displayName: response.displayName,
 			email: response.email,
+			phoneNumber: response.phoneNumber,
 			photoURL: response.photoURL,
 			roles: {}
 		}
 		this.updateUserData(user);
 	}
 
-	getAllUsers() {
-		this.usersCollection = this.afs.collection<User>('users');
-		this.users = this.usersCollection.valueChanges();
-		return this.users;
+	registerUser(response, name, phoneNumber?) {
+		const user: User = {
+			uid: response.uid,
+			displayName: name,
+			email: response.email,
+			phoneNumber: phoneNumber || '',
+			photoURL: response.photoURL,
+			roles: {}
+		}
+		this.updateUserData(user);
 	}
 
-	///// Login/Signup //////
-
 	googleLogin() {
-		const provider = new firebase.auth.GoogleAuthProvider();
+		const provider = new firebase.auth.GoogleAuthProvider()
 		return this.oAuthLogin(provider);
 	}
 
@@ -56,13 +69,37 @@ export class AuthService {
 	}
 
 	private oAuthLogin(provider) {
-		return this.afAuth.auth.signInWithPopup(provider).then((credential) => {
-			this.updateUserData(credential.user);
-		});
+		return this.afAuth.auth.signInWithPopup(provider)
+			.then((credential) => {
+				this.updateUserData(credential.user)
+				this.updateOauthUserProfile(credential.user)
+			})
+	}
+
+	private updateOauthUserProfile(user) {
+		let profile = {
+			user_uid: user.uid,
+			name: user.displayName || '',
+			phoneNumber: user.phoneNumber || ''
+		}
+		this.profileService.getUserProfile(user.uid)
+			.subscribe(response => {
+				if (response.length == 0) {
+					this.profileService.addProfile(profile)
+				} else {
+					let _profile = response[0].payload.toJSON()
+					let targetProfile = _profile as Profile
+
+					targetProfile.name = targetProfile.name ? targetProfile.name : (user.displayName || '')
+					targetProfile.phoneNumber = targetProfile.phoneNumber ? targetProfile.phoneNumber : (user.phoneNumber || '')
+
+					this.profileService.updateProfile(response[0].key, targetProfile)
+				}
+			})
 	}
 
 	signOut() {
-		this.afAuth.auth.signOut();
+		this.afAuth.auth.signOut()
 	}
 
 	private updateUserData(user) {
@@ -70,8 +107,9 @@ export class AuthService {
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 		const data: User = {
 			uid: user.uid,
-			email: user.email,
 			displayName: user.displayName,
+			email: user.email,
+			phoneNumber: user.phoneNumber,
 			photoURL: user.photoURL,
 			roles: {
 				subscriber: true
@@ -87,6 +125,7 @@ export class AuthService {
 			uid: user.uid,
 			displayName: user.displayName,
 			email: user.email,
+			phoneNumber: user.phoneNumber,
 			photoURL: user.photoURL,
 			roles: {
 				editor: isEditor
@@ -102,6 +141,7 @@ export class AuthService {
 			uid: user.uid,
 			displayName: user.displayName,
 			email: user.email,
+			phoneNumber: user.phoneNumber,
 			photoURL: user.photoURL,
 			roles: {
 				admin: isAdmin
@@ -136,5 +176,17 @@ export class AuthService {
 			}
 		}
 		return false;
+	}
+
+	getAllUsers() {
+		this.usersCollection = this.afs.collection<User>('users')
+		this.users = this.usersCollection.valueChanges()
+		return this.users;
+	}
+
+	getAllSubscribers() {
+		this.usersCollection = this.afs.collection('users', ref => ref.where('roles.subscriber', '==', true));
+		this.users = this.usersCollection.valueChanges();
+		return this.users;
 	}
 }

@@ -1,15 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { AngularFireAuth } from 'angularfire2/auth'
-import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router'
+import { MatSnackBar } from '@angular/material'
 
 import { AuthService } from '../core/auth.service'
 import { ProfileService } from '../core/profile.service'
-import { Profile } from '../core/user'
+import { Profile, User } from '../core/user'
 import { Article } from '../articles/shared/article'
 import { ArticleService } from '../articles/shared/article.service'
+
 import { Subject } from 'rxjs/Subject'
-import { Router } from '@angular/router';
+import 'rxjs/add/operator/takeUntil'
+import { combineLatest } from 'rxjs/observable/combineLatest'
+import { Observable } from 'rxjs/Observable'
 
 @Component({
   selector: 'account',
@@ -20,10 +24,16 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>()
 
+  user: Observable<User>
+  nameEditing: boolean = false
+  phoneEditing: boolean = false
+
+  userRef: User
+  profileRef: Profile
+  nameRef: string = ''
+  phoneNumberRef: string = ''
   form: FormGroup
   mailingForm: FormGroup
-  working: boolean = false
-  profile: Profile
   articles: Article[] = []
 
   constructor(
@@ -38,8 +48,16 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForms()
-    this.getUserData()
-    this.onChanges()
+    this.auth.user$
+      .takeUntil(this.destroy$)
+      .subscribe(user => {
+        if (user && user.uid) {
+          this.getUserData(user)
+          this.onChanges()
+        } else {
+          this.router.navigate(['/account/login'])
+        }
+      })
   }
 
   buildForms() {
@@ -52,85 +70,74 @@ export class AccountComponent implements OnInit, OnDestroy {
     })
   }
 
-  getUserData() {
-    this.auth.user$
-      .takeUntil(this.destroy$)
-      .subscribe(user => {
-        if (user) {
-          this.profileService.getUserProfiles(user.uid)
-            .snapshotChanges()
-            .takeUntil(this.destroy$)
-            .subscribe((profiles) => {
-              if (!this.profile) {
-                if (profiles.length == 0) {
-                  let newProfile = {
-                    user_uid: user.uid,
-                    mailing: false
-                  }
-                  this.profileService.addProfile(newProfile)
-                    .then((data) => {
-                      this.profile = {
-                        uid: data.key,
-                        user_uid: user.uid,
-                        mailing: false
-                      }
-                    })
-                } else {
-                  let p = profiles[0].payload.toJSON()
-                  p["uid"] = profiles[0].key
-                  this.profile = p as Profile
-                }
-              }
-            })
-          let isEditor = this.auth.canEdit(user)
-          if (isEditor) {
-            this.articleService.getUserArticles(user.uid)
-              .snapshotChanges()
-              .takeUntil(this.destroy$)
-              .subscribe((data) => {
-                data.forEach(element => {
-                  var x = element.payload.toJSON()
-                  x["$key"] = element.key
-                  this.articles.push(x as Article)
-                })
-              })
-          }
+  getUserData(user) {
+    const userProfile$ = this.profileService.getUserProfile(user.uid)
+    const userArticles$ = this.articleService.getUserArticlesData(user.uid)
+
+    combineLatest(
+      userProfile$, userArticles$,
+      (profileData, articlesData) => {
+        // profile
+        let _profile = profileData[0].payload.toJSON()
+        _profile["$key"] = profileData[0].key
+        this.profileRef = _profile as Profile
+        this.nameRef = this.profileRef.name
+        this.phoneNumberRef = this.profileRef.phoneNumber
+
+        // articles
+        let isEditor = this.auth.canEdit(user)
+        if (isEditor) {
+          articlesData.forEach(_article => {
+            let article = _article.payload.toJSON()
+            article["$key"] = _article.key
+            this.articles.push(article as Article)
+          })
         }
-      })
+      }
+    ).takeUntil(this.destroy$).subscribe()
   }
 
   onChanges(): void {
     this.mailingForm.get('mailingList').valueChanges
-      .takeUntil(this.destroy$)
       .subscribe(val => {
-        let updatedProfile = {
-          user_uid: this.profile.user_uid,
-          mailing: val
-        }
-        this.profileService.updateProfile(this.profile.uid, updatedProfile)
+        this.profileRef.mailing = val
+        this.updateProfile()
       });
   }
 
-  login() {
-    if (this.form.valid) {
-      let form = this.form.value;
-      this.working = true;
-      this.afAuth.auth.signInWithEmailAndPassword(form.email, form.password)
-        .then((response) => {
-          this.working = false
-        })
-        .catch(function (error) {
-          // Handle Errors here.
-          this.openSnackBar(error.message, 'OKAY')
-          this.working = false
-          console.log(error)
-        })
+  toggleName(showInput) {
+    this.nameEditing = !this.nameEditing
+    if (!this.nameEditing) {
+      if (this.profileRef.name.length) {
+        this.updateProfile()
+      } else {
+        this.profileRef.name = this.nameRef
+      }
     }
   }
 
+  togglePhone(showInput) {
+    this.phoneEditing = !this.phoneEditing
+    if (!this.phoneEditing) {
+      if (this.profileRef.phoneNumber.length == 10) {
+        this.updateProfile()
+      } else {
+        this.profileRef.phoneNumber = this.phoneNumberRef
+      }
+    }
+  }
+
+  private updateProfile() {
+    let targetProfile = Object.assign({}, this.profileRef)
+    delete targetProfile['$key']
+    this.profileService.updateProfile(this.profileRef['$key'], targetProfile)
+  }
+
   signout() {
-    this.auth.signOut()
-    this.router.navigate(['/account/login'])
+    let that = this
+    this.afAuth.auth.signOut().then(function () {
+      that.router.navigate(['/home'])
+    })
   }
 
   openSnackBar(message: string, action: string) {

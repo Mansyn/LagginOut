@@ -48,6 +48,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module'
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './account/login/login.component';
 import { AccountComponent } from './account/account.component';
@@ -78,10 +79,10 @@ import { TwitchComponent } from './twitch/twitch.component';
 import { TwitchVideoComponent } from './components/twitch-video/twitch-video.component';
 
 // utilities, pipes, etc
-import { TruncatePipe } from './pipes/truncate.pipe';
-import { ReversePipe } from './pipes/reverse.pipe';
-import { CoreModule } from './core/core.module';
-import { DisableControlDirective } from './directives/disable-control';
+import { TruncatePipe } from './pipes/truncate.pipe'
+import { ReversePipe } from './pipes/reverse.pipe'
+import { DisableControlDirective } from './utilities/directives/disable-control'
+import { FocusDirective } from './utilities/directives/focus.directive'
 
 @NgModule({
 	declarations: [
@@ -112,6 +113,7 @@ import { DisableControlDirective } from './directives/disable-control';
 		AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog,
 		DisableControlDirective,
+		FocusDirective,
 		RegisterComponent,
 		TwitchComponent,
 		TwitchVideoComponent

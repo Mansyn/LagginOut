@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Article } from './article';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ArticleService {
@@ -23,6 +24,11 @@ export class ArticleService {
 	getUserArticles(uid: string) {
 		this.articles = this.db.list('articles', ref => ref.orderByChild('editor_id').equalTo(uid)) as AngularFireList<Article[]>;
 		return this.articles;
+	}
+
+	getUserArticlesData(uid: string): Observable<any> {
+		let userevents = this.db.list('articles', ref => ref.orderByChild('editor_id').equalTo(uid)).snapshotChanges()
+		return userevents
 	}
 
 	getRecentArticles() {

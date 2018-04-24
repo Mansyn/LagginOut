@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material'
 import { AngularFireAuth } from 'angularfire2/auth'
-
-import { AuthService } from '../../core/auth.service'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs/Subject'
+
+import { AuthService } from '../../core/auth.service'
+import { ProfileService } from '../../core/profile.service'
 
 @Component({
   selector: 'register',
@@ -20,6 +21,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>()
 
   constructor(
+    private profileService: ProfileService,
     private afAuth: AngularFireAuth,
     private router: Router,
     public auth: AuthService,
@@ -52,9 +54,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
       let self = this
       let form = this.form.value
       this.afAuth.auth.createUserWithEmailAndPassword(form.email, form.password)
-        .then((response) => {
-          self.auth.updateUser(response)
-          self.router.navigate(['/account'])
+        .then((user) => {
+          self.auth.registerUser(user, form.name)
+          let profile = {
+            user_uid: user.uid,
+            name: form.name
+          }
+          this.profileService.addProfile(profile)
+            .then(response => {
+              self.working = false
+              self.router.navigate(['/account'])
+            })
         })
         .catch(function (error) {
           // Handle Errors here.

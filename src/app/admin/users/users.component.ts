@@ -15,9 +15,12 @@ import {
 import _ from 'lodash';
 import { saveAs } from 'file-saver/FileSaver';
 
-import { AuthService } from '../../core/auth.service';
-import { User } from '../../core/user';
-import { Subject } from 'rxjs/Subject';
+import { AuthService } from '../../core/auth.service'
+import { ProfileService } from '../../core/profile.service'
+import { User, UserProfile } from '../../core/user'
+import { Subject } from 'rxjs/Subject'
+import 'rxjs/add/operator/takeUntil'
+import { combineLatest } from 'rxjs/observable/combineLatest'
 
 @Component({
   selector: 'users',
@@ -32,26 +35,41 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   tabIndex = 0;
-  displayedColumns = ['select', 'displayName', 'email', 'roles'];
+  displayedColumns = ['select', 'name', 'email', 'roles'];
   dataSource = new MatTableDataSource<User>();
   selection = new SelectionModel<User>(true, []);
   users: User[]
 
   constructor(
     public auth: AuthService,
+    private profileService: ProfileService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) { }
 
   ngAfterViewInit() {
-    this.auth.getAllUsers()
-      .takeUntil(this.destroy$)
-      .subscribe((data) => {
-        this.dataSource.data = data
-        this.users = data
-      })
-    this.dataSource.paginator = this.paginator
-    this.dataSource.sort = this.sort
+    const userProfiles$ = this.profileService.getProfilesData()
+    const users$ = this.auth.getAllUsers()
+
+    combineLatest(
+      userProfiles$, users$,
+      (userProfilesData, usersData) => {
+        let users = usersData.map((user) => {
+          return {
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            photoURL: user.photoURL,
+            roles: user.roles,
+            profile: userProfilesData.find(p => p.user_uid == user.uid)
+          } as UserProfile
+        })
+        this.dataSource.data = users
+        this.users = users
+      }).takeUntil(this.destroy$).subscribe()
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
