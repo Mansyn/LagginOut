@@ -136,6 +136,9 @@ export class AdminArticleComponent implements OnInit, OnDestroy {
           });
       }
     }
+    else {
+      console.log('invalid form')
+    }
   }
 
   ngOnDestroy() {

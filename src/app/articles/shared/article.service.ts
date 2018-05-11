@@ -37,7 +37,9 @@ export class ArticleService {
 	}
 
 	addArticle(newArticle) {
-		return this.articles.push(newArticle);
+    const article = this.fillUndefinedValues(newArticle)
+
+		return this.articles.push(article);
 	}
 
 	updateArticle(key, updateArticle) {
@@ -46,5 +48,17 @@ export class ArticleService {
 
 	deleteArticle(key: string) {
 		return this.articles.remove(key);
-	}
+  }
+  
+  fillUndefinedValues(newArticle) {
+    console.log(newArticle)
+    for (let key in newArticle) {
+     console.log(key, newArticle[key])
+     if (!newArticle[key]) {
+      newArticle[key] = ''
+     }
+    }
+    let article = newArticle
+    return article
+  }
 }

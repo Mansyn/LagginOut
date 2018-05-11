@@ -39,7 +39,10 @@ export class ArticlesComponent implements OnInit {
           if ((x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) && x.type === 'post') {
             x.content = x.content.replace(new RegExp('img src', 'g'), 'img width="100%" src')
             this.articles.push(x);
+          } else if (new Date(x.date).getTime() > 1517547600000){
+            this.articles.push(x);
           }
+          // this.articles.push(x);
         });
         this.articlesTop = _.sortBy(this.articles, function (o) { return moment(o.date, "M/D/YYYY"); }).reverse();
       });
