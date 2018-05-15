@@ -55,6 +55,7 @@ export class AdminArticleComponent implements OnInit, OnDestroy {
           excerpt: [this.article.excerpt || null, Validators.maxLength(100)],
           content: [this.article.content || null],
         })
+        this.article.type = 'post'
       } else {
         this.articlesService.getArticle(this.id)
           .snapshotChanges()

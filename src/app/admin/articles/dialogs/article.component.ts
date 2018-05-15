@@ -37,10 +37,12 @@ export class AdminArticleDialog {
       title: [data.article.title || null, Validators.compose([Validators.maxLength(50), Validators.required])],
       name: [data.article.name || null, Validators.maxLength(50)],
       date: [data.article.date || moment(), Validators.required],
-      type: [data.article.type || null, Validators.required],
+      type: [data.article.type || null],
       excerpt: [data.article.excerpt || null, Validators.maxLength(100)],
-      content: [data.article.content || null],
+      content: [data.article.content || null, Validators.required],
     });
+    // Set default value
+    this.data.article.type = 'post'
   }
 
   onEditorBlured(quill) {
@@ -86,7 +88,7 @@ export class AdminArticleDialog {
         ping_status: this.data.article.ping_status,
         status: this.data.article.status,
         title: this.data.article.title,
-        type: this.data.article.type,
+        type: this.data.article.type || 'post',
         timeStamp: now,
       };
 

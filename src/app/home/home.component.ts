@@ -3,6 +3,10 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
+const moment = _rollupMoment || _moment;
+
 import { Video } from '../videos/shared/video';
 import { VideosService } from '../videos/shared/videos.service';
 
@@ -38,20 +42,28 @@ export class HomeComponent implements OnInit {
 	}
 
 	handleVideos() {
-		var x = this._videosService.getHighlightedVideos();
+    var x = this._videosService.getHighlightedVideos();
+    console.log(x)
 		x.snapshotChanges().subscribe((data) => {
 			this.videos = [];
 			data.forEach((element) => {
-				var y = element.payload.toJSON();
+        var y = element.payload.toJSON();
+        console.log(y)
 				y['$key'] = element.key;
 				y['iframe_html'] = this.embedService.embed(y['link'], {
 					image: 'mqdefault',
 					query: { portrait: 0, color: '333' },
-					attr: { width: 450, height: 321 }
+					attr: { width: 400, height: 250 }
+        });
+        y['iframe_html2'] = this.embedService.embed(y['link'], {
+					image: 'mqdefault',
+					query: { portrait: 0, color: '333' },
+					attr: { width: '100%' }
 				});
 				this.videos.push(y as Video);
 			});
-			this.videosTop = _.orderBy(this.videos.slice(0, 3), ['timeStamp'], ['desc']);
+      this.videosTop = _.orderBy(this.videos.slice(0, 3), ['timeStamp'], ['desc']);
+      console.log(this.videosTop)
 		});
 	}
 
@@ -70,9 +82,13 @@ export class HomeComponent implements OnInit {
 					x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
 					if ((x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) && x.type === 'post') {
 						this.articles.push(x);
-					}
+					} else if (new Date(x.date).getTime() > 1517547600000){
+            this.articles.push(x);
+            console.log('new date',x)
+          }
 				});
-				this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 11);
+        // this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 11);
+        this.articlesTop = _.sortBy(this.articles, function (o) { return moment(o.date, "M/D/YYYY"); }).reverse().slice(0, 11);
 
 				for (let i = 0; i < this.articlesTop.length; i++) {
 					let x = this.articlesTop[i]

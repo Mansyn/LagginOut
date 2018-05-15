@@ -13,30 +13,23 @@ export class SocialService {
 	}
 
 	getSocials() {
-    console.log('in getSocials')
     this.links = this.db.list('links') as AngularFireList<Social[]>;
-    console.log(this.links)
 		return this.links;
 	}
 
 	getSocial(key) {
-    console.log('in getSocial')
-    console.log(this.db.object('/links/' + key))
 		return this.db.object('/links/' + key);
 	}
 
 	addSocial(newSocial) {
-    console.log('in addSocial')
 		return this.links.push(newSocial);
 	}
 
 	updateSocial(key, updateSocial) {
-    console.log('in updateSocial')
 		return this.links.update(key, updateSocial);
 	}
 
 	deleteSocial(key: string) {
-    console.log('in deleteSocial')
 		return this.links.remove(key);
 	}
 }

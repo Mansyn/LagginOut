@@ -26,9 +26,7 @@ export class SocialComponent implements OnInit {
   socialMediaObservable: Observable<any[]>
   showStats: boolean
   statState: string
-
-  linkKey
-
+  
   constructor(private db: AngularFireDatabase, private socialService: SocialService) { }
 
   ngOnInit() {

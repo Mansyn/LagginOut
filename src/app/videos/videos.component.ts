@@ -31,6 +31,7 @@ export class VideosComponent implements OnInit {
         i--
       }
     }
+    this.playListURLs = this.playListURLs.reverse()
   }
 
   httpGet(Url) {

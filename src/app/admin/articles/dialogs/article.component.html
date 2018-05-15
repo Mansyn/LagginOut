@@ -34,7 +34,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="half-width">
-      <input matInput placeholder="Type" type="text" [formControl]="form.controls['type']" [(ngModel)]="data.article.type">
+      <input matInput placeholder="Type" value='post' type="text" [formControl]="form.controls['type']" [(ngModel)]="data.article.type">
       <mat-error *ngIf="form.controls['type'].hasError('required')">
         Type is required
       </mat-error>

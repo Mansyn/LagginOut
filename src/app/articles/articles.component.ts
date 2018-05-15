@@ -39,19 +39,31 @@ export class ArticlesComponent implements OnInit {
           if ((x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) && x.type === 'post') {
             x.content = x.content.replace(new RegExp('img src', 'g'), 'img width="100%" src')
             this.articles.push(x);
-          } else if (new Date(x.date).getTime() > 1517547600000){
+          } else if (new Date(x.date).getTime() > 1517547600000) {
             this.articles.push(x);
           }
-          // this.articles.push(x);
         });
         this.articlesTop = _.sortBy(this.articles, function (o) { return moment(o.date, "M/D/YYYY"); }).reverse();
       });
+    this.handleLinkFrom()
   }
 
   orderByDate(arr, dateProp) {
     return arr.slice().sort(function (a, b) {
       return a[dateProp] < b[dateProp] ? -1 : 1;
     });
+  }
+
+  handleLinkFrom() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('index')) {
+      const index = urlParams.get('index')
+      if (this.articlesTop[index]) {
+        this.handleOpenArticle(+index)
+      } else {
+        setTimeout(() => { this.handleLinkFrom() }, 500)
+      }
+    }
   }
 
   handleOpenArticle(index) {
@@ -61,6 +73,7 @@ export class ArticlesComponent implements OnInit {
     this.openArticle = this.articlesTop[index]
     this.articleOpen = true;
   }
+
   closeArticle() {
     document.body.style.overflowY = 'auto'
     document.getElementsByTagName('html')[0].style.overflow = "auto";

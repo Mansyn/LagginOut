@@ -9,10 +9,24 @@
 
 
 <div class="foot p-15">
-    <div class="foot-brand">
-      <span class="logo">&copy; 2018 Laggin' Out <span class='hide-sm hide-xs'>Entertainment</span></span>
-    </div>
-    <div class="foot-ul txt-right">
-      Powered By <span class='ul-link'><a href='http://www.unleasheddevelpment.com' target='_blank'>Unleashed <span class='hide-sm hide-xs'>Development</span></a></span>
+  <div class='top-level'>
+    <div class='link-container'>
+      <a *ngFor='let link of socialMediaObservable | async' class='socialLink' title='{{link.name}}' href='http://{{link.url}}' target='_blank'>
+        <span class='icon' [innerHTML]='getIcon(link.name)'></span>
+      </a>
     </div>
   </div>
+  <div class="foot-brand">
+    <span class="logo">&copy; 2018 Laggin' Out
+      <span class='hide-sm hide-xs'>Entertainment</span>
+    </span>
+  </div>
+  <div class="foot-ul txt-right">
+    Powered By
+    <span class='ul-link'>
+      <a href='http://www.unleasheddevelpment.com' target='_blank'>Unleashed
+        <span class='hide-sm hide-xs'>Development</span>
+      </a>
+    </span>
+  </div>
+</div>

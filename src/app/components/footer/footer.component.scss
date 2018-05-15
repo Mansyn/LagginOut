@@ -8,6 +8,7 @@
   background-color: #000;
   color: #fff;
   display: flex;
+  flex-wrap: wrap;
 }
 .foot-brand {
   width: 50%
@@ -28,4 +29,28 @@
 
 .ul-link a:hover {
   color: #ffeb01
+}
+
+.icon {
+  font-family: Icon;
+  color: #ffeb01;
+  font-size: 2rem;
+  margin: 0 1rem;
+}
+
+.icon:hover {
+  color: rgba(255, 0, 0, 0.5);
+}
+
+.top-level {
+  width: 100vw;
+  text-align: center;
+}
+
+.link-container {
+  margin: 0 auto
+}
+
+a.socialLink {
+  text-decoration: none;
 }

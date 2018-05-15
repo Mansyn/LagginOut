@@ -1,7 +1,8 @@
 <div class="flex-100 layout-column layout-align-start-stretch">
   <header class='m-0a mt4 mb4 main-header pad-5 shadow'>
     <div>
-      <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive header-logo' />
+      <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive hide-md hide-lg hide-xl header-logo' />
+      <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive hide-xs hide-sm header-logo-lg' />
     </div>
   </header>
   <div class='spacer'></div>
@@ -13,13 +14,20 @@
           Video Highlights
         </div>
       </div>
-      <div class='recents layout-row layout-align-space-between-center'>
-        <div *ngFor="let video of videosTop">
+      <div class='recents hide-xs hide-sm layout-row layout-align-space-between-center'>
+        <div class='recents' *ngFor="let video of videosTop">
           {{ video.title }}
           <div [innerHtml]="video.iframe_html"></div>
           <br />
         </div>
       </div>
+      <div class='recents hide-md hide-lg hide-xl layout-row layout-align-space-between-center'>
+          <div class='recents' *ngFor="let video of videosTop">
+            {{ video.title }}
+            <div [innerHtml]="video.iframe_html2"></div>
+            <br />
+          </div>
+        </div>
     </section>
 
     <section id='articles'>
@@ -30,11 +38,11 @@
       </div>
       <div *ngFor='let article of articlesTop; let i = index' class='home-article-container'>
         <div class='article-content'>
-          <a [routerLink]="['/articles']">
+          <a [routerLink]="['/articles']" [queryParams]="{index: i}">
             <div class='img-card' innerHTML='{{articlesImages[i]}}'></div>
           </a>
           <div class='article-text'>
-            <a class='article-title-link' [routerLink]="['/articles']">
+            <a class='article-title-link' [routerLink]="['/articles']" [queryParams]="{index: i}">
               <h3>{{article.title}}</h3>
             </a>
             <hr />

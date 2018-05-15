@@ -42,7 +42,11 @@
           </div>
           <div class="flex-50 p-l-5">
             <mat-form-field class="m-v-5">
-              <input matInput placeholder="Type" type="text" [formControl]="form.controls['type']" [(ngModel)]="article.type">
+              <!-- <input matInput placeholder="Type" type="text" [formControl]="form.controls['type']" [(ngModel)]="article.type"> -->
+              <mat-select [(ngModel)]='article.type'>
+                <mat-option value='post'>Post</mat-option>
+                <mat-option value='revision'>Revision</mat-option>
+              </mat-select>
               <mat-error *ngIf="form.controls['type'].hasError('required')">
                 Type is required
               </mat-error>
