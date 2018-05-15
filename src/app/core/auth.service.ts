@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
 import { User, Profile } from './user';
 import { ProfileService } from './profile.service';
-import 'rxjs/add/operator/take'
 
 @Injectable()
 export class AuthService {

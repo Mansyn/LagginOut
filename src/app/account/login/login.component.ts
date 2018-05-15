@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material'
 import { Router } from '@angular/router'
 
 import { Subject } from 'rxjs/Subject'
-import 'rxjs/add/operator/takeUntil'
 
 @Component({
     selector: 'login',

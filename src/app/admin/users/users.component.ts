@@ -19,7 +19,6 @@ import { AuthService } from '../../core/auth.service'
 import { ProfileService } from '../../core/profile.service'
 import { User, UserProfile } from '../../core/user'
 import { Subject } from 'rxjs/Subject'
-import 'rxjs/add/operator/takeUntil'
 import { combineLatest } from 'rxjs/observable/combineLatest'
 
 @Component({

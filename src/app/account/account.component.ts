@@ -11,7 +11,6 @@ import { Article } from '../articles/shared/article'
 import { ArticleService } from '../articles/shared/article.service'
 
 import { Subject } from 'rxjs/Subject'
-import 'rxjs/add/operator/takeUntil'
 import { combineLatest } from 'rxjs/observable/combineLatest'
 import { Observable } from 'rxjs/Observable'
 
@@ -83,6 +82,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.profileRef = _profile as Profile
         this.nameRef = this.profileRef.name
         this.phoneNumberRef = this.profileRef.phoneNumber
+        this.mailingForm.controls['mailingList'].setValue(this.profileRef.mailing)
 
         // articles
         let isEditor = this.auth.canEdit(user)

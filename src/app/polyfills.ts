@@ -4,3 +4,6 @@ import 'zone.js/dist/zone';
 import 'hammerjs';
 import 'web-animations-js';
 import 'rxjs/add/operator/takeUntil'
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/take'
+import 'rxjs/add/observable/of';
