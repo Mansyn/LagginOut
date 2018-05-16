@@ -1,4 +1,4 @@
-import './polyfills';
+// import './polyfills';
 
 // angular
 import { BrowserModule } from '@angular/platform-browser';

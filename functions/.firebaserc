@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "hopehouse-dev": "hopehouse-d",
+    "hopehouse-prod": "hopehouse-b0878",
+    "lagginout-prod": "lagginout-b4a23",
+    "lagginout-dev": "lagginout-dev"
+  }
+}
