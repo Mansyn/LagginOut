@@ -1,9 +1,0 @@
-import 'core-js/es6/reflect';
-import 'core-js/es7/reflect';
-import 'zone.js/dist/zone';
-import 'hammerjs';
-import 'web-animations-js';
-import 'rxjs/add/operator/takeUntil'
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/take'
-import 'rxjs/add/observable/of';
