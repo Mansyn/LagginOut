@@ -7,6 +7,8 @@
   </header>
   <div class='spacer'></div>
 
+  <twitch-streams></twitch-streams>
+
   <main class='main-body pad-5'>
     <section id='recentvids'>
       <div class='section-title-container'>
@@ -22,12 +24,12 @@
         </div>
       </div>
       <div class='recents hide-md hide-lg hide-xl layout-row layout-align-space-between-center'>
-          <div class='recents' *ngFor="let video of videosTop">
-            {{ video.title }}
-            <div [innerHtml]="video.iframe_html2"></div>
-            <br />
-          </div>
+        <div class='recents' *ngFor="let video of videosTop">
+          {{ video.title }}
+          <div [innerHtml]="video.iframe_html2"></div>
+          <br />
         </div>
+      </div>
     </section>
 
     <section id='articles'>

@@ -1,0 +1,11 @@
+<div>
+  <ul>
+    <li>Live Twitch Streams:</li>
+    <li *ngFor="let stream of liveStreaming.streams">
+      {{stream.channel.display_name}}
+    </li>
+    <li *ngIf="liveStreaming.streams.length == 0">
+      none live
+    </li>
+  </ul>
+</div>

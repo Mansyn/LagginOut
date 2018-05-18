@@ -42,6 +42,7 @@ import 'rxjs/add/operator/takeUntil'
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 // import 'classlist.js';  // Run `npm install --save classlist.js`.

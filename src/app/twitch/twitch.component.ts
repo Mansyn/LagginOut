@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { Http, Response, RequestOptions, Headers } from '@angular/http'
 import { DomSanitizer } from '@angular/platform-browser'
-import 'rxjs/add/operator/map'
 
 import './shared/v1'
 import { environment } from '../../environments/environment'
-import { FeedObject } from './shared/feed.twitch';
+import { FeedObject } from './shared/feed.twitch'
 
 @Component({
   selector: 'twitch',

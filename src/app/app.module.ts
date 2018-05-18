@@ -83,6 +83,7 @@ import { DisableControlDirective } from './utilities/directives/disable-control'
 import { FocusDirective } from './utilities/directives/focus.directive'
 import { SocialService } from './social/social.service';
 import { SocialComponent } from './social/social.component';
+import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component';
 
 @NgModule({
 	declarations: [
@@ -117,7 +118,8 @@ import { SocialComponent } from './social/social.component';
 		RegisterComponent,
 		TwitchComponent,
 		TwitchVideoComponent,
-		SocialComponent
+		SocialComponent,
+		TwitchStreamsComponent
 	],
 	imports: [
 		AngularFireModule.initializeApp(environment.firebase),
