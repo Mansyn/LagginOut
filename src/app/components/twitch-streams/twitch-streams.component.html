@@ -1,11 +1,28 @@
-<div>
-  <ul>
-    <li>Live Twitch Streams:</li>
-    <li *ngFor="let stream of liveStreaming.streams">
-      {{stream.channel.display_name}}
-    </li>
-    <li *ngIf="liveStreaming.streams.length == 0">
-      none live
-    </li>
-  </ul>
-</div>
+<mat-toolbar *ngIf="!loaded">
+  <mat-toolbar-row>
+    <span>Live Twitch Streams:</span>
+    <div class="spinner">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-toolbar *ngIf="loaded">
+  <mat-toolbar-row>
+    <span>Live Twitch Streams:</span>
+    <span *ngFor="let stream of liveStreaming.streams">
+      <a mat-button href="{{stream.channel.url}}" target="_blank">
+        <span class="mat-button-wrapper">
+          <mat-icon>record_voice_over</mat-icon>
+          <span>{{stream.channel.display_name}}</span>
+        </span>
+      </a>
+    </span>
+    <span class="none" *ngIf="liveStreaming.streams.length == 0">
+      NON
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -16,6 +16,8 @@ import { ArticlesComponent } from './articles/articles.component';
 import { VideosComponent } from './videos/videos.component';
 import { RegisterComponent } from './account/register/register.component';
 import { TwitchComponent } from './twitch/twitch.component';
+import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component';
+import { AdminTwitchStreamsComponent } from './admin/twitch/twitch.component';
 
 import { AdminGuard } from './core/admin.guard';
 import { EditorGuard } from './core/editor.guard';
@@ -28,8 +30,8 @@ const routes: Routes = [
 	{ path: 'account', component: AccountComponent },
 	{ path: 'account/login', component: LoginComponent },
 	{ path: 'account/register', component: RegisterComponent },
-  { path: 'articles', component: ArticlesComponent },
-  { path: 'social', component: SocialComponent},
+	{ path: 'articles', component: ArticlesComponent },
+	{ path: 'social', component: SocialComponent },
 	{ path: 'videos', component: VideosComponent },
 	{ path: 'twitch', component: TwitchComponent },
 	{ path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
@@ -38,6 +40,7 @@ const routes: Routes = [
 	{ path: 'admin/article/:id', component: AdminArticleComponent, canActivate: [AdminGuard] },
 	{ path: 'admin/users', component: UsersComponent, canActivate: [AdminGuard] },
 	{ path: 'admin/playlists', component: AdminPlaylistsComponent, canActivate: [AdminGuard] },
+	{ path: 'admin/twitch', component: AdminTwitchStreamsComponent, canActivate: [AdminGuard] },
 	{ path: 'editor', component: EditorComponent, canActivate: [EditorGuard] },
 	{ path: 'editor/articles', component: EditorArticlesComponent, canActivate: [EditorGuard] },
 	{ path: '*', redirectTo: 'home' }

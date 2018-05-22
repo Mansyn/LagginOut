@@ -72,18 +72,20 @@ import { AdminVideoHighlightDialog } from './admin/videos/dialogs/highlight.comp
 import { AdminPlaylistsComponent } from './admin/playlists/playlists.component';
 import { AdminPlaylistDialog } from './admin/playlists/dialogs/playlist.component';
 import { AdminPlaylistDeleteDialog } from './admin/playlists/dialogs/delete.component';
+import { AdminTwitchStreamsComponent } from './admin/twitch/twitch.component';
+import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component';
 import { RegisterComponent } from './account/register/register.component';
 import { TwitchComponent } from './twitch/twitch.component';
 import { TwitchVideoComponent } from './components/twitch-video/twitch-video.component';
+import { SocialComponent } from './social/social.component';
+import { SocialService } from './social/social.service';
+import { TwitchService } from './twitch/shared/twitch.service';
 
 // utilities, pipes, etc
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { DisableControlDirective } from './utilities/directives/disable-control'
 import { FocusDirective } from './utilities/directives/focus.directive'
-import { SocialService } from './social/social.service';
-import { SocialComponent } from './social/social.component';
-import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component';
 
 @NgModule({
 	declarations: [
@@ -113,6 +115,7 @@ import { TwitchStreamsComponent } from './components/twitch-streams/twitch-strea
 		AdminPlaylistsComponent,
 		AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog,
+		AdminTwitchStreamsComponent,
 		DisableControlDirective,
 		FocusDirective,
 		RegisterComponent,
@@ -161,7 +164,7 @@ import { TwitchStreamsComponent } from './components/twitch-streams/twitch-strea
 	],
 	entryComponents: [AdminUserDialog, AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog],
-	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService],
+	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
