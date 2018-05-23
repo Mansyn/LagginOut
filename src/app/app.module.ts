@@ -73,6 +73,8 @@ import { AdminPlaylistsComponent } from './admin/playlists/playlists.component';
 import { AdminPlaylistDialog } from './admin/playlists/dialogs/playlist.component';
 import { AdminPlaylistDeleteDialog } from './admin/playlists/dialogs/delete.component';
 import { AdminTwitchStreamsComponent } from './admin/twitch/twitch.component';
+import { AdminTwitchDialog } from './admin/twitch/dialogs/twitch.component';
+import { AdminTwitchDeleteDialog } from './admin/twitch/dialogs/delete.component';
 import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component';
 import { RegisterComponent } from './account/register/register.component';
 import { TwitchComponent } from './twitch/twitch.component';
@@ -116,6 +118,8 @@ import { FocusDirective } from './utilities/directives/focus.directive'
 		AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog,
 		AdminTwitchStreamsComponent,
+		AdminTwitchDialog,
+		AdminTwitchDeleteDialog,
 		DisableControlDirective,
 		FocusDirective,
 		RegisterComponent,
@@ -162,8 +166,17 @@ import { FocusDirective } from './utilities/directives/focus.directive'
 		FormsModule,
 		ReactiveFormsModule
 	],
-	entryComponents: [AdminUserDialog, AdminVideoDialog, AdminVideoDeleteDialog, AdminArticleDialog, AdminArticleDeleteDialog, AdminVideoHighlightDialog, AdminPlaylistDialog,
-		AdminPlaylistDeleteDialog],
+	entryComponents: [
+		AdminUserDialog,
+		AdminVideoDialog,
+		AdminVideoDeleteDialog,
+		AdminArticleDialog,
+		AdminArticleDeleteDialog,
+		AdminVideoHighlightDialog,
+		AdminPlaylistDialog,
+		AdminPlaylistDeleteDialog,
+		AdminTwitchDialog,
+		AdminTwitchDeleteDialog],
 	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService],
 	bootstrap: [AppComponent]
 })

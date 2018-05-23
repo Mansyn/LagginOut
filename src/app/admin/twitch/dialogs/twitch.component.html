@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>
+  <span *ngIf="create">Create Streamer</span>
+  <span *ngIf="!create">Edit Streamer</span>
+</h1>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div mat-dialog-content>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="ID" type="text" [formControl]="form.controls['id']" maxlength="30">
+      <mat-error *ngIf="form.controls['id'].hasError('required')">
+        ID is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Name" type="text" [formControl]="form.controls['name']" maxlength="30">
+      <mat-error *ngIf="form.controls['name'].hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Banner" type="url" [formControl]="form.controls['banner']">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button type="submit" [disabled]="!form.valid" color="primary">Ok</button>
+    <button mat-button type="button" [mat-dialog-close]="false">Cancel</button>
+  </div>
+</form>

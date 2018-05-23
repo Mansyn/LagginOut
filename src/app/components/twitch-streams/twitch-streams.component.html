@@ -1,6 +1,6 @@
 <mat-toolbar *ngIf="!loaded">
   <mat-toolbar-row>
-    <span>Live Twitch Streams:</span>
+    <span>Live On Twitch:</span>
     <div class="spinner">
       <div class="rect1"></div>
       <div class="rect2"></div>
@@ -12,7 +12,7 @@
 </mat-toolbar>
 <mat-toolbar *ngIf="loaded">
   <mat-toolbar-row>
-    <span>Live Twitch Streams:</span>
+    <span>Live On Twitch:</span>
     <span *ngFor="let stream of liveStreaming.streams">
       <a mat-button href="{{stream.channel.url}}" target="_blank">
         <span class="mat-button-wrapper">
@@ -22,7 +22,7 @@
       </a>
     </span>
     <span class="none" *ngIf="liveStreaming.streams.length == 0">
-      NON
+      none
     </span>
   </mat-toolbar-row>
 </mat-toolbar>

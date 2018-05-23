@@ -1,9 +1,18 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core'
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatSnackBar
+} from '@angular/material'
+import { AngularFireList } from 'angularfire2/database'
+import { Observable } from '@firebase/util'
 import { Subject } from 'rxjs'
+
 import { TwitchService } from '../../twitch/shared/twitch.service'
 import { TwitchStreamer } from '../../twitch/shared/streamer'
-import { AngularFireList } from 'angularfire2/database'
-import { Observable } from '@firebase/util';
+import { AdminTwitchDialog } from './dialogs/twitch.component'
+import { AdminTwitchDeleteDialog } from './dialogs/delete.component'
 
 @Component({
   selector: 'admin-twitch',
@@ -16,13 +25,10 @@ export class AdminTwitchStreamsComponent implements AfterViewInit, OnDestroy {
 
   public streamers: TwitchStreamer[]
 
-  constructor(private twitchService: TwitchService) {
-    // this.twitchService.addStreamer({
-    //   id: 'tessachka',
-    //   name: 'Tessachka',
-    //   banner: 'https://static-cdn.jtvnw.net/jtv_user_pictures/tessachka-profile_banner-b156ae0c68cc77d5-480.png'
-    // })
-  }
+  constructor(
+    private twitchService: TwitchService,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar) { }
 
   ngAfterViewInit() {
     this.twitchService.getStreamers()
@@ -37,6 +43,59 @@ export class AdminTwitchStreamsComponent implements AfterViewInit, OnDestroy {
         });
         this.streamers = streamers
       })
+  }
+
+  twitchDialog(key: string): void {
+    let target = !key.length ? new TwitchStreamer() : this.streamers.find(s => s.$key == key)
+
+    let dialogRef = this.dialog.open(AdminTwitchDialog, {
+      width: '450px',
+      data: { streamer: target }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (!key.length) {
+          this.twitchService.addStreamer(result).then((data) => {
+            this.openSnackBar('Streamer Saved', 'OKAY');
+          });
+        } else {
+          this.twitchService
+            .updateStreamer(target.$key, result)
+            .then((data) => {
+              this.openSnackBar('Streamer Saved', 'OKAY');
+            })
+            .catch((error) => {
+              this.openSnackBar(error, 'OKAY');
+            });
+        }
+      }
+    });
+  }
+
+  deleteDialog(key: string): void {
+    let target = this.streamers.find(s => s.$key == key)
+
+    let dialogRef = this.dialog.open(AdminTwitchDeleteDialog, {
+      width: '450px',
+      data: { name: target.name }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.twitchService.deleteStreamer(target.$key)
+        this.openSnackBar(
+          target.name + ' deleted',
+          'OKAY'
+        )
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    })
   }
 
   ngOnDestroy() {

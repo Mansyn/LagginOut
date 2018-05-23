@@ -1,12 +1,15 @@
 <div id="top" class="layout-column layout-align-start-stretch">
   <header>
     <div class="txt-center layout-column layout-align-center-center h-100 p-20">
-      <h1 color="primary" class="righteous">Our Streamers</h1>
+      <h1 color="primary" class="righteous">STREAMERS</h1>
     </div>
   </header>
   <div class="layout-row content">
     <div class="flex-5 flex-gt-sm-15"></div>
     <div class="flex-90 flex-gt-sm-70">
+      <div class="p-h-30 m-b-15 txt-right">
+        <button mat-raised-button color="primary" (click)="twitchDialog('')">CREATE</button>
+      </div>
       <div class="layout-column layout-gt-sm-row layout-align-center-center layout-wrap">
         <div class="flex-33" *ngFor="let streamer of streamers">
           <mat-card>
@@ -21,7 +24,8 @@
               <img mat-card-image src="{{streamer.banner}}">
             </div>
             <mat-card-actions>
-              <button mat-raised-button [routerLink]="['/admin/videos']" color="accent">GO</button>
+              <button mat-raised-button (click)="twitchDialog(streamer.$key)" color="accent">EDIT</button>
+              <button mat-raised-button (click)="deleteDialog(streamer.$key)" color="warn">DELETE</button>
             </mat-card-actions>
           </mat-card>
         </div>
