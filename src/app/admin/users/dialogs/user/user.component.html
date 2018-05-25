@@ -23,9 +23,6 @@
     </mat-form-field>
     <mat-form-field class="full-width">
       <input matInput placeholder="Phone" type="phone" [formControl]="form.controls['phoneNumber']">
-      <mat-error *ngIf="form.controls['phoneNumber'].hasError('required')">
-        Phone is required
-      </mat-error>
       <mat-error *ngIf="form.controls['phoneNumber'].hasError('pattern')">
         Phone must be numeric
       </mat-error>

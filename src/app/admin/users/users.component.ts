@@ -17,7 +17,7 @@ import { saveAs } from 'file-saver/FileSaver';
 
 import { AuthService } from '../../core/auth.service'
 import { ProfileService } from '../../core/profile.service'
-import { User, UserProfile } from '../../core/user'
+import { User, UserProfile, Profile } from '../../core/user'
 import { AdminUserDialog } from './dialogs/user/user.component'
 import UserUtils from '../../core/user.utils'
 import { Subject } from 'rxjs/Subject'
@@ -49,14 +49,21 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
   ) { }
 
   ngAfterViewInit() {
-    const userProfiles$ = this.profileService.getProfilesData()
+    const profiles$ = this.profileService.getProfilesSnapshot()
     const users$ = this.auth.getAllUsers()
 
     combineLatest(
-      userProfiles$, users$,
-      (userProfilesData, usersData) => {
+      profiles$, users$,
+      (profiles, usersData) => {
         let users = usersData.map((user) => {
-          return UserUtils.mapToUserProfile(user, userProfilesData.find(p => p.user_uid == user.uid))
+          let _profiles: Profile[] = [];
+          profiles.forEach((element) => {
+            var y = element.payload.toJSON();
+            y['uid'] = element.key;
+            _profiles.push(y as Profile);
+          });
+
+          return UserUtils.mapToUserProfile(user, _profiles.find(p => p.user_uid == user.uid))
         })
         this.dataSource.data = users
         this.users = users
@@ -143,7 +150,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
       if (result) {
         result.uid = target.uid
         this.auth.updateUser(result)
-        let updatedProfile = { user_uid: target.uid, name: result.displayName, phoneNumber: result.phoneNumber, color: result.color }
+        let updatedProfile = { user_uid: target.uid, name: result.displayName, phoneNumber: result.phoneNumber, mailing: target.profile.mailing }
         this.profileService.updateProfile(target.profile.uid, updatedProfile)
         this.openSnackBar('User Saved', 'OKAY')
         this.selection.clear()

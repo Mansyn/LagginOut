@@ -16,8 +16,7 @@ export class AdminUserDialog {
     this.form = this.fb.group({
       'displayName': [data.user.profile.name || null, Validators.compose([Validators.maxLength(30), Validators.required])],
       'email': [data.user.email || null, Validators.compose([Validators.email, Validators.required])],
-      'phoneNumber': [data.user.profile.phoneNumber || null, Validators.compose([Validators.pattern('[0-9]+'), Validators.maxLength(10), Validators.minLength(10), Validators.required])],
-      'color': [data.user.profile.color || null, Validators.required],
+      'phoneNumber': [data.user.profile.phoneNumber || null, Validators.compose([Validators.pattern('[0-9]+'), Validators.maxLength(10), Validators.minLength(10)])],
       'photoURL': [data.user.photoURL || null]
     })
   }
