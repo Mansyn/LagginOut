@@ -9,17 +9,23 @@
   color: rgba(245, 245, 245, 1);
 }
 
-.mat-button,
+.streamer,
 .none {
   margin-left: 10px;
 }
 
-.mat-button:hover {
-  background-color: transparent;
+.streamer {
+  cursor: pointer;
 }
 
-.mat-icon {
-  margin-right: 5px;
+.streamer img {
+  max-height: 39px;
+  vertical-align: middle;
+  outline: whitesmoke solid 2px;
+}
+
+.streamer .streamer_name {
+  padding-left: 5px;
 }
 
 .spinner {

@@ -1,6 +1,8 @@
 <mat-toolbar *ngIf="!loaded">
   <mat-toolbar-row>
-    <span>Live On Twitch:</span>
+    <span>
+      <img class="vert-mid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAYCAYAAAAVibZIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMjHxIGmVAAACEElEQVRIS+2UzWsTQRjGJyqCF1H8ugiCvSlUEA8Fk8xMorSIx+ZUpO7OJFUv/gm5tJ6FUtBTstmZSHLuTUEvIh7FQ3sQ0qIejPWDHCLakvjMdpKuJg3ZKD31hYfdfd6Z387LvDNEUn9CcN0UTG39F3H1k2SZvie5akkYkulVvK+MJKbeGQYWuElAL0uu2wBu3LleOn0r7Z0YRXO8dAmcb9tQrt8HUK7refr8EBkxXK7OofSvnZVu7TkUG3nWSevz0xOVI9YiM1P+0Sx/MubEK6esFQ2K/EtsRMNhHrUWkSklANgUvLxkrWhQl/mvMbgpqM+sZQBZMwfPR9bah0aAYpMWkVt20NzWMr19A4CnLtP3rRUNmslUDxoR0o5Zi7Txbrw8yR+wFplL+RfA+j4UdJi4G9fHBVUvwGgJpj/9M9TcF5LqZwGD6TWXlq/sQHGhiFT5TI4+PtlRPlM9vD21HZulhWPhnJE5VVjZq2CFXNUkL17E4FgIGtyFK2HhR5NmUDapOPJv/s5j7jo2Mij5dsK/HABNhMrvVcqfdqh3DYDPffNGTH0QrHA1gHViENRlahHARr+cEebWwq3WjUFQtMevfn4gpj6KeHEciG6rdWNg+bsIczZy1ItbRG+gvAVsyIOO8P32DwjTdXgPu2O4mu9b8qDAKrwdoPriJlQyfJpGCrRHwRw1PH9Iqm5GBxLyG1gag8LILGqqAAAAAElFTkSuQmCC"> TWITCH LIVE
+    </span>
     <div class="spinner">
       <div class="rect1"></div>
       <div class="rect2"></div>
@@ -12,14 +14,14 @@
 </mat-toolbar>
 <mat-toolbar *ngIf="loaded">
   <mat-toolbar-row>
-    <span>Live On Twitch:</span>
-    <span *ngFor="let stream of liveStreaming.streams">
-      <a mat-button href="{{stream.channel.url}}" target="_blank">
-        <span class="mat-button-wrapper">
-          <mat-icon>record_voice_over</mat-icon>
-          <span>{{stream.channel.display_name}}</span>
-        </span>
-      </a>
+    <span>
+      <img class="vert-mid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAYCAYAAAAVibZIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMjHxIGmVAAACEElEQVRIS+2UzWsTQRjGJyqCF1H8ugiCvSlUEA8Fk8xMorSIx+ZUpO7OJFUv/gm5tJ6FUtBTstmZSHLuTUEvIh7FQ3sQ0qIejPWDHCLakvjMdpKuJg3ZKD31hYfdfd6Z387LvDNEUn9CcN0UTG39F3H1k2SZvie5akkYkulVvK+MJKbeGQYWuElAL0uu2wBu3LleOn0r7Z0YRXO8dAmcb9tQrt8HUK7refr8EBkxXK7OofSvnZVu7TkUG3nWSevz0xOVI9YiM1P+0Sx/MubEK6esFQ2K/EtsRMNhHrUWkSklANgUvLxkrWhQl/mvMbgpqM+sZQBZMwfPR9bah0aAYpMWkVt20NzWMr19A4CnLtP3rRUNmslUDxoR0o5Zi7Txbrw8yR+wFplL+RfA+j4UdJi4G9fHBVUvwGgJpj/9M9TcF5LqZwGD6TWXlq/sQHGhiFT5TI4+PtlRPlM9vD21HZulhWPhnJE5VVjZq2CFXNUkL17E4FgIGtyFK2HhR5NmUDapOPJv/s5j7jo2Mij5dsK/HABNhMrvVcqfdqh3DYDPffNGTH0QrHA1gHViENRlahHARr+cEebWwq3WjUFQtMevfn4gpj6KeHEciG6rdWNg+bsIczZy1ItbRG+gvAVsyIOO8P32DwjTdXgPu2O4mu9b8qDAKrwdoPriJlQyfJpGCrRHwRw1PH9Iqm5GBxLyG1gag8LILGqqAAAAAElFTkSuQmCC"> TWITCH LIVE
+    </span>
+    <span class="streamer" *ngFor="let stream of liveStreaming.streams">
+      <span (click)="gotoTwitch(stream.channel.url)">
+        <img src="{{stream.channel.logo}}">
+        <span class="streamer_name">{{stream.channel.display_name}} &ndash; {{stream.game}}</span>
+      </span>
     </span>
     <span class="none" *ngIf="liveStreaming.streams.length == 0">
       none

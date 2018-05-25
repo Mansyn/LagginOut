@@ -47,4 +47,7 @@ export class TwitchStreamsComponent implements OnInit {
     return this.http.get(url).map((res: Response) => res.json())
   }
 
+  gotoTwitch(link: string) {
+    window.open(link, "_blank")
+  }
 }
