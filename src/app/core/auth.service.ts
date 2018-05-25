@@ -80,7 +80,8 @@ export class AuthService {
 		let profile = {
 			user_uid: user.uid,
 			name: user.displayName || '',
-			phoneNumber: user.phoneNumber || ''
+			phoneNumber: user.phoneNumber || '',
+			mailing: user.mailing || false
 		}
 		this.profileService.getUserProfile(user.uid)
 			.subscribe(response => {
