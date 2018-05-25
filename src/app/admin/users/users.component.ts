@@ -18,6 +18,8 @@ import { saveAs } from 'file-saver/FileSaver';
 import { AuthService } from '../../core/auth.service'
 import { ProfileService } from '../../core/profile.service'
 import { User, UserProfile } from '../../core/user'
+import { AdminUserDialog } from './dialogs/user/user.component'
+import UserUtils from '../../core/user.utils'
 import { Subject } from 'rxjs/Subject'
 import { combineLatest } from 'rxjs/observable/combineLatest'
 
@@ -35,9 +37,9 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 
   tabIndex = 0;
   displayedColumns = ['select', 'name', 'email', 'roles'];
-  dataSource = new MatTableDataSource<User>();
-  selection = new SelectionModel<User>(true, []);
-  users: User[]
+  dataSource = new MatTableDataSource<UserProfile>();
+  selection = new SelectionModel<UserProfile>(true, []);
+  users: UserProfile[]
 
   constructor(
     public auth: AuthService,
@@ -54,15 +56,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
       userProfiles$, users$,
       (userProfilesData, usersData) => {
         let users = usersData.map((user) => {
-          return {
-            uid: user.uid,
-            displayName: user.displayName,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-            photoURL: user.photoURL,
-            roles: user.roles,
-            profile: userProfilesData.find(p => p.user_uid == user.uid)
-          } as UserProfile
+          return UserUtils.mapToUserProfile(user, userProfilesData.find(p => p.user_uid == user.uid))
         })
         this.dataSource.data = users
         this.users = users
@@ -101,10 +95,10 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
     return found;
   }
 
-  userDialog(add: boolean, role: string): void {
+  roleDialog(add: boolean, role: string): void {
     let targets = this.selection.selected;
 
-    let dialogRef = this.dialog.open(AdminUserDialog, {
+    let dialogRef = this.dialog.open(AdminUserRoleDialog, {
       width: '350px',
       data: { add: add, role: role }
     });
@@ -137,6 +131,26 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
     var res = rightNow.toISOString().slice(0, 10).replace(/-/g, '');
   }
 
+  userDialog(): void {
+    let target = this.selection.selected[0]
+
+    let dialogRef = this.dialog.open(AdminUserDialog, {
+      width: '450px',
+      data: { user: target }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        result.uid = target.uid
+        this.auth.updateUser(result)
+        let updatedProfile = { user_uid: target.uid, name: result.displayName, phoneNumber: result.phoneNumber, color: result.color }
+        this.profileService.updateProfile(target.profile.uid, updatedProfile)
+        this.openSnackBar('User Saved', 'OKAY')
+        this.selection.clear()
+      }
+    });
+  }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000
@@ -150,7 +164,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 }
 
 @Component({
-  selector: 'user-dialog',
+  selector: 'user-role-dialog',
   template: `<h1 mat-dialog-title>
               <span *ngIf="data.add">Add Role</span>
               <span *ngIf="!data.add">Remove Role</span>
@@ -164,7 +178,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
              <button mat-button [mat-dialog-close]="false">Cancel</button>
            </div>`
 })
-export class AdminUserDialog {
-  constructor(public dialogRef: MatDialogRef<AdminUserDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+export class AdminUserRoleDialog {
+  constructor(public dialogRef: MatDialogRef<AdminUserRoleDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 }
 

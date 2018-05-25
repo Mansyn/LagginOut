@@ -6,9 +6,10 @@ import { MatSnackBar } from '@angular/material'
 
 import { AuthService } from '../core/auth.service'
 import { ProfileService } from '../core/profile.service'
-import { Profile, User } from '../core/user'
+import { Profile, User, UserProfile } from '../core/user'
 import { Article } from '../articles/shared/article'
 import { ArticleService } from '../articles/shared/article.service'
+import UserUtils from '../core/user.utils'
 
 import { Subject } from 'rxjs/Subject'
 import { combineLatest } from 'rxjs/observable/combineLatest'
@@ -29,6 +30,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   userRef: User
   profileRef: Profile
+  userProfile: UserProfile
   nameRef: string = ''
   phoneNumberRef: string = ''
   form: FormGroup
@@ -83,6 +85,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.nameRef = this.profileRef.name
         this.phoneNumberRef = this.profileRef.phoneNumber
         this.mailingForm.controls['mailingList'].setValue(this.profileRef.mailing)
+        this.userProfile = UserUtils.mapToUserProfile(user, this.profileRef)
 
         // articles
         let isEditor = this.auth.canEdit(user)

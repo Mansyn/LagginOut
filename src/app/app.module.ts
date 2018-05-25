@@ -60,7 +60,8 @@ import { ArticleService } from './articles/shared/article.service';
 import { EditorComponent } from './editor/editor.component';
 import { EditorArticlesComponent } from './editor/articles/articles.component';
 import { ProfileService } from './core/profile.service';
-import { AdminUserDialog } from './admin/users/users.component';
+import { AdminUserRoleDialog } from './admin/users/users.component';
+import { AdminUserDialog } from './admin/users/dialogs/user/user.component'
 import { AdminVideosComponent } from './admin/videos/videos.component';
 import { AdminVideoDialog } from './admin/videos/dialogs/video.component';
 import { AdminVideoDeleteDialog } from './admin/videos/dialogs/delete.component';
@@ -88,6 +89,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { DisableControlDirective } from './utilities/directives/disable-control'
 import { FocusDirective } from './utilities/directives/focus.directive'
+import { PhonePipe } from './utilities/pipes/phone.pipe'
 
 @NgModule({
 	declarations: [
@@ -103,8 +105,10 @@ import { FocusDirective } from './utilities/directives/focus.directive'
 		EditorArticlesComponent,
 		TruncatePipe,
 		ReversePipe,
+		PhonePipe,
 		EditorComponent,
 		UsersComponent,
+		AdminUserRoleDialog,
 		AdminUserDialog,
 		AdminVideosComponent,
 		AdminVideoDialog,
@@ -167,6 +171,7 @@ import { FocusDirective } from './utilities/directives/focus.directive'
 		ReactiveFormsModule
 	],
 	entryComponents: [
+		AdminUserRoleDialog,
 		AdminUserDialog,
 		AdminVideoDialog,
 		AdminVideoDeleteDialog,

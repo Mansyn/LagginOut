@@ -11,6 +11,15 @@
         <mat-progress-bar mode="indeterminate" *ngIf="working"></mat-progress-bar>
         <form [formGroup]="form" (ngSubmit)="onRegister(form)" class="form-padding">
           <mat-form-field>
+            <input matInput placeholder="Name" type="text" [formControl]="form.controls['name']" [disableControl]="working">
+            <mat-error *ngIf="form.controls['name'].hasError('required')">
+              Name is required
+            </mat-error>
+            <mat-error *ngIf="form.controls['name'].hasError('maxlength')">
+              Name cannot be longer than 30 characters
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
             <input matInput placeholder="Email" type="email" [formControl]="form.controls['email']" [disableControl]="working">
             <mat-error *ngIf="form.controls['email'].hasError('required')">
               Email is required
