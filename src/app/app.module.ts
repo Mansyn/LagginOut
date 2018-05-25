@@ -76,6 +76,9 @@ import { AdminPlaylistDeleteDialog } from './admin/playlists/dialogs/delete.comp
 import { AdminTwitchStreamsComponent } from './admin/twitch/twitch.component';
 import { AdminTwitchDialog } from './admin/twitch/dialogs/twitch.component';
 import { AdminTwitchDeleteDialog } from './admin/twitch/dialogs/delete.component';
+import { EditorArticleComponent } from './editor/articles/article.component';
+import { EditorArticleDialog } from './editor/articles/dialogs/article.component'
+import { EditorArticleDeleteDialog } from './editor/articles/dialogs/delete.component'
 import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component';
 import { RegisterComponent } from './account/register/register.component';
 import { TwitchComponent } from './twitch/twitch.component';
@@ -124,6 +127,9 @@ import { PhonePipe } from './utilities/pipes/phone.pipe'
 		AdminTwitchStreamsComponent,
 		AdminTwitchDialog,
 		AdminTwitchDeleteDialog,
+		EditorArticleComponent,
+		EditorArticleDialog,
+		EditorArticleDeleteDialog,
 		DisableControlDirective,
 		FocusDirective,
 		RegisterComponent,
@@ -181,7 +187,9 @@ import { PhonePipe } from './utilities/pipes/phone.pipe'
 		AdminPlaylistDialog,
 		AdminPlaylistDeleteDialog,
 		AdminTwitchDialog,
-		AdminTwitchDeleteDialog],
+		AdminTwitchDeleteDialog,
+		EditorArticleDialog,
+		EditorArticleDeleteDialog,],
 	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService],
 	bootstrap: [AppComponent]
 })

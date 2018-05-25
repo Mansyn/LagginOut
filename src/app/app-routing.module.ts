@@ -18,6 +18,7 @@ import { RegisterComponent } from './account/register/register.component';
 import { TwitchComponent } from './twitch/twitch.component';
 import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component';
 import { AdminTwitchStreamsComponent } from './admin/twitch/twitch.component';
+import { EditorArticleComponent } from './editor/articles/article.component';
 
 import { AdminGuard } from './core/admin.guard';
 import { EditorGuard } from './core/editor.guard';
@@ -43,6 +44,7 @@ const routes: Routes = [
 	{ path: 'admin/twitch', component: AdminTwitchStreamsComponent, canActivate: [AdminGuard] },
 	{ path: 'editor', component: EditorComponent, canActivate: [EditorGuard] },
 	{ path: 'editor/articles', component: EditorArticlesComponent, canActivate: [EditorGuard] },
+	{ path: 'editor/article/:id', component: EditorArticleComponent, canActivate: [AdminGuard] },
 	{ path: '*', redirectTo: 'home' }
 ];
 

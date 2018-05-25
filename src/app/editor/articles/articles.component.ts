@@ -1,5 +1,6 @@
 import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router'
 import { SelectionModel } from '@angular/cdk/collections';
 import {
 	MatTableDataSource,
@@ -24,6 +25,8 @@ import { AuthService } from '../../core/auth.service';
 import { User } from '../../core/user';
 import { Article } from '../../articles/shared/article';
 import { ArticleService } from '../../articles/shared/article.service';
+import { EditorArticleDialog } from './dialogs/article.component';
+import { EditorArticleDeleteDialog } from './dialogs/delete.component';
 
 @Component({
 	selector: 'editor-articles',
@@ -41,6 +44,7 @@ export class EditorArticlesComponent implements AfterViewInit {
 	selection = new SelectionModel<Article>(true, []);
 
 	constructor(
+		private router: Router,
 		public auth: AuthService,
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar,
@@ -92,14 +96,61 @@ export class EditorArticlesComponent implements AfterViewInit {
 
 	articleDialog(isNew: boolean): void {
 		let target = isNew ? new Article() : this.selection.selected[0];
-    console.log('in articleDialog()', target)
 
-    
+		let dialogRef = this.dialog.open(EditorArticleDialog, {
+			width: '900px',
+			data: { article: target }
+		});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			if (result) {
+				// to go fullscreen
+				if (result.fullscreen) {
+
+					this.router.navigate(['/editor/article', result.new ? '' : target.$key]);
+				}
+				else {
+					if (isNew) {
+						this.articlesService.addArticle(result).then((data) => {
+							this.openSnackBar('Article Saved', 'OKAY');
+						});
+					} else {
+						this.articlesService
+							.updateArticle(this.selection.selected[0].$key, result)
+							.then((data) => {
+								this.openSnackBar('Article Saved', 'OKAY');
+							})
+							.catch((error) => {
+								this.openSnackBar(error, 'OKAY');
+							});
+					}
+				}
+
+				this.selection.clear();
+			}
+		})
 	}
 
 	articleDeleteDialog(): void {
 		let targets = this.selection.selected;
 
+		let dialogRef = this.dialog.open(EditorArticleDeleteDialog, {
+			width: '400px',
+			data: { count: targets.length }
+		});
+
+		dialogRef.afterClosed().subscribe((result) => {
+			if (result) {
+				targets.forEach((target) => {
+					this.articlesService.deleteArticle(target.$key);
+				});
+				this.openSnackBar(
+					targets.length + ' article(s) deleted',
+					'OKAY'
+				);
+				this.selection.clear();
+			}
+		})
 	}
 
 	openSnackBar(message: string, action: string) {
