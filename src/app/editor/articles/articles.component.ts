@@ -35,13 +35,14 @@ import { EditorArticleDeleteDialog } from './dialogs/delete.component';
 })
 export class EditorArticlesComponent implements AfterViewInit {
 
-	@ViewChild(MatSort) sort: MatSort;
-	@ViewChild(MatPaginator) paginator: MatPaginator;
+	@ViewChild(MatSort) sort: MatSort
+	@ViewChild(MatPaginator) paginator: MatPaginator
 
-	loading: boolean;
-	displayedColumns = ['select', 'title', 'name', 'status', 'date'];
-	dataSource = new MatTableDataSource<Article>();
-	selection = new SelectionModel<Article>(true, []);
+	loading: boolean
+	displayedColumns = ['select', 'title', 'name', 'status', 'date']
+	dataSource = new MatTableDataSource<Article>()
+	selection = new SelectionModel<Article>(true, [])
+	user: any
 
 	constructor(
 		private router: Router,
@@ -49,14 +50,16 @@ export class EditorArticlesComponent implements AfterViewInit {
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar,
 		private articlesService: ArticleService) {
-		this.loading = true;
+		this.loading = true
 	}
 
 	ngAfterViewInit() {
 		this.auth.user$.subscribe((user) => {
 			var x = 0;
 			this.articlesService.getUserArticles(user.uid).snapshotChanges().subscribe((data) => {
-				let articles = [];
+				this.user = user
+
+				let articles = []
 				data.forEach((element) => {
 					var y = element.payload.toJSON();
 					y['$key'] = element.key;
@@ -95,38 +98,39 @@ export class EditorArticlesComponent implements AfterViewInit {
 	}
 
 	articleDialog(isNew: boolean): void {
-		let target = isNew ? new Article() : this.selection.selected[0];
+		let target = isNew ? new Article() : this.selection.selected[0]
+
+		target.editor_id = this.user.uid
 
 		let dialogRef = this.dialog.open(EditorArticleDialog, {
 			width: '900px',
 			data: { article: target }
-		});
+		})
 
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
 				// to go fullscreen
 				if (result.fullscreen) {
-
-					this.router.navigate(['/editor/article', result.new ? '' : target.$key]);
+					this.router.navigate(['/editor/article', result.new ? '' : target.$key])
 				}
 				else {
 					if (isNew) {
 						this.articlesService.addArticle(result).then((data) => {
-							this.openSnackBar('Article Saved', 'OKAY');
+							this.openSnackBar('Article Saved', 'OKAY')
 						});
 					} else {
 						this.articlesService
 							.updateArticle(this.selection.selected[0].$key, result)
 							.then((data) => {
-								this.openSnackBar('Article Saved', 'OKAY');
+								this.openSnackBar('Article Saved', 'OKAY')
 							})
 							.catch((error) => {
-								this.openSnackBar(error, 'OKAY');
+								this.openSnackBar(error, 'OKAY')
 							});
 					}
 				}
 
-				this.selection.clear();
+				this.selection.clear()
 			}
 		})
 	}
