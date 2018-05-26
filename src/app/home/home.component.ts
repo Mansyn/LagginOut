@@ -43,12 +43,10 @@ export class HomeComponent implements OnInit {
 
 	handleVideos() {
     var x = this._videosService.getHighlightedVideos();
-    console.log(x)
 		x.snapshotChanges().subscribe((data) => {
 			this.videos = [];
 			data.forEach((element) => {
         var y = element.payload.toJSON();
-        console.log(y)
 				y['$key'] = element.key;
 				y['iframe_html'] = this.embedService.embed(y['link'], {
 					image: 'mqdefault',
@@ -63,7 +61,6 @@ export class HomeComponent implements OnInit {
 				this.videos.push(y as Video);
 			});
       this.videosTop = _.orderBy(this.videos.slice(0, 3), ['timeStamp'], ['desc']);
-      console.log(this.videosTop)
 		});
 	}
 
