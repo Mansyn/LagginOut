@@ -1,31 +1,31 @@
 <div class='layout-column height-fix'>
-  <header class='m-0a main-header'>
+  <header class='m-0a main-header shadow'>
     <div>
-        <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive hide-md hide-lg hide-xl header-logo' />
-        <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive hide-xs hide-sm header-logo-lg' />
+      <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive hide-md hide-lg hide-xl header-logo' />
+      <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive hide-xs hide-sm header-logo-lg' />
     </div>
   </header>
 </div>
 
-<div class='vids-body'>
+<!-- <div class='vids-body'>
   <div class='vids-main'>
     <div class='vid-container'>
       <h2>Newest Video</h2>
       <hr />
       <div class='vids-iframe-container'>
-          <iframe width="600" height="340" src="http://www.youtube.com/embed?max-results=1&controls=0&showinfo=0&rel=0&listType=user_uploads&list=LagginOut"
+          <iframe width="600" height="340" src="http://www.youtube.com/embed?max-results=1&controls=1&showinfo=0&rel=0&listType=user_uploads&list=LagginOut"
           frameborder="0" allowfullscreen=""></iframe>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<div class='vids-title'>
+<!-- <div class='vids-title'>
   <br />
   <h2>Playlists</h2>
-</div>
+</div> -->
 
-<div class='vids-body'>
+<!-- <div class='vids-body'>
   <div class='vids-main'>
     <div *ngFor='let list of playLists | reverse; let i = index' class='vid-container'>
       <h4>{{list.snippet.title}}</h4>
@@ -35,21 +35,39 @@
       <p>{{list.snippet.description}}</p>
     </div>
   </div>
-</div>
+</div> -->
 
-<div class='vids-title'>
+<!-- <div class='vids-title'>
   <br />
   <h2>Most Recent Videos</h2>
-</div>
+</div> -->
 
-<div class='vids-body'>
+<div class='vids-nav'>
+  <div class='nav-title'>
+    PLAYLISTS:
+    <ul>
+      <li class='vid-nav-btn'><a (click)='handleVidsNavigation("All")' >ALL</a></li>
+      <li class='vid-nav-btn' *ngFor='let list of playLists | reverse'><a (click)='handleVidsNavigation(list.snippet.title)'>{{list.snippet.title}}</a></li>
+    </ul>
+  </div>
+</div>
+<div *ngIf='viewAll' class='vids-body'>
   <div class='vids-main'>
     <div *ngFor='let video of videos; let i = index' class='vid-container'>
-      <h4>{{video.snippet.title}}</h4>
-      <p>{{video.snippet.publishedAt}}</p>
+        <div class='vid-series-container'>
+            <h4 class='vid-title'>{{video.series.toUpperCase()}}</h4>
+          </div>
       <a href='https://www.youtube.com/watch?v={{video.id.videoId}}' target='_blank'>
-        <img src='{{video.snippet.thumbnails.high.url}}' class='img-responsive' alt='{{video.snippet.title}}'>
+        <img src='{{video.snippet.thumbnails.high.url}}' class='img-responsive vid-image' alt='{{video.snippet.title}}'>
       </a>
+      <div class='vid-title-container'>
+        <h4 class='vid-title'>{{video.snippet.title.toUpperCase()}}</h4>
+      </div>
     </div>
+  </div>
+</div>
+<div *ngIf='!viewAll' class='vids-body'>
+  <div class='vids-main'>
+    vids here
   </div>
 </div>

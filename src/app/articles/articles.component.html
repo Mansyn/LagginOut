@@ -20,12 +20,12 @@
 <div class='articles-body'>
   <div class='articles-main'>
     <div class='article-container-lead' (click)='handleOpenArticle(0)'>
-      <div class='txt-center'><h2>Newest Article</h2></div>
-      <hr />
-      <p class='article-date'>{{articlesTop[0]?.date}}</p>
-      <br />
+      <div class='txt-center'><h2>FEATURED ARTICLE</h2></div>
       <h4 class='article-title'>{{articlesTop[0]?.title}} - <span class='lead-excerpt'>{{articlesTop[0]?.excerpt}}</span></h4>
-      <div class='article-lead' innerHTML={{articlesTop[0]?.content}}></div>
+      <img width='50%' class='article-lead-image hide-xs hide-sm hide-md ' src='{{articlesTop[0]?.image}}'>
+      <img width='100%' class='article-lead-image hide-lg hide-xl' src='{{articlesTop[0]?.image}}'>
+      <p class='article-title'>WRITTEN BY {{articlesTop[0]?.name}}</p>
+      <p class='article-date'>{{articlesTop[0]?.date}}</p>
       <div class='fadeout'></div>
     </div>
   </div>
@@ -34,11 +34,15 @@
 <div class='articles-body'>
   <div class='articles-main'>
     <div *ngFor='let article of articlesTop.slice(1); let i = index' class='article-container' (click)='handleOpenArticle(i + 1)'>
+      <div class='title-container'>
+        <h4 class='article-title'>{{article.title}}</h4>
+      </div>
+      <div class='excerpt-container'>
+        <p class='article-excerpt' title='article.excerpt'>{{article.excerpt}}</p>
+      </div>
+      <img width='100%' src='{{article.image}}'>
+      <p class='article-title'>WRITTEN BY {{article.name}}</p>
       <p class='article-date'>{{article.date}}</p>
-      <br />
-      <h4 class='article-title'>{{article.title}}</h4>
-      <p class='article-excerpt'>{{article.excerpt}}</p>
-      <div class='article-lead' innerHTML={{article.content}}></div>
       <div class='fadeout'></div>
     </div>
   </div>

@@ -81,10 +81,25 @@ export class HomeComponent implements OnInit {
 					let x = (y as Article);
 					x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
 					if ((x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) && x.type === 'post') {
+            const container = document.createElement('div')
+            container.innerHTML = x.content
+            const img = container.getElementsByTagName('img')[0].getAttribute('src').toString()
+            x.image = img
+
+            if (isNaN(x.name as any)) {
+              x.name = x.name.toUpperCase()
+            }
 						this.articles.push(x);
 					} else if (new Date(x.date).getTime() > 1517547600000){
+            const container = document.createElement('div')
+            container.innerHTML = x.content
+            const img = container.getElementsByTagName('img')[0].getAttribute('src').toString()
+            x.image = img
+
+            if (isNaN(x.name as any)) {
+              x.name = x.name.toUpperCase()
+            }
             this.articles.push(x);
-            console.log('new date',x)
           }
 				});
         // this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 11);

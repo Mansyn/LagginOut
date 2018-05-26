@@ -1,3 +1,9 @@
+.twitch-container {
+  background: #000;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
 .mat-toolbar {
   width: 100%;
   max-width: 1600px;
@@ -7,6 +13,13 @@
 
 .mat-toolbar-row {
   color: rgba(245, 245, 245, 1);
+}
+
+.icon {
+  font-family: Icon;
+  color: #ffeb01;
+  font-size: 2rem;
+  margin: 0 .5rem;
 }
 
 .streamer,

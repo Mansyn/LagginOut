@@ -5,7 +5,7 @@
 }
 
 .header-logo-lg {
-  max-width: 50vw;
+  max-width: 60vw;
 }
 
 .articles-body {
@@ -21,7 +21,7 @@
 }
 .articles-main > div {
   box-sizing: border-box;
-  width: 32rem;
+  width: 21rem;
   flex-grow: 1;
   margin: 0;
   text-align: center;
@@ -38,23 +38,26 @@
 .article-container {
   position: relative;
   flex-grow: 1;
-  height: 30rem;
+  // height: 30rem;
   overflow: hidden;
 
 }
 .article-container-lead {
   position: relative;
   flex-grow: 1;
-  height: 50rem;
   overflow: hidden;
-  margin-bottom: 2rem !important;
+  margin-bottom: .2rem !important;
+  text-align: left !important;
 }
 .lead-excerpt {
   font-weight: 400;
 }
 .article-excerpt {
   text-align: left;
-  height:2.2rem;
+}
+.excerpt-container {
+  height: 2rem;
+  line-height: 1rem;
 }
 .article-date {
   text-align: left;
@@ -68,15 +71,23 @@
   width: 100%;
   font-size: 1.5;
   text-align: left;
+  padding: 0;
+  margin: 0;
+}
+.title-container {
+  height: 2rem;
+  line-height: 1rem;
 }
 .article-lead {
   width: 100%;
   text-align: left;
 }
-
-.article-lead img {
-  max-width:100%;
+.article-lead-image {
+  text-align: left;
 }
+// .article-lead img {
+//   max-width:100%;
+// }
 
 .size-large {
   max-height: 280px !important;
@@ -102,7 +113,6 @@
 }
 .open-modal {
   position: absolute;
-  margin-top: -2.5rem;
   z-index: 1;
   width: 100%;
   height: calc(100vh - 2.5rem);
