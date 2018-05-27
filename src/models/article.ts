@@ -11,6 +11,6 @@ export class Article {
 	type: string;
 	name: string;
 	mime_type: string;
-  timeStamp: Date;
-  image: any;
+	timeStamp: Date;
+	image: any;
 }

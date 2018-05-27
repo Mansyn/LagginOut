@@ -35,9 +35,18 @@ export class ArticleService {
 		return userevents;
 	}
 
-	getRecentArticles() {
-		this.articles = this.db.list('articles', (ref) => ref.orderByChild('timestamp')) as AngularFireList<Article[]>;
-		return this.articles;
+	addArticle(newArticle) {
+		const article = this.fillUndefinedValues(newArticle);
+
+		return this.articles.push(article);
+	}
+
+	updateArticle(key, updateArticle) {
+		return this.articles.update(key, updateArticle);
+	}
+
+	deleteArticle(key: string) {
+		return this.articles.remove(key);
 	}
 
 	fillUndefinedValues(newArticle) {

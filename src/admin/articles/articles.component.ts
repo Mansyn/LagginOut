@@ -1,7 +1,8 @@
-import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, Inject, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Subject } from 'rxjs/Subject';
 import {
 	MatTableDataSource,
 	MatSort,
@@ -21,19 +22,19 @@ import { default as _rollupMoment } from 'moment';
 const moment = _rollupMoment || _moment;
 import _ from 'lodash';
 
-import { AuthService } from '../../core/auth.service';
-import { User } from '../../../models/user';
-import { Article } from '../../../models/article';
-import { ArticleService } from '../../articles/shared/article.service';
-import { EditorArticleDialog } from './dialogs/article.component';
-import { EditorArticleDeleteDialog } from './dialogs/delete.component';
+import { ArticleService } from './article.service';
+import { Article } from '../../models/article';
+import { AdminArticleDeleteDialog } from './dialogs/delete.component';
+import { AdminArticleDialog } from './dialogs/article.component';
 
 @Component({
-	selector: 'editor-articles',
+	selector: 'admin-articles',
 	templateUrl: './articles.component.html',
 	styleUrls: [ './articles.component.scss' ]
 })
-export class EditorArticlesComponent implements AfterViewInit {
+export class AdminArticlesComponent implements AfterViewInit, OnDestroy {
+	destroy$: Subject<boolean> = new Subject<boolean>();
+
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -41,11 +42,9 @@ export class EditorArticlesComponent implements AfterViewInit {
 	displayedColumns = [ 'select', 'title', 'name', 'status', 'date' ];
 	dataSource = new MatTableDataSource<Article>();
 	selection = new SelectionModel<Article>(true, []);
-	user: any;
 
 	constructor(
 		private router: Router,
-		public auth: AuthService,
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar,
 		private articlesService: ArticleService
@@ -54,23 +53,17 @@ export class EditorArticlesComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		this.auth.user$.subscribe((user) => {
-			var x = 0;
-			this.articlesService.getUserArticles(user.uid).snapshotChanges().subscribe((data) => {
-				this.user = user;
-
-				let articles = [];
-				data.forEach((element) => {
-					var y = element.payload.toJSON();
-					y['$key'] = element.key;
-					articles.push(y as Article);
-				});
-
-				this.dataSource.data = articles;
-				this.loading = false;
+		this.articlesService.getArticles().snapshotChanges().takeUntil(this.destroy$).subscribe((data) => {
+			let articles = [];
+			data.forEach((element) => {
+				var y = element.payload.toJSON();
+				y['$key'] = element.key;
+				articles.push(y as Article);
 			});
-		});
 
+			this.dataSource.data = articles;
+			this.loading = false;
+		});
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;
 	}
@@ -100,18 +93,17 @@ export class EditorArticlesComponent implements AfterViewInit {
 	articleDialog(isNew: boolean): void {
 		let target = isNew ? new Article() : this.selection.selected[0];
 
-		target.editor_id = this.user.uid;
-
-		let dialogRef = this.dialog.open(EditorArticleDialog, {
+		let dialogRef = this.dialog.open(AdminArticleDialog, {
 			width: '900px',
 			data: { article: target }
 		});
 
 		dialogRef.afterClosed().subscribe((result) => {
+			console.log('The dialog was closed');
 			if (result) {
 				// to go fullscreen
 				if (result.fullscreen) {
-					this.router.navigate([ '/editor/article', result.new ? '' : target.$key ]);
+					this.router.navigate([ '/admin/article', result.new ? '' : target.$key ]);
 				} else {
 					if (isNew) {
 						this.articlesService.addArticle(result).then((data) => {
@@ -137,7 +129,7 @@ export class EditorArticlesComponent implements AfterViewInit {
 	articleDeleteDialog(): void {
 		let targets = this.selection.selected;
 
-		let dialogRef = this.dialog.open(EditorArticleDeleteDialog, {
+		let dialogRef = this.dialog.open(AdminArticleDeleteDialog, {
 			width: '400px',
 			data: { count: targets.length }
 		});
@@ -157,5 +149,10 @@ export class EditorArticlesComponent implements AfterViewInit {
 		this.snackBar.open(message, action, {
 			duration: 2000
 		});
+	}
+
+	ngOnDestroy() {
+		this.destroy$.next(true);
+		this.destroy$.unsubscribe();
 	}
 }

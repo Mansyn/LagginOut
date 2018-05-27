@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Video } from '../../../models/video';
+import { Video } from '../../models/video';
 import 'rxjs/add/operator/map';
 
 @Injectable()

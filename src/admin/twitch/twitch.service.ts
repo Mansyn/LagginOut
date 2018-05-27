@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { TwitchStreamer } from '../../../models/streamer';
+import { TwitchStreamer } from '../../models/streamer';
 
 @Injectable()
 export class TwitchService {
