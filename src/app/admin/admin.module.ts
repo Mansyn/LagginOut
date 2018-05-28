@@ -1,6 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatCheckboxModule,
+	MatChipsModule,
+	MatDatepickerModule,
+	MatDialogModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatMenuModule,
+	MatNativeDateModule,
+	MatPaginatorModule,
+	MatProgressBarModule,
+	MatProgressSpinnerModule,
+	MatSelectModule,
+	MatSidenavModule,
+	MatSlideToggleModule,
+	MatSnackBarModule,
+	MatSortModule,
+	MatToolbarModule,
+	MatTableModule,
+	MatTabsModule,
+	MatTooltipModule
+} from '@angular/material';
+
 import { AdminComponent } from './admin.component';
 import { UsersComponent } from './users/users.component';
 import { AdminUserRoleDialog } from './users/users.component';
@@ -20,8 +46,35 @@ import { AdminTwitchStreamsComponent } from './twitch/twitch.component';
 import { AdminTwitchDialog } from './twitch/dialogs/twitch.component';
 import { AdminTwitchDeleteDialog } from './twitch/dialogs/delete.component';
 
+import { PhonePipe } from '../utilities/pipes/phone.pipe';
+
 @NgModule({
-	imports: [CommonModule],
+	imports: [
+		CommonModule,
+		MatButtonModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatChipsModule,
+		MatDatepickerModule,
+		MatDialogModule,
+		MatIconModule,
+		MatInputModule,
+		MatListModule,
+		MatMenuModule,
+		MatNativeDateModule,
+		MatPaginatorModule,
+		MatProgressBarModule,
+		MatProgressSpinnerModule,
+		MatSelectModule,
+		MatSidenavModule,
+		MatSlideToggleModule,
+		MatSnackBarModule,
+		MatSortModule,
+		MatToolbarModule,
+		MatTableModule,
+		MatTabsModule,
+		MatTooltipModule
+	],
 	declarations: [
 		AdminComponent,
 		UsersComponent,
@@ -40,7 +93,8 @@ import { AdminTwitchDeleteDialog } from './twitch/dialogs/delete.component';
 		AdminPlaylistDeleteDialog,
 		AdminTwitchStreamsComponent,
 		AdminTwitchDialog,
-		AdminTwitchDeleteDialog
+		AdminTwitchDeleteDialog,
+		PhonePipe
 	],
 	entryComponents: [
 		AdminUserRoleDialog,

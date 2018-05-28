@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SSL_OP_NO_TLSv1_1 } from 'constants';
+//import { SSL_OP_NO_TLSv1_1 } from 'constants';
 
 @Component({
   selector: 'videos',
@@ -58,7 +58,7 @@ export class VideosComponent implements OnInit {
   }
 
   getPlayListItems(title, id) {
-    let response = (this.httpGet('https://www.googleapis.com/youtube/v3/playlistItems?channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=25&part=snippet,contentDetails&playlistId='+id+'&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4'))
+    let response = (this.httpGet('https://www.googleapis.com/youtube/v3/playlistItems?channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=25&part=snippet,contentDetails&playlistId=' + id + '&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4'))
     let listItem = JSON.parse(response)
     for (let i = 0; i < listItem.items.length; i++) {
       console.log(title, id, listItem.items[i].snippet.playlistId)
@@ -80,16 +80,16 @@ export class VideosComponent implements OnInit {
       let dt = yt.items[i].snippet.publishedAt
       dt = new Date(dt)
       yt.items[i].snippet.publishedAt = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear()
-      if ( yt.items[i].snippet.title.match(/\(([^)]+)\)/)) {
-        yt.items[i].series =  yt.items[i].snippet.title.match(/\(([^)]+)\)/)[1]
-        yt.items[i].snippet.title =  yt.items[i].snippet.title.replace((/\(([^)]+)\)/), '')
+      if (yt.items[i].snippet.title.match(/\(([^)]+)\)/)) {
+        yt.items[i].series = yt.items[i].snippet.title.match(/\(([^)]+)\)/)[1]
+        yt.items[i].snippet.title = yt.items[i].snippet.title.replace((/\(([^)]+)\)/), '')
       }
     }
     this.videos = yt.items
   }
 
   handleVidsNavigation(x) {
-    if(x === 'All') {
+    if (x === 'All') {
       this.viewAll = true
     } else {
       this.viewAll = false

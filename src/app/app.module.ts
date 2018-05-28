@@ -74,7 +74,6 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { DisableControlDirective } from './utilities/directives/disable-control';
 import { FocusDirective } from './utilities/directives/focus.directive';
-import { PhonePipe } from './utilities/pipes/phone.pipe';
 
 @NgModule({
 	declarations: [
@@ -89,7 +88,6 @@ import { PhonePipe } from './utilities/pipes/phone.pipe';
 		EditorArticlesComponent,
 		TruncatePipe,
 		ReversePipe,
-		PhonePipe,
 		EditorComponent,
 		EditorArticleComponent,
 		EditorArticleDialog,
@@ -140,8 +138,8 @@ import { PhonePipe } from './utilities/pipes/phone.pipe';
 		FormsModule,
 		ReactiveFormsModule
 	],
-	entryComponents: [ EditorArticleDialog, EditorArticleDeleteDialog ],
-	providers: [ VideosService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService ],
-	bootstrap: [ AppComponent ]
+	entryComponents: [EditorArticleDialog, EditorArticleDeleteDialog],
+	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService],
+	bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
