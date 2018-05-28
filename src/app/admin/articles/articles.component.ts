@@ -22,7 +22,7 @@ import { default as _rollupMoment } from 'moment';
 const moment = _rollupMoment || _moment;
 import _ from 'lodash';
 
-import { ArticleService } from './article.service';
+import { ArticleService } from '../../articles/shared/article.service'
 import { Article } from '../../models/article';
 import { AdminArticleDeleteDialog } from './dialogs/delete.component';
 import { AdminArticleDialog } from './dialogs/article.component';
@@ -30,7 +30,7 @@ import { AdminArticleDialog } from './dialogs/article.component';
 @Component({
 	selector: 'admin-articles',
 	templateUrl: './articles.component.html',
-	styleUrls: [ './articles.component.scss' ]
+	styleUrls: ['./articles.component.scss']
 })
 export class AdminArticlesComponent implements AfterViewInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>();
@@ -39,7 +39,7 @@ export class AdminArticlesComponent implements AfterViewInit, OnDestroy {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	loading: boolean;
-	displayedColumns = [ 'select', 'title', 'name', 'status', 'date' ];
+	displayedColumns = ['select', 'title', 'name', 'status', 'date'];
 	dataSource = new MatTableDataSource<Article>();
 	selection = new SelectionModel<Article>(true, []);
 
@@ -103,7 +103,7 @@ export class AdminArticlesComponent implements AfterViewInit, OnDestroy {
 			if (result) {
 				// to go fullscreen
 				if (result.fullscreen) {
-					this.router.navigate([ '/admin/article', result.new ? '' : target.$key ]);
+					this.router.navigate(['/admin/article', result.new ? '' : target.$key]);
 				} else {
 					if (isNew) {
 						this.articlesService.addArticle(result).then((data) => {

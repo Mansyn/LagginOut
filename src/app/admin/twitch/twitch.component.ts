@@ -4,7 +4,7 @@ import { AngularFireList } from 'angularfire2/database';
 import { Observable } from '@firebase/util';
 import { Subject } from 'rxjs';
 
-import { TwitchService } from './twitch.service';
+import { TwitchService } from '../../twitch/shared/twitch.service';
 import { TwitchStreamer } from '../../models/streamer';
 import { AdminTwitchDialog } from './dialogs/twitch.component';
 import { AdminTwitchDeleteDialog } from './dialogs/delete.component';
@@ -12,14 +12,14 @@ import { AdminTwitchDeleteDialog } from './dialogs/delete.component';
 @Component({
 	selector: 'admin-twitch',
 	templateUrl: './twitch.component.html',
-	styleUrls: [ './twitch.component.scss' ]
+	styleUrls: ['./twitch.component.scss']
 })
 export class AdminTwitchStreamsComponent implements AfterViewInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>();
 
 	public streamers: TwitchStreamer[];
 
-	constructor(private twitchService: TwitchService, public dialog: MatDialog, public snackBar: MatSnackBar) {}
+	constructor(private twitchService: TwitchService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
 	ngAfterViewInit() {
 		this.twitchService.getStreamers().snapshotChanges().takeUntil(this.destroy$).subscribe((data) => {

@@ -7,13 +7,13 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { Article } from '../../models/article';
+import { Article } from '../models/article';
 import { ArticleService } from './shared/article.service';
 
 @Component({
 	selector: 'articles',
 	templateUrl: './articles.component.html',
-	styleUrls: [ './articles.component.scss' ]
+	styleUrls: ['./articles.component.scss']
 })
 export class ArticlesComponent implements OnInit {
 	articles: Article[];
@@ -21,7 +21,7 @@ export class ArticlesComponent implements OnInit {
 	articleOpen: boolean;
 	openArticle: any;
 
-	constructor(private articleService: ArticleService) {}
+	constructor(private articleService: ArticleService) { }
 
 	ngOnInit() {
 		const filter = [];
@@ -64,7 +64,7 @@ export class ArticlesComponent implements OnInit {
 					this.articles.push(x);
 				}
 			});
-			this.articlesTop = _.sortBy(this.articles, function(o) {
+			this.articlesTop = _.sortBy(this.articles, function (o) {
 				return moment(o.date, 'M/D/YYYY');
 			}).reverse();
 		});
@@ -72,7 +72,7 @@ export class ArticlesComponent implements OnInit {
 	}
 
 	orderByDate(arr, dateProp) {
-		return arr.slice().sort(function(a, b) {
+		return arr.slice().sort(function (a, b) {
 			return a[dateProp] < b[dateProp] ? -1 : 1;
 		});
 	}

@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
 import { Endpoints } from '../../twitch/shared/endpoints.twitch';
 import { StreamObject } from '../../twitch/shared/stream.twitch';
-import { TwitchStreamer } from '../../../models/streamer';
+import { TwitchStreamer } from '../../models/streamer';
 import { TwitchService } from '../../twitch/shared/twitch.service';
 
 import '../../twitch/shared/v1';
@@ -12,14 +12,14 @@ import '../../twitch/shared/v1';
 @Component({
 	selector: 'twitch-streams',
 	templateUrl: './twitch-streams.component.html',
-	styleUrls: [ './twitch-streams.component.scss' ]
+	styleUrls: ['./twitch-streams.component.scss']
 })
 export class TwitchStreamsComponent implements OnInit {
 	streamers: any;
 	loaded: boolean = false;
 	liveStreaming: StreamObject;
 
-	constructor(private http: Http, private twitchService: TwitchService) {}
+	constructor(private http: Http, private twitchService: TwitchService) { }
 
 	ngOnInit() {
 		this.twitchService.getStreamers().valueChanges().subscribe((streamers) => {

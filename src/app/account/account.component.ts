@@ -6,10 +6,10 @@ import { MatSnackBar } from '@angular/material';
 
 import { AuthService } from '../core/auth.service';
 import { ProfileService } from '../core/profile.service';
-import { Profile, User, UserProfile } from '../../models/user';
-import { Article } from '../../models/article';
+import { Profile, User, UserProfile } from '../models/user';
+import { Article } from '../models/article';
 import { ArticleService } from '../articles/shared/article.service';
-import UserUtils from '../../models/user.utils';
+import UserUtils from '../models/user.utils';
 
 import { Subject } from 'rxjs/Subject';
 import { combineLatest } from 'rxjs/observable/combineLatest';
@@ -18,7 +18,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
 	selector: 'account',
 	templateUrl: './account.component.html',
-	styleUrls: [ './account.component.scss' ]
+	styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>();
@@ -44,7 +44,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 		private router: Router,
 		private articleService: ArticleService,
 		public snackBar: MatSnackBar
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.buildForms();
@@ -53,18 +53,18 @@ export class AccountComponent implements OnInit, OnDestroy {
 				this.getUserData(user);
 				this.onChanges();
 			} else {
-				this.router.navigate([ '/account/login' ]);
+				this.router.navigate(['/account/login']);
 			}
 		});
 	}
 
 	buildForms() {
 		this.form = this.fb.group({
-			email: [ '', Validators.compose([ Validators.email, Validators.required ]) ],
-			password: [ '', Validators.required ]
+			email: ['', Validators.compose([Validators.email, Validators.required])],
+			password: ['', Validators.required]
 		});
 		this.mailingForm = this.fb.group({
-			mailingList: [ '' ]
+			mailingList: ['']
 		});
 	}
 
@@ -133,8 +133,8 @@ export class AccountComponent implements OnInit, OnDestroy {
 
 	signout() {
 		let that = this;
-		this.afAuth.auth.signOut().then(function() {
-			that.router.navigate([ '/home' ]);
+		this.afAuth.auth.signOut().then(function () {
+			that.router.navigate(['/home']);
 		});
 	}
 

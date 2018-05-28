@@ -15,8 +15,8 @@ import {
 import _ from 'lodash';
 import { saveAs } from 'file-saver/FileSaver';
 
-import { AuthService } from './auth.service';
-import { ProfileService } from './profile.service';
+import { AuthService } from '../../core/auth.service';
+import { ProfileService } from '../../core/profile.service';
 import { User, UserProfile, Profile } from '../../models/user';
 import { AdminUserDialog } from './dialogs/user/user.component';
 import UserUtils from '../../models/user.utils';
@@ -26,7 +26,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 @Component({
 	selector: 'users',
 	templateUrl: './users.component.html',
-	styleUrls: [ './users.component.scss' ]
+	styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements AfterViewInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>();
@@ -35,7 +35,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	tabIndex = 0;
-	displayedColumns = [ 'select', 'name', 'email', 'roles' ];
+	displayedColumns = ['select', 'name', 'email', 'roles'];
 	dataSource = new MatTableDataSource<UserProfile>();
 	selection = new SelectionModel<UserProfile>(true, []);
 	users: UserProfile[];
@@ -45,7 +45,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 		private profileService: ProfileService,
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar
-	) {}
+	) { }
 
 	ngAfterViewInit() {
 		const profiles$ = this.profileService.getProfilesSnapshot();
@@ -190,5 +190,5 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
            </div>`
 })
 export class AdminUserRoleDialog {
-	constructor(public dialogRef: MatDialogRef<AdminUserRoleDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+	constructor(public dialogRef: MatDialogRef<AdminUserRoleDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 }

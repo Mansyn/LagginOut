@@ -12,14 +12,14 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { ArticleService } from './article.service';
+import { ArticleService } from '../../articles/shared/article.service'
 import { Article } from '../../models/article';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
 	selector: 'admin-article',
 	templateUrl: './article.component.html',
-	styleUrls: [ './articles.component.scss' ]
+	styleUrls: ['./articles.component.scss']
 })
 export class AdminArticleComponent implements OnInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>();
@@ -40,7 +40,7 @@ export class AdminArticleComponent implements OnInit, OnDestroy {
 		private _location: Location,
 		public snackBar: MatSnackBar,
 		private articlesService: ArticleService
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.sub = this.route.params.subscribe((params) => {
@@ -50,13 +50,13 @@ export class AdminArticleComponent implements OnInit, OnDestroy {
 				this.form = this.fb.group({
 					title: [
 						this.article.title || null,
-						Validators.compose([ Validators.maxLength(50), Validators.required ])
+						Validators.compose([Validators.maxLength(50), Validators.required])
 					],
-					name: [ this.article.name || null, Validators.maxLength(50) ],
-					date: [ this.article.date || moment(), Validators.required ],
-					type: [ this.article.type || null, Validators.required ],
-					excerpt: [ this.article.excerpt || null, Validators.maxLength(100) ],
-					content: [ this.article.content || null ]
+					name: [this.article.name || null, Validators.maxLength(50)],
+					date: [this.article.date || moment(), Validators.required],
+					type: [this.article.type || null, Validators.required],
+					excerpt: [this.article.excerpt || null, Validators.maxLength(100)],
+					content: [this.article.content || null]
 				});
 				this.article.type = 'post';
 			} else {
@@ -73,13 +73,13 @@ export class AdminArticleComponent implements OnInit, OnDestroy {
 						this.form = this.fb.group({
 							title: [
 								this.article.title || null,
-								Validators.compose([ Validators.maxLength(50), Validators.required ])
+								Validators.compose([Validators.maxLength(50), Validators.required])
 							],
-							name: [ this.article.name || null, Validators.maxLength(50) ],
-							date: [ this.article.date || moment(), Validators.required ],
-							type: [ this.article.type || null, Validators.required ],
-							excerpt: [ this.article.excerpt || null, Validators.maxLength(100) ],
-							content: [ this.article.content || null ]
+							name: [this.article.name || null, Validators.maxLength(50)],
+							date: [this.article.date || moment(), Validators.required],
+							type: [this.article.type || null, Validators.required],
+							excerpt: [this.article.excerpt || null, Validators.maxLength(100)],
+							content: [this.article.content || null]
 						});
 					});
 			}

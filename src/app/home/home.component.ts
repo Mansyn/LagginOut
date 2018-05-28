@@ -7,10 +7,10 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 const moment = _rollupMoment || _moment;
 
-import { Video } from '../../models/video';
+import { Video } from '../models/video';
 import { VideosService } from '../videos/shared/videos.service';
 
-import { Article } from '../../models/article';
+import { Article } from '../models/article';
 import { ArticleService } from '../articles/shared/article.service';
 
 import { EmbedVideoService } from 'ngx-embed-video';
@@ -19,7 +19,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 @Component({
 	selector: 'home',
 	templateUrl: './home.component.html',
-	styleUrls: [ './home.component.scss' ]
+	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 	videos: Video[];
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
 		private _videosService: VideosService,
 		private embedService: EmbedVideoService,
 		private articleService: ArticleService
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.handleVideos();
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
 				});
 				this.videos.push(y as Video);
 			});
-			this.videosTop = _.orderBy(this.videos.slice(0, 3), [ 'timeStamp' ], [ 'desc' ]);
+			this.videosTop = _.orderBy(this.videos.slice(0, 3), ['timeStamp'], ['desc']);
 		});
 	}
 
@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit {
 				}
 			});
 			// this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 11);
-			this.articlesTop = _.sortBy(this.articles, function(o) {
+			this.articlesTop = _.sortBy(this.articles, function (o) {
 				return moment(o.date, 'M/D/YYYY');
 			})
 				.reverse()
@@ -123,5 +123,5 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	handleRouteToArticle(i) {}
+	handleRouteToArticle(i) { }
 }

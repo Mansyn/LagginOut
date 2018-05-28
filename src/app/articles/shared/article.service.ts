@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Article } from '../../../models/article';
+import { Article } from '../../models/article';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
@@ -22,17 +22,13 @@ export class ArticleService {
 	}
 
 	getUserArticles(uid: string) {
-		this.articles = this.db.list('articles', (ref) =>
-			ref.orderByChild('editor_id').equalTo(uid)
-		) as AngularFireList<Article[]>;
+		this.articles = this.db.list('articles', ref => ref.orderByChild('editor_id').equalTo(uid)) as AngularFireList<Article[]>;
 		return this.articles;
 	}
 
 	getUserArticlesData(uid: string): Observable<any> {
-		let userevents = this.db
-			.list('articles', (ref) => ref.orderByChild('editor_id').equalTo(uid))
-			.snapshotChanges();
-		return userevents;
+		let userevents = this.db.list('articles', ref => ref.orderByChild('editor_id').equalTo(uid)).snapshotChanges()
+		return userevents
 	}
 
 	getRecentArticles() {
@@ -40,15 +36,29 @@ export class ArticleService {
 		return this.articles;
 	}
 
+	addArticle(newArticle) {
+		const article = this.fillUndefinedValues(newArticle)
+
+		return this.articles.push(article);
+	}
+
+	updateArticle(key, updateArticle) {
+		return this.articles.update(key, updateArticle);
+	}
+
+	deleteArticle(key: string) {
+		return this.articles.remove(key);
+	}
+
 	fillUndefinedValues(newArticle) {
-		console.log(newArticle);
+		console.log(newArticle)
 		for (let key in newArticle) {
-			console.log(key, newArticle[key]);
+			console.log(key, newArticle[key])
 			if (!newArticle[key]) {
-				newArticle[key] = '';
+				newArticle[key] = ''
 			}
 		}
-		let article = newArticle;
-		return article;
+		let article = newArticle
+		return article
 	}
 }

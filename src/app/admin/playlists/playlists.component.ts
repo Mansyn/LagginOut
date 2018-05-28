@@ -13,7 +13,7 @@ import {
 	MatSnackBar
 } from '@angular/material';
 
-import { PlaylistsService } from './playlists.service';
+import { PlaylistsService } from '../../videos/shared/playlists.service'
 import { Playlist } from '../../models/playlist';
 import { AdminPlaylistDeleteDialog } from './dialogs/delete.component';
 import { AdminPlaylistDialog } from './dialogs/playlist.component';
@@ -21,7 +21,7 @@ import { AdminPlaylistDialog } from './dialogs/playlist.component';
 @Component({
 	selector: 'admin-playlists',
 	templateUrl: './playlists.component.html',
-	styleUrls: [ './playlists.component.scss' ]
+	styleUrls: ['./playlists.component.scss']
 })
 export class AdminPlaylistsComponent implements AfterViewInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>();
@@ -31,12 +31,12 @@ export class AdminPlaylistsComponent implements AfterViewInit, OnDestroy {
 
 	loading: boolean = true;
 	tabIndex = 0;
-	displayedColumns = [ 'select', 'title', 'url' ];
+	displayedColumns = ['select', 'title', 'url'];
 	dataSource = new MatTableDataSource<Playlist>();
 	selection = new SelectionModel<Playlist>(true, []);
 	highlighted: Playlist[];
 
-	constructor(public dialog: MatDialog, public snackBar: MatSnackBar, private playlistsService: PlaylistsService) {}
+	constructor(public dialog: MatDialog, public snackBar: MatSnackBar, private playlistsService: PlaylistsService) { }
 
 	ngAfterViewInit() {
 		this.playlistsService.getPlaylists().snapshotChanges().takeUntil(this.destroy$).subscribe((data) => {

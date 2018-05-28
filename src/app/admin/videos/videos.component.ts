@@ -13,7 +13,7 @@ import {
 } from '@angular/material';
 import _ from 'lodash';
 
-import { VideosService } from './videos.service';
+import { VideosService } from '../../videos/shared/videos.service';
 import { Video } from '../../models/video';
 import { AdminVideoDeleteDialog } from './dialogs/delete.component';
 import { AdminVideoDialog } from './dialogs/video.component';
@@ -23,7 +23,7 @@ import { Subject } from 'rxjs/Subject';
 @Component({
 	selector: 'admin-videos',
 	templateUrl: './videos.component.html',
-	styleUrls: [ './videos.component.scss' ]
+	styleUrls: ['./videos.component.scss']
 })
 export class AdminVideosComponent implements AfterViewInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>();
@@ -33,12 +33,12 @@ export class AdminVideosComponent implements AfterViewInit, OnDestroy {
 
 	loading: boolean = true;
 	tabIndex = 0;
-	displayedColumns = [ 'select', 'title', 'description', 'link', 'highlight' ];
+	displayedColumns = ['select', 'title', 'description', 'link', 'highlight'];
 	dataSource = new MatTableDataSource<Video>();
 	selection = new SelectionModel<Video>(true, []);
 	highlighted: Video[];
 
-	constructor(public dialog: MatDialog, public snackBar: MatSnackBar, private videosService: VideosService) {}
+	constructor(public dialog: MatDialog, public snackBar: MatSnackBar, private videosService: VideosService) { }
 
 	ngAfterViewInit() {
 		this.videosService.getVideos().snapshotChanges().takeUntil(this.destroy$).subscribe((data) => {

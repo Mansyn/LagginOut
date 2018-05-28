@@ -20,10 +20,8 @@ import { AdminTwitchStreamsComponent } from './twitch/twitch.component';
 import { AdminTwitchDialog } from './twitch/dialogs/twitch.component';
 import { AdminTwitchDeleteDialog } from './twitch/dialogs/delete.component';
 
-import { ArticleService } from './articles/article.service';
-
 @NgModule({
-	imports: [ CommonModule ],
+	imports: [CommonModule],
 	declarations: [
 		AdminComponent,
 		UsersComponent,
@@ -57,7 +55,6 @@ import { ArticleService } from './articles/article.service';
 		AdminTwitchDialog,
 		AdminTwitchDeleteDialog
 	],
-	providers: [ ArticleService ],
-	exports: [ AdminComponent ]
+	exports: [AdminComponent]
 })
-export class AdminModule {}
+export class AdminModule { }

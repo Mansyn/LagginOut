@@ -1,4 +1,4 @@
-import { User, Profile, UserProfile } from '../../models/user';
+import { User, Profile, UserProfile } from './user';
 
 export default class UserUtils {
 	static mapToUserProfile(user: User, profile: Profile): UserProfile {

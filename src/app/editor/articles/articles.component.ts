@@ -22,8 +22,8 @@ const moment = _rollupMoment || _moment;
 import _ from 'lodash';
 
 import { AuthService } from '../../core/auth.service';
-import { User } from '../../../models/user';
-import { Article } from '../../../models/article';
+import { User } from '../../models/user';
+import { Article } from '../../models/article';
 import { ArticleService } from '../../articles/shared/article.service';
 import { EditorArticleDialog } from './dialogs/article.component';
 import { EditorArticleDeleteDialog } from './dialogs/delete.component';
@@ -31,14 +31,14 @@ import { EditorArticleDeleteDialog } from './dialogs/delete.component';
 @Component({
 	selector: 'editor-articles',
 	templateUrl: './articles.component.html',
-	styleUrls: [ './articles.component.scss' ]
+	styleUrls: ['./articles.component.scss']
 })
 export class EditorArticlesComponent implements AfterViewInit {
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	loading: boolean;
-	displayedColumns = [ 'select', 'title', 'name', 'status', 'date' ];
+	displayedColumns = ['select', 'title', 'name', 'status', 'date'];
 	dataSource = new MatTableDataSource<Article>();
 	selection = new SelectionModel<Article>(true, []);
 	user: any;
@@ -111,7 +111,7 @@ export class EditorArticlesComponent implements AfterViewInit {
 			if (result) {
 				// to go fullscreen
 				if (result.fullscreen) {
-					this.router.navigate([ '/editor/article', result.new ? '' : target.$key ]);
+					this.router.navigate(['/editor/article', result.new ? '' : target.$key]);
 				} else {
 					if (isNew) {
 						this.articlesService.addArticle(result).then((data) => {
