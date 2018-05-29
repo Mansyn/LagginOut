@@ -7,10 +7,6 @@ header {
   margin-bottom: 1rem;
 }
 
-.main-body {
-  margin-top: 1rem;
-}
-
 .header-logo-lg {
   max-width: 60vw;
 }
@@ -96,11 +92,12 @@ blockquote p {
 }
 
 .recents {
-  background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(29, 29, 29, 1) 51%, rgba(0, 0, 0, 1) 100%);
-  padding: 1rem 1rem 2rem;
   max-width: 100vw;
   flex-wrap: wrap;
   justify-content: center;
+  white-space: nowrap;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
 }
 
 .article-content {
@@ -145,6 +142,10 @@ blockquote p {
 
 .article-header {
   color: #bebebe
+}
+
+.article-title-text {
+  margin-bottom: 0;
 }
 
 .leftRs {

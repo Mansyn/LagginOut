@@ -38,7 +38,7 @@ export class ArticlesComponent implements OnInit {
           x.title = x.title.toUpperCase()
           x.content = x.content.replace(new RegExp('http://www.lagginout.com/wp-content/', 'g'), 'assets/images/')
           if ((x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) && x.type === 'post') {
-            x.content = x.content.replace(new RegExp('img src', 'g'), 'img width="100%" src')
+            x.content = x.content.replace(new RegExp('img src', 'g'), 'img style="max-width: 90vw" src')
             const container = document.createElement('div')
             container.innerHTML = x.content
             if (container.getElementsByTagName('img')[0].getAttribute('src')) {

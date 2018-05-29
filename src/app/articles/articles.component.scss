@@ -11,7 +11,7 @@
 .articles-body {
   max-width: 1600px;
   width: 100%;
-  margin: 2rem auto;
+  margin: 0 auto;
   // min-height: calc(100vh - 13rem);
 }
 .articles-main {
@@ -35,19 +35,46 @@
   background-color: #2e2e2e;
 }
 
+.articles-feature {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
+}
+
+.articles-feature > div:hover {
+  background-color: #2e2e2e;
+}
+
 .article-container {
   position: relative;
   flex-grow: 1;
-  // height: 30rem;
   overflow: hidden;
 
 }
 .article-container-lead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   position: relative;
-  flex-grow: 1;
   overflow: hidden;
-  margin-bottom: .2rem !important;
-  text-align: left !important;
+}
+
+.article-feature-img {
+  max-width: 25rem;
+}
+.article-feature-info {
+  flex-grow: 3;
+  padding-left: 1rem;
+}
+.article-feature-info h4 {
+  font-size: 1.2rem;
+  margin-bottom: 3px;
+}
+.article-feature-info h5 {
+  font-size: 1rem;
+  margin:0;
 }
 .lead-excerpt {
   font-weight: 400;
@@ -66,6 +93,9 @@
 .article-image {
   max-width: 80%;
   margin:1.5rem 0;
+}
+.in-article-img {
+  max-width: 100%
 }
 .article-title {
   width: 100%;
@@ -119,6 +149,10 @@
   background-color: rgba(0, 0, 0, 0.4);
   overflow: auto;
 }
+.open-modal a {
+  max-width: 100%;
+}
+
 .open-article {
   position: relative;
   padding: 1rem;
@@ -127,4 +161,8 @@
   color: #fff;
   margin: 0 auto 12rem;
   overflow-y: auto;
+}
+
+.open-article img {
+  max-width: 90vw;
 }

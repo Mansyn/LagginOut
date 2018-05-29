@@ -9,7 +9,7 @@
   </header>
   <!-- <div class='spacer'></div> -->
 
-  <twitch-streams></twitch-streams>
+  <twitch-streams class='hide-xs hide-sm'></twitch-streams>
 
   <main class='main-body pad-5'>
     <section id='recentvids'>
@@ -20,16 +20,14 @@
       </div>
       <div class='recents hide-xs hide-sm layout-row layout-align-space-between-center'>
         <div class='recents' *ngFor="let video of videosTop">
-          {{ video.title }}
+          <strong>{{ video.title.toUpperCase() }}</strong>
           <div [innerHtml]="video.iframe_html"></div>
-          <br />
         </div>
       </div>
       <div class='recents hide-md hide-lg hide-xl layout-row layout-align-space-between-center'>
         <div class='recents' *ngFor="let video of videosTop">
-          {{ video.title.toUpperCase() }}
+            <strong>{{ video.title.toUpperCase() }}</strong>
           <div [innerHtml]="video.iframe_html2"></div>
-          <br />
         </div>
       </div>
     </section>
@@ -47,7 +45,7 @@
           </a>
           <div class='article-text'>
             <a class='article-title-link' [routerLink]="['/articles']" [queryParams]="{index: i}">
-              <h3>{{article.title.toUpperCase()}}</h3>
+              <h3 class='article-title-text'>{{article.title.toUpperCase()}}</h3>
             </a>
             <hr />
             <p class='article-date'>{{article.date}}</p>

@@ -24,21 +24,32 @@
 
 .streamer,
 .none {
-  margin-left: 10px;
+  margin-left: 1rem;
 }
 
 .streamer {
   cursor: pointer;
+  max-height: 41px;
+  line-height: 20px;
+  font-size: 14px;
 }
 
 .streamer img {
   max-height: 39px;
   vertical-align: middle;
   outline: whitesmoke solid 2px;
+  position: absolute;
+  left: auto;
 }
 
 .streamer .streamer_name {
   padding-left: 5px;
+  margin-left: 39px;
+}
+
+.streamer .game-title {
+  font-size: 12px;
+  margin-left: 45px;
 }
 
 .spinner {
