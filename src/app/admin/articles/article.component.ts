@@ -44,7 +44,7 @@ export class AdminArticleComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.sub = this.route.params.subscribe((params) => {
-			this.id = +params['id']; // (+) converts string 'id' to a number
+			this.id = params['id']; // (+) converts string 'id' to a number
 			if (this.id == 0) {
 				this.article = new Article();
 				this.form = this.fb.group({

@@ -10,25 +10,16 @@ import { PipeResolver } from '@angular/compiler/src/pipe_resolver';
 import {
 	MatButtonModule,
 	MatCardModule,
-	MatCheckboxModule,
 	MatChipsModule,
-	MatDatepickerModule,
-	MatDialogModule,
 	MatIconModule,
 	MatInputModule,
 	MatListModule,
 	MatMenuModule,
-	MatNativeDateModule,
-	MatPaginatorModule,
 	MatProgressBarModule,
 	MatProgressSpinnerModule,
-	MatSelectModule,
-	MatSidenavModule,
 	MatSlideToggleModule,
 	MatSnackBarModule,
-	MatSortModule,
 	MatToolbarModule,
-	MatTableModule,
 	MatTabsModule,
 	MatTooltipModule
 } from '@angular/material';
@@ -38,7 +29,6 @@ import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { EmbedVideo } from 'ngx-embed-video';
-import { QuillEditorModule } from 'ngx-quill-editor';
 
 // app code
 import { environment } from '../environments/environment';
@@ -55,12 +45,7 @@ import { PlaylistsService } from './videos/shared/playlists.service';
 import { VideosComponent } from './videos/videos.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleService } from './articles/shared/article.service';
-import { EditorComponent } from './editor/editor.component';
-import { EditorArticlesComponent } from './editor/articles/articles.component';
 import { ProfileService } from './core/profile.service';
-import { EditorArticleComponent } from './editor/articles/article.component';
-import { EditorArticleDialog } from './editor/articles/dialogs/article.component';
-import { EditorArticleDeleteDialog } from './editor/articles/dialogs/delete.component';
 import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component';
 import { RegisterComponent } from './account/register/register.component';
 import { TwitchComponent } from './twitch/twitch.component';
@@ -70,10 +55,9 @@ import { SocialService } from './social/social.service';
 import { TwitchService } from './twitch/shared/twitch.service';
 
 // utilities, pipes, etc
-import { TruncatePipe } from './pipes/truncate.pipe';
-import { ReversePipe } from './pipes/reverse.pipe';
-import { DisableControlDirective } from './utilities/directives/disable-control';
-import { FocusDirective } from './utilities/directives/focus.directive';
+import { ReversePipe } from './utilities/pipes/reverse.pipe'
+import { DisableControlDirective } from './utilities/directives/disable-control'
+import { FocusDirective } from './utilities/directives/focus.directive'
 
 @NgModule({
 	declarations: [
@@ -85,13 +69,7 @@ import { FocusDirective } from './utilities/directives/focus.directive';
 		FooterComponent,
 		VideosComponent,
 		ArticlesComponent,
-		EditorArticlesComponent,
-		TruncatePipe,
 		ReversePipe,
-		EditorComponent,
-		EditorArticleComponent,
-		EditorArticleDialog,
-		EditorArticleDeleteDialog,
 		DisableControlDirective,
 		FocusDirective,
 		RegisterComponent,
@@ -113,32 +91,21 @@ import { FocusDirective } from './utilities/directives/focus.directive';
 		HttpModule,
 		MatButtonModule,
 		MatCardModule,
-		MatCheckboxModule,
 		MatChipsModule,
-		MatDatepickerModule,
-		MatDialogModule,
 		MatIconModule,
 		MatInputModule,
 		MatListModule,
 		MatMenuModule,
-		MatNativeDateModule,
-		MatPaginatorModule,
 		MatProgressBarModule,
 		MatProgressSpinnerModule,
-		MatSelectModule,
-		MatSidenavModule,
 		MatSlideToggleModule,
 		MatSnackBarModule,
-		MatSortModule,
 		MatToolbarModule,
-		MatTableModule,
 		MatTabsModule,
 		MatTooltipModule,
-		QuillEditorModule,
 		FormsModule,
 		ReactiveFormsModule
 	],
-	entryComponents: [EditorArticleDialog, EditorArticleDeleteDialog],
 	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService],
 	bootstrap: [AppComponent]
 })

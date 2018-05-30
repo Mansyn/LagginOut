@@ -44,7 +44,7 @@ export class EditorArticleComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.sub = this.route.params.subscribe((params) => {
-			this.id = +params['id']; // (+) converts string 'id' to a number
+			this.id = params['id']; // (+) converts string 'id' to a number
 			if (this.id == 0) {
 				this.article = new Article();
 				this.form = this.fb.group({
@@ -108,22 +108,23 @@ export class EditorArticleComponent implements OnInit, OnDestroy {
 		//console.log('quill content is changed!', quill, html, text);
 	}
 
-	saveArticle() {
+	onSubmit() {
 		if (this.form.valid) {
-			let now = new Date().toDateString();
+			let form = this.form.value
+			let now = new Date().toDateString()
 
 			let article = {
-				content: this.article.content || '',
-				date: moment(this.article.date).format('l'),
+				content: form.content || '',
+				date: moment(form.date).format('l'),
 				editor_id: this.article.editor_id,
-				excerpt: this.article.excerpt || '',
+				excerpt: form.excerpt || '',
 				guid: this.article.guid,
 				id: this.article.id,
 				mime_type: this.article.mime_type,
-				name: this.article.name || '',
+				name: form.name || '',
 				status: this.article.status,
-				title: this.article.title,
-				type: this.article.type,
+				title: form.title,
+				type: form.type,
 				timeStamp: now
 			};
 
