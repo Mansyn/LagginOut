@@ -1,4 +1,4 @@
-<div class="layout-row">
+<div class="m-t-50 layout-row">
   <div class="flex-5 flex-gt-xs-15"></div>
   <div class="flex-90 flex-gt-xs-70 mat-elevation-z4">
     <mat-toolbar>
@@ -10,9 +10,9 @@
       <div class="layout-row layout-align-center-center">
         <mat-spinner *ngIf="!article"></mat-spinner>
       </div>
-      <form *ngIf="article" [formGroup]="form" class="layout-column layout-align-start-center">
+      <form *ngIf="article" [formGroup]="form" (ngSubmit)="onSubmit()" class="layout-column layout-align-start-center">
         <mat-form-field class="m-v-5">
-          <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']" [(ngModel)]="article.title">
+          <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']">
           <mat-error *ngIf="form.controls['title'].hasError('required')">
             Title is required
           </mat-error>
@@ -21,7 +21,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="m-v-5">
-          <input matInput placeholder="Name" type="text" [formControl]="form.controls['name']" [(ngModel)]="article.name">
+          <input matInput placeholder="Name" type="text" [formControl]="form.controls['name']">
           <mat-error *ngIf="form.controls['name'].hasError('required')">
             Name is required
           </mat-error>
@@ -32,7 +32,7 @@
         <div class="full-width layout-column layout-gt-sm-row layout-align-start-center">
           <div class="flex-50 p-r-5">
             <mat-form-field class="m-v-5">
-              <input matInput [matDatepicker]="pickerDate" [formControl]="form.controls['date']" [(ngModel)]="article.date" placeholder="Choose a date">
+              <input matInput [matDatepicker]="pickerDate" [formControl]="form.controls['date']" placeholder="Choose a date">
               <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
               <mat-datepicker #pickerDate></mat-datepicker>
               <mat-error *ngIf="form.controls['date'].hasError('required')">
@@ -42,8 +42,7 @@
           </div>
           <div class="flex-50 p-l-5">
             <mat-form-field class="m-v-5">
-              <!-- <input matInput placeholder="Type" type="text" [formControl]="form.controls['type']" [(ngModel)]="article.type"> -->
-              <mat-select [(ngModel)]='article.type'>
+              <mat-select [formControl]="form.controls['type']">
                 <mat-option value='post'>Post</mat-option>
                 <mat-option value='revision'>Revision</mat-option>
               </mat-select>
@@ -54,15 +53,15 @@
           </div>
         </div>
         <mat-form-field class="full-width m-v-5">
-          <input matInput placeholder="Excerpt" type="text" [formControl]="form.controls['excerpt']" [(ngModel)]="article.excerpt">
+          <input matInput placeholder="Excerpt" type="text" [formControl]="form.controls['excerpt']">
           <mat-error *ngIf="form.controls['excerpt'].hasError('maxlength')">
             Excerpt is cannot exceed 80 characters
           </mat-error>
         </mat-form-field>
-        <quill-editor [(ngModel)]="article.content" [formControl]="form.controls['content']" [options]="quillOptions" class="full-width m-v-5" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+        <quill-editor [formControl]="form.controls['content']" [options]="quillOptions" class="full-width m-v-5" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
         <div class="full-width m-t-20 layout-row layout-align-end-center">
-          <button mat-raised-button (click)="saveArticle()" [disabled]="!form.valid" color="primary">Ok</button>
-          <button mat-button class="m-l-10" (click)="backClicked()">Cancel</button>
+          <button mat-raised-button type="submit" [disabled]="!form.valid" color="primary">Ok</button>
+          <button mat-button type="button" class="m-l-10" (click)="backClicked()">Cancel</button>
         </div>
       </form>
     </div>

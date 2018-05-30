@@ -6,17 +6,16 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators';
-import { User, Profile } from './user';
+import { User, Profile } from '../models/user';
 import { ProfileService } from './profile.service';
 
 @Injectable()
 export class AuthService {
-
-	user$: Observable<User>
+	user$: Observable<User>;
 
 	// only for admin use
-	private usersCollection: AngularFirestoreCollection<User>
-	users: Observable<User[]>
+	private usersCollection: AngularFirestoreCollection<User>;
+	users: Observable<User[]>;
 
 	constructor(
 		private afAuth: AngularFireAuth,
@@ -27,9 +26,9 @@ export class AuthService {
 		//// Get auth data, then get firestore user document || null
 		this.user$ = this.afAuth.authState.switchMap((user) => {
 			if (user) {
-				return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+				return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
 			} else {
-				return Observable.of(null)
+				return Observable.of(null);
 			}
 		});
 	}
@@ -42,7 +41,7 @@ export class AuthService {
 			phoneNumber: response.phoneNumber,
 			photoURL: response.photoURL,
 			roles: {}
-		}
+		};
 		this.updateUserData(user);
 	}
 
@@ -54,12 +53,12 @@ export class AuthService {
 			phoneNumber: phoneNumber || '',
 			photoURL: response.photoURL,
 			roles: {}
-		}
+		};
 		this.updateUserData(user);
 	}
 
 	googleLogin() {
-		const provider = new firebase.auth.GoogleAuthProvider()
+		const provider = new firebase.auth.GoogleAuthProvider();
 		return this.oAuthLogin(provider);
 	}
 
@@ -69,11 +68,10 @@ export class AuthService {
 	}
 
 	private oAuthLogin(provider) {
-		return this.afAuth.auth.signInWithPopup(provider)
-			.then((credential) => {
-				this.updateUserData(credential.user)
-				this.updateOauthUserProfile(credential.user)
-			})
+		return this.afAuth.auth.signInWithPopup(provider).then((credential) => {
+			this.updateUserData(credential.user);
+			this.updateOauthUserProfile(credential.user);
+		});
 	}
 
 	private updateOauthUserProfile(user) {
@@ -82,25 +80,26 @@ export class AuthService {
 			name: user.displayName || '',
 			phoneNumber: user.phoneNumber || '',
 			mailing: user.mailing || false
-		}
-		this.profileService.getUserProfile(user.uid)
-			.subscribe(response => {
-				if (response.length == 0) {
-					this.profileService.addProfile(profile)
-				} else {
-					let _profile = response[0].payload.toJSON()
-					let targetProfile = _profile as Profile
+		};
+		this.profileService.getUserProfile(user.uid).subscribe((response) => {
+			if (response.length == 0) {
+				this.profileService.addProfile(profile);
+			} else {
+				let _profile = response[0].payload.toJSON();
+				let targetProfile = _profile as Profile;
 
-					targetProfile.name = targetProfile.name ? targetProfile.name : (user.displayName || '')
-					targetProfile.phoneNumber = targetProfile.phoneNumber ? targetProfile.phoneNumber : (user.phoneNumber || '')
+				targetProfile.name = targetProfile.name ? targetProfile.name : user.displayName || '';
+				targetProfile.phoneNumber = targetProfile.phoneNumber
+					? targetProfile.phoneNumber
+					: user.phoneNumber || '';
 
-					this.profileService.updateProfile(response[0].key, targetProfile)
-				}
-			})
+				this.profileService.updateProfile(response[0].key, targetProfile);
+			}
+		});
 	}
 
 	signOut() {
-		this.afAuth.auth.signOut()
+		this.afAuth.auth.signOut();
 	}
 
 	private updateUserData(user) {
@@ -180,13 +179,13 @@ export class AuthService {
 	}
 
 	getAllUsers() {
-		this.usersCollection = this.afs.collection<User>('users')
-		this.users = this.usersCollection.valueChanges()
+		this.usersCollection = this.afs.collection<User>('users');
+		this.users = this.usersCollection.valueChanges();
 		return this.users;
 	}
 
 	getAllSubscribers() {
-		this.usersCollection = this.afs.collection('users', ref => ref.where('roles.subscriber', '==', true));
+		this.usersCollection = this.afs.collection('users', (ref) => ref.where('roles.subscriber', '==', true));
 		this.users = this.usersCollection.valueChanges();
 		return this.users;
 	}

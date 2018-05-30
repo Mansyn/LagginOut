@@ -1,6 +1,6 @@
 import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
 	MatTableDataSource,
@@ -22,8 +22,8 @@ const moment = _rollupMoment || _moment;
 import _ from 'lodash';
 
 import { AuthService } from '../../core/auth.service';
-import { User } from '../../core/user';
-import { Article } from '../../articles/shared/article';
+import { User } from '../../models/user';
+import { Article } from '../../models/article';
 import { ArticleService } from '../../articles/shared/article.service';
 import { EditorArticleDialog } from './dialogs/article.component';
 import { EditorArticleDeleteDialog } from './dialogs/delete.component';
@@ -34,32 +34,32 @@ import { EditorArticleDeleteDialog } from './dialogs/delete.component';
 	styleUrls: ['./articles.component.scss']
 })
 export class EditorArticlesComponent implements AfterViewInit {
+	@ViewChild(MatSort) sort: MatSort;
+	@ViewChild(MatPaginator) paginator: MatPaginator;
 
-	@ViewChild(MatSort) sort: MatSort
-	@ViewChild(MatPaginator) paginator: MatPaginator
-
-	loading: boolean
-	displayedColumns = ['select', 'title', 'name', 'status', 'date']
-	dataSource = new MatTableDataSource<Article>()
-	selection = new SelectionModel<Article>(true, [])
-	user: any
+	loading: boolean;
+	displayedColumns = ['select', 'title', 'name', 'status', 'date'];
+	dataSource = new MatTableDataSource<Article>();
+	selection = new SelectionModel<Article>(true, []);
+	user: any;
 
 	constructor(
 		private router: Router,
 		public auth: AuthService,
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar,
-		private articlesService: ArticleService) {
-		this.loading = true
+		private articlesService: ArticleService
+	) {
+		this.loading = true;
 	}
 
 	ngAfterViewInit() {
 		this.auth.user$.subscribe((user) => {
 			var x = 0;
 			this.articlesService.getUserArticles(user.uid).snapshotChanges().subscribe((data) => {
-				this.user = user
+				this.user = user;
 
-				let articles = []
+				let articles = [];
 				data.forEach((element) => {
 					var y = element.payload.toJSON();
 					y['$key'] = element.key;
@@ -92,47 +92,46 @@ export class EditorArticlesComponent implements AfterViewInit {
 	}
 
 	masterToggle() {
-		this.isAllSelected() ?
-			this.selection.clear() :
-			this.dataSource.data.forEach(row => this.selection.select(row));
+		this.isAllSelected()
+			? this.selection.clear()
+			: this.dataSource.data.forEach((row) => this.selection.select(row));
 	}
 
 	articleDialog(isNew: boolean): void {
-		let target = isNew ? new Article() : this.selection.selected[0]
+		let target = isNew ? new Article() : this.selection.selected[0];
 
-		target.editor_id = this.user.uid
+		target.editor_id = this.user.uid;
 
 		let dialogRef = this.dialog.open(EditorArticleDialog, {
 			width: '900px',
 			data: { article: target }
-		})
+		});
 
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
 				// to go fullscreen
 				if (result.fullscreen) {
-					this.router.navigate(['/editor/article', result.new ? '' : target.$key])
-				}
-				else {
+					this.router.navigate(['/editor/article', result.new ? '' : target.$key]);
+				} else {
 					if (isNew) {
 						this.articlesService.addArticle(result).then((data) => {
-							this.openSnackBar('Article Saved', 'OKAY')
+							this.openSnackBar('Article Saved', 'OKAY');
 						});
 					} else {
 						this.articlesService
 							.updateArticle(this.selection.selected[0].$key, result)
 							.then((data) => {
-								this.openSnackBar('Article Saved', 'OKAY')
+								this.openSnackBar('Article Saved', 'OKAY');
 							})
 							.catch((error) => {
-								this.openSnackBar(error, 'OKAY')
+								this.openSnackBar(error, 'OKAY');
 							});
 					}
 				}
 
-				this.selection.clear()
+				this.selection.clear();
 			}
-		})
+		});
 	}
 
 	articleDeleteDialog(): void {
@@ -148,13 +147,10 @@ export class EditorArticlesComponent implements AfterViewInit {
 				targets.forEach((target) => {
 					this.articlesService.deleteArticle(target.$key);
 				});
-				this.openSnackBar(
-					targets.length + ' article(s) deleted',
-					'OKAY'
-				);
+				this.openSnackBar(targets.length + ' article(s) deleted', 'OKAY');
 				this.selection.clear();
 			}
-		})
+		});
 	}
 
 	openSnackBar(message: string, action: string) {
