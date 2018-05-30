@@ -2,10 +2,10 @@
   <span *ngIf="create">Create Playlist</span>
   <span *ngIf="!create">Edit Playlist</span>
 </h1>
-<div mat-dialog-content>
-  <form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
     <mat-form-field class="full-width">
-      <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']" [(ngModel)]="data.playlist.title">
+      <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']">
       <mat-error *ngIf="form.controls['title'].hasError('required')">
         Title is required
       </mat-error>
@@ -14,7 +14,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input matInput placeholder="Url" type="url" [formControl]="form.controls['url']" [(ngModel)]="data.playlist.url">
+      <input matInput placeholder="Url" type="url" [formControl]="form.controls['url']">
       <mat-error *ngIf="form.controls['url'].hasError('required')">
         Url is required
       </mat-error>
@@ -22,9 +22,9 @@
         Url must be a valid url format
       </mat-error>
     </mat-form-field>
-  </form>
-</div>
-<div mat-dialog-actions align="end">
-  <button mat-raised-button (click)="savePlaylist()" [disabled]="!form.valid" color="primary">Ok</button>
-  <button mat-button [mat-dialog-close]="false">Cancel</button>
-</div>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button type="submit" [disabled]="!form.valid" color="primary">Ok</button>
+    <button mat-button type="button" [mat-dialog-close]="false">Cancel</button>
+  </div>
+</form>

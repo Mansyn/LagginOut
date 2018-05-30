@@ -67,28 +67,29 @@ export class AdminArticleDialog {
     this.dialogRef.close(result);
   }
 
-  saveArticle() {
+  onSubmit() {
     if (this.form.valid) {
+      let form = this.form.value
       let now = new Date().toDateString();
 
       let article = {
         comment_status: this.data.article.comment_status,
-        content: this.data.article.content || '',
-        date: moment(this.data.article.date).format('l'),
+        content: form.content || '',
+        date: moment(form.date).format('l'),
         date_gmt: this.data.article.date_gmt,
         editor_id: this.data.article.editor_id,
-        excerpt: this.data.article.excerpt || '',
+        excerpt: form.excerpt || '',
         guid: this.data.article.guid,
         id: this.data.article.id,
         mime_type: this.data.article.mime_type,
         modified: this.data.article.modified,
         modified_gmt: this.data.article.modified_gmt,
-        name: this.data.article.name || '',
+        name: form.name || '',
         parent: this.data.article.parent,
         ping_status: this.data.article.ping_status,
         status: this.data.article.status,
-        title: this.data.article.title,
-        type: this.data.article.type || 'post',
+        title: form.title,
+        type: form.type || 'post',
         timeStamp: now,
       };
 

@@ -31,14 +31,15 @@ export class AdminVideoDialog {
     });
   }
 
-  saveVideo() {
+  onSubmit() {
     if (this.form.valid) {
+      let form = this.form.value
       let now = new Date().toDateString();
 
       let video = {
-        title: this.data.video.title,
-        link: this.data.video.link,
-        description: this.data.video.description,
+        title: form.title,
+        link: form.link,
+        description: form.description,
         timeStamp: now,
         active: true
       };

@@ -23,7 +23,7 @@ export class AdminTwitchDialog {
     })
   }
 
-  save() {
+  onSubmit() {
     if (this.form.valid) {
       let form = this.form.value
 

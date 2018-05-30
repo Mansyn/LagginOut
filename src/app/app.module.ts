@@ -55,9 +55,9 @@ import { SocialService } from './social/social.service';
 import { TwitchService } from './twitch/shared/twitch.service';
 
 // utilities, pipes, etc
-import { ReversePipe } from './utilities/pipes/reverse.pipe'
 import { DisableControlDirective } from './utilities/directives/disable-control'
 import { FocusDirective } from './utilities/directives/focus.directive'
+import { PipesModule } from './utilities/pipes/pipes.module'
 
 @NgModule({
 	declarations: [
@@ -69,7 +69,6 @@ import { FocusDirective } from './utilities/directives/focus.directive'
 		FooterComponent,
 		VideosComponent,
 		ArticlesComponent,
-		ReversePipe,
 		DisableControlDirective,
 		FocusDirective,
 		RegisterComponent,
@@ -87,6 +86,7 @@ import { FocusDirective } from './utilities/directives/focus.directive'
 		BrowserModule,
 		BrowserAnimationsModule,
 		EmbedVideo.forRoot(),
+		PipesModule,
 		CoreModule,
 		HttpModule,
 		MatButtonModule,

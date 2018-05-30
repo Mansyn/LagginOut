@@ -2,10 +2,10 @@
   <span *ngIf="create">Create Video</span>
   <span *ngIf="!create">Edit Video</span>
 </h1>
-<div mat-dialog-content>
-  <form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
     <mat-form-field class="full-width">
-      <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']" [(ngModel)]="data.video.title">
+      <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']">
       <mat-error *ngIf="form.controls['title'].hasError('required')">
         Title is required
       </mat-error>
@@ -14,7 +14,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input matInput placeholder="Description" type="text" [formControl]="form.controls['description']" [(ngModel)]="data.video.description">
+      <input matInput placeholder="Description" type="text" [formControl]="form.controls['description']">
       <mat-error *ngIf="form.controls['description'].hasError('required')">
         Description is required
       </mat-error>
@@ -23,7 +23,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input matInput placeholder="Link" type="url" [formControl]="form.controls['link']" [(ngModel)]="data.video.link">
+      <input matInput placeholder="Link" type="url" [formControl]="form.controls['link']">
       <mat-error *ngIf="form.controls['link'].hasError('required')">
         Link is required
       </mat-error>
@@ -31,9 +31,9 @@
         Link must be a valid url format
       </mat-error>
     </mat-form-field>
-  </form>
-</div>
-<div mat-dialog-actions align="end">
-  <button mat-raised-button (click)="saveVideo()" [disabled]="!form.valid" color="primary">Ok</button>
-  <button mat-button [mat-dialog-close]="false">Cancel</button>
-</div>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button type="submit" [disabled]="!form.valid" color="primary">Ok</button>
+    <button mat-button type="button" [mat-dialog-close]="false">Cancel</button>
+  </div>
+</form>

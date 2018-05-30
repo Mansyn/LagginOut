@@ -2,7 +2,7 @@
   <span *ngIf="create">Create Streamer</span>
   <span *ngIf="!create">Edit Streamer</span>
 </h1>
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div mat-dialog-content>
     <mat-form-field class="full-width">
       <input matInput placeholder="ID" type="text" [formControl]="form.controls['id']" maxlength="30">

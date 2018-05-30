@@ -30,13 +30,14 @@ export class AdminPlaylistDialog {
     });
   }
 
-  savePlaylist() {
+  onSubmit() {
     if (this.form.valid) {
+      let form = this.form.value
       let now = new Date().toDateString();
 
       let playlist = {
-        title: this.data.playlist.title,
-        url: this.data.playlist.url,
+        title: form.title,
+        url: form.url,
         timeStamp: now,
         active: true
       };

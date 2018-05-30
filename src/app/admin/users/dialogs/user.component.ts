@@ -23,7 +23,7 @@ export class AdminUserDialog {
 
   refresh: Subject<any> = new Subject()
 
-  saveUser() {
+  onSubmit() {
     if (this.form.valid) {
       let form = this.form.value
       let now = new Date().toDateString()

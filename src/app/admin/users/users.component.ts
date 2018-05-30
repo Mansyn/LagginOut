@@ -18,7 +18,7 @@ import { saveAs } from 'file-saver/FileSaver';
 import { AuthService } from '../../core/auth.service';
 import { ProfileService } from '../../core/profile.service';
 import { User, UserProfile, Profile } from '../../models/user';
-import { AdminUserDialog } from './dialogs/user/user.component';
+import { AdminUserDialog } from './dialogs/user.component';
 import UserUtils from '../../models/user.utils';
 import { Subject } from 'rxjs/Subject';
 import { combineLatest } from 'rxjs/observable/combineLatest';

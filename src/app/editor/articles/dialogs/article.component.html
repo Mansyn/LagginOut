@@ -5,10 +5,10 @@
     <mat-icon aria-label="fullscreen" matTooltip="Fullscreen" matTooltipPosition="before">fullscreen</mat-icon>
   </button>
 </h1>
-<div mat-dialog-content>
-  <form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
     <mat-form-field class="full-width">
-      <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']" [(ngModel)]="data.article.title">
+      <input matInput placeholder="Title" type="text" [formControl]="form.controls['title']">
       <mat-error *ngIf="form.controls['title'].hasError('required')">
         Title is required
       </mat-error>
@@ -17,7 +17,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input matInput placeholder="Name" type="text" [formControl]="form.controls['name']" [(ngModel)]="data.article.name">
+      <input matInput placeholder="Name" type="text" [formControl]="form.controls['name']">
       <mat-error *ngIf="form.controls['name'].hasError('required')">
         Name is required
       </mat-error>
@@ -26,7 +26,7 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="half-width">
-      <input matInput [matDatepicker]="pickerDate" [formControl]="form.controls['date']" [(ngModel)]="data.article.date" placeholder="Choose a date">
+      <input matInput [matDatepicker]="pickerDate" [formControl]="form.controls['date']" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
       <mat-datepicker #pickerDate></mat-datepicker>
       <mat-error *ngIf="form.controls['date'].hasError('required')">
@@ -34,21 +34,21 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="half-width">
-      <input matInput placeholder="Type" value='post' type="text" [formControl]="form.controls['type']" [(ngModel)]="data.article.type">
+      <input matInput placeholder="Type" value='post' type="text" [formControl]="form.controls['type']">
       <mat-error *ngIf="form.controls['type'].hasError('required')">
         Type is required
       </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input matInput placeholder="Excerpt" type="text" [formControl]="form.controls['excerpt']" [(ngModel)]="data.article.excerpt">
+      <input matInput placeholder="Excerpt" type="text" [formControl]="form.controls['excerpt']">
       <mat-error *ngIf="form.controls['excerpt'].hasError('maxlength')">
         Excerpt is cannot exceed 80 characters
       </mat-error>
     </mat-form-field>
-    <quill-editor [(ngModel)]="data.article.content" [formControl]="form.controls['content']" [options]="quillOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
-  </form>
-</div>
-<div mat-dialog-actions align="end">
-  <button mat-raised-button (click)="saveArticle()" [disabled]="!form.valid" color="primary">Ok</button>
-  <button mat-button [mat-dialog-close]="false">Cancel</button>
-</div>
+    <quill-editor [formControl]="form.controls['content']" [options]="quillOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button type="submit" [disabled]="!form.valid" color="primary">Ok</button>
+    <button mat-button type="button" [mat-dialog-close]="false">Cancel</button>
+  </div>
+</form>

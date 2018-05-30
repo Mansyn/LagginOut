@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TruncatePipe } from './truncate.pipe'
 import { PhonePipe } from './phone.pipe'
+import { ReversePipe } from './reverse.pipe'
+import { TruncatePipe } from './truncate.pipe'
 
 @NgModule({
     imports: [
         CommonModule
     ],
-    declarations: [TruncatePipe, PhonePipe],
-    exports: [TruncatePipe, PhonePipe]
+    declarations: [PhonePipe, ReversePipe, TruncatePipe],
+    exports: [PhonePipe, ReversePipe, TruncatePipe]
 })
 export class PipesModule { }

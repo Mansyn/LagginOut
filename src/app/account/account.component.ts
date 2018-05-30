@@ -68,6 +68,12 @@ export class AccountComponent implements OnInit, OnDestroy {
 		});
 	}
 
+	dateSortDesc = function (date1, date2) {
+		if (date1 > date2) return -1
+		if (date1 < date2) return 1
+		return 0
+	}
+
 	getUserData(user) {
 		const userProfile$ = this.profileService.getUserProfile(user.uid);
 		const userArticles$ = this.articleService.getUserArticlesData(user.uid);
@@ -85,11 +91,13 @@ export class AccountComponent implements OnInit, OnDestroy {
 			// articles
 			let isEditor = this.auth.canEdit(user);
 			if (isEditor) {
+				let _articles: Article[] = []
 				articlesData.forEach((_article) => {
-					let article = _article.payload.toJSON();
-					article['$key'] = _article.key;
-					this.articles.push(article as Article);
-				});
+					let article = _article.payload.toJSON()
+					article['$key'] = _article.key
+					_articles.push(article as Article)
+				})
+				this.articles = _articles.sort(this.dateSortDesc)
 			}
 		})
 			.takeUntil(this.destroy$)
