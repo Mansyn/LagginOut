@@ -38,11 +38,14 @@ import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 import 'hammerjs';
 import 'web-animations-js';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/takeUntil'
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
-import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/relay';
+import 'rxjs/add/operator/retry';
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 // import 'classlist.js';  // Run `npm install --save classlist.js`.

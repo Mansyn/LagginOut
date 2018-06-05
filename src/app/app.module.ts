@@ -36,6 +36,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AppComponent } from './app.component';
+import { ErrorsModule } from './core/errors/errors.module';
 import { CoreModule } from './core/core.module';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './account/login/login.component';
@@ -88,6 +89,7 @@ import { PipesModule } from './utilities/pipes/pipes.module'
 		EmbedVideo.forRoot(),
 		PipesModule,
 		CoreModule,
+		ErrorsModule,
 		HttpModule,
 		MatButtonModule,
 		MatCardModule,
