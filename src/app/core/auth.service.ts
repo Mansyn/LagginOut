@@ -12,6 +12,7 @@ import { ProfileService } from './profile.service';
 @Injectable()
 export class AuthService {
 	user$: Observable<User>;
+	username: string;
 
 	// only for admin use
 	private usersCollection: AngularFirestoreCollection<User>;
@@ -26,8 +27,10 @@ export class AuthService {
 		//// Get auth data, then get firestore user document || null
 		this.user$ = this.afAuth.authState.switchMap((user) => {
 			if (user) {
+				this.username = user.displayName
 				return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
 			} else {
+				this.username = ''
 				return Observable.of(null);
 			}
 		});
@@ -43,6 +46,10 @@ export class AuthService {
 			roles: {}
 		};
 		this.updateUserData(user);
+	}
+
+	getUsername() {
+		return this.username
 	}
 
 	registerUser(response, name, phoneNumber?) {

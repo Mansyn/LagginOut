@@ -1,36 +1,26 @@
 import { Component, OnInit } from '@angular/core'
 import { Http, Response, RequestOptions, Headers } from '@angular/http'
-import { DomSanitizer } from '@angular/platform-browser'
 
-import './shared/v1'
-import { environment } from '../../environments/environment'
-import { FeedObject } from './shared/feed.twitch'
+import { FeedObject, Post } from './shared/feed.twitch'
+import { Observable } from 'rxjs';
+import { TwitchApiService } from './shared/twitch-api.service';
 
 @Component({
   selector: 'twitch',
   templateUrl: './twitch.component.html',
   styleUrls: ['./twitch.component.scss']
 })
-export class TwitchComponent {
+export class TwitchComponent implements OnInit {
 
-  loaded: boolean = false
-  post: any
+  feed$: Observable<FeedObject>
 
-  constructor(private http: Http, private sanitizer: DomSanitizer) { }
+  constructor(private twitchApiService: TwitchApiService) { }
 
-  doGET() {
-    this.getHalls().subscribe((feed: FeedObject[]) => {
-      this.post = feed['posts'][0]
-      this.loaded = true
-    })
+  ngOnInit() {
+    this.feed$ = this.getFeed()
   }
 
-  getHalls() {
-    let url = `${environment.twitch.apiRoot}kraken/feed/laggin_out/posts?client_id=` + environment.twitch.clientId
-    return this.http.get(url).map((res: Response) => res.json())
-  }
-
-  sanURL() {
-    return this.sanitizer.bypassSecurityTrustUrl(this.post.body);
+  getFeed(): Observable<FeedObject> {
+    return this.twitchApiService.getFeed('laggin_out')
   }
 }

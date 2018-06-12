@@ -54,6 +54,8 @@ import { TwitchVideoComponent } from './components/twitch-video/twitch-video.com
 import { SocialComponent } from './social/social.component';
 import { SocialService } from './social/social.service';
 import { TwitchService } from './twitch/shared/twitch.service';
+import { NotificationService } from './core/services/notification.service'
+import { TwitchApiService } from './twitch/shared/twitch-api.service'
 
 // utilities, pipes, etc
 import { DisableControlDirective } from './utilities/directives/disable-control'
@@ -108,7 +110,7 @@ import { PipesModule } from './utilities/pipes/pipes.module'
 		FormsModule,
 		ReactiveFormsModule
 	],
-	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService],
+	providers: [NotificationService, VideosService, TwitchApiService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

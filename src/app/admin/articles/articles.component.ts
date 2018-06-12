@@ -99,7 +99,7 @@ export class AdminArticlesComponent implements AfterViewInit, OnDestroy {
 		});
 
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log('The dialog was closed');
+			// console.log('The dialog was closed');
 			if (result) {
 				// to go fullscreen
 				if (result.fullscreen) {

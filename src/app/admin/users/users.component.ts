@@ -13,10 +13,10 @@ import {
 	MatSnackBar
 } from '@angular/material';
 import _ from 'lodash';
-import { saveAs } from 'file-saver/FileSaver';
 
 import { AuthService } from '../../core/auth.service';
 import { ProfileService } from '../../core/profile.service';
+import { ExcelService } from '../services/excel.service'
 import { User, UserProfile, Profile } from '../../models/user';
 import { AdminUserDialog } from './dialogs/user.component';
 import UserUtils from '../../models/user.utils';
@@ -43,6 +43,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 	constructor(
 		public auth: AuthService,
 		private profileService: ProfileService,
+		private excelService: ExcelService,
 		public dialog: MatDialog,
 		public snackBar: MatSnackBar
 	) { }
@@ -73,7 +74,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 
 	tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
 		this.tabIndex = tabChangeEvent.index;
-		console.log('tab => ', tabChangeEvent.index);
+		// console.log('tab => ', tabChangeEvent.index);
 	};
 
 	isAllSelected() {
@@ -110,7 +111,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 		});
 
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log('The dialog was closed');
+			// console.log('The dialog was closed');
 			if (result) {
 				targets.forEach((target) => {
 					if (role == 'admin') {
@@ -133,8 +134,18 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 	}
 
 	downloadMailingList() {
-		var rightNow = new Date();
-		var res = rightNow.toISOString().slice(0, 10).replace(/-/g, '');
+		let users: any[] = []
+		this.dataSource.data.forEach(_user => {
+			if (_user.profile && _user.profile.mailing) {
+				let user = {
+					Name: _user.profile.name,
+					Email: _user.email,
+					Phone: _user.profile.phoneNumber,
+				}
+				users.push(user)
+			}
+		})
+		this.excelService.exportAsUsersExcelFile(users, 'Users', 'users')
 	}
 
 	userDialog(): void {

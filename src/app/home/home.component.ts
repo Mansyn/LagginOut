@@ -81,25 +81,31 @@ export class HomeComponent implements OnInit {
 					(x.content.includes('assets/images/') || x.content.includes('data:image/jpeg;base64')) &&
 					x.type === 'post'
 				) {
+          
+          x.content = x.content.replace(new RegExp('img src', 'g'), 'img src');
 					const container = document.createElement('div');
 					container.innerHTML = x.content;
-					const img = container.getElementsByTagName('img')[0].getAttribute('src').toString();
-					x.image = img;
-
-					if (isNaN(x.name as any)) {
-						x.name = x.name.toUpperCase();
-					}
-					this.articles.push(x);
+					if (container.getElementsByTagName('img')[0]) {
+            if (container.getElementsByTagName('img')[0].getAttribute('src')) {
+              x.image = container.getElementsByTagName('img')[0].getAttribute('src').toString();
+              if (isNaN(x.name as any)) {
+                x.name = x.name.toUpperCase();
+              }
+              this.articles.push(x);
+            }
+          }
 				} else if (new Date(x.date).getTime() > 1517547600000) {
 					const container = document.createElement('div');
 					container.innerHTML = x.content;
-					const img = container.getElementsByTagName('img')[0].getAttribute('src').toString();
-					x.image = img;
-
-					if (isNaN(x.name as any)) {
-						x.name = x.name.toUpperCase();
-					}
-					this.articles.push(x);
+					if (container.getElementsByTagName('img')[0]) {
+            if (container.getElementsByTagName('img')[0].getAttribute('src')) {
+              x.image = container.getElementsByTagName('img')[0].getAttribute('src').toString();
+              if (isNaN(x.name as any)) {
+                x.name = x.name.toUpperCase();
+              }
+              this.articles.push(x);
+            }
+          }
 				}
 			});
 			// this.articlesTop = _.orderBy(this.articles, ['date'], ['asc']).slice(0, 11);

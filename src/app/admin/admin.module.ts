@@ -49,6 +49,7 @@ import { AdminPlaylistDeleteDialog } from './playlists/dialogs/delete.component'
 import { AdminTwitchStreamsComponent } from './twitch/twitch.component'
 import { AdminTwitchDialog } from './twitch/dialogs/twitch.component'
 import { AdminTwitchDeleteDialog } from './twitch/dialogs/delete.component'
+import { ExcelService } from './services/excel.service'
 
 // utilities
 import { PipesModule } from '../utilities/pipes/pipes.module'
@@ -105,6 +106,7 @@ import { PipesModule } from '../utilities/pipes/pipes.module'
 		AdminTwitchDialog,
 		AdminTwitchDeleteDialog
 	],
+	providers: [ExcelService],
 	entryComponents: [
 		AdminUserRoleDialog,
 		AdminUserDialog,

@@ -3,7 +3,7 @@
     <a class='btn button mat-raised-button mat-primary' (click)='closeArticle()'>Close</a>
     <p class='article-date'>{{openArticle?.date}}</p>
     <h4 class='article-title'>{{openArticle?.title}}</h4>
-    <p innerHTML={{openArticle?.content}}></p>
+    <p class='open-article-content' id='openArticleContent' innerHTML={{openArticle?.content}}></p>
     <a class='btn button mat-raised-button mat-primary' (click)='closeArticle()'>Close</a>
   </div>
 </div>
@@ -33,7 +33,6 @@
         <p class='article-date'>{{articlesTop[0]?.date}}</p>
       </div>
     </div>
-    <div class='fadeout'></div>
   </div>
 </div>
 

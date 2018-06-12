@@ -15,6 +15,7 @@ export class VideosComponent implements OnInit {
   pl1 = []
   pl2 = []
   pl3 = []
+  selectedPlaylist
   constructor() { }
 
   ngOnInit() {
@@ -26,7 +27,6 @@ export class VideosComponent implements OnInit {
   getPlayLists() {
     let response = (this.httpGet("https://content.googleapis.com/youtube/v3/playlists?channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=50&part=snippet&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4"))
     let yt = JSON.parse(response)
-    console.log(yt)
     this.playLists = yt.items
     for (let i = 0; i < this.playLists.length; i++) {
       if (this.playLists[i].snippet.title === 'Laggin Out Podcast' ||
@@ -61,7 +61,6 @@ export class VideosComponent implements OnInit {
     let response = (this.httpGet('https://www.googleapis.com/youtube/v3/playlistItems?channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=25&part=snippet,contentDetails&playlistId=' + id + '&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4'))
     let listItem = JSON.parse(response)
     for (let i = 0; i < listItem.items.length; i++) {
-      console.log(title, id, listItem.items[i].snippet.playlistId)
       if (title === 'Laggin Out Podcast') {
         this.pl1.push(listItem.items[i])
       } else if (title === 'Killing it After Dark') {
@@ -70,22 +69,32 @@ export class VideosComponent implements OnInit {
         this.pl3.push(listItem.items[i])
       }
     }
-    console.log('pl1', this.pl1, '\npl2', this.pl2, '\npl3', this.pl3)
   }
 
   getVideos() {
-    let response = this.httpGet('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=15&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
+    let response = this.httpGet('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=26&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
     let yt = JSON.parse(response)
     for (let i = 0; i < yt.items.length; i++) {
       let dt = yt.items[i].snippet.publishedAt
       dt = new Date(dt)
       yt.items[i].snippet.publishedAt = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear()
+     
       if (yt.items[i].snippet.title.match(/\(([^)]+)\)/)) {
         yt.items[i].series = yt.items[i].snippet.title.match(/\(([^)]+)\)/)[1]
         yt.items[i].snippet.title = yt.items[i].snippet.title.replace((/\(([^)]+)\)/), '')
       }
+      if (yt.items[i].snippet.title === 'Diablo') {
+        delete yt.items[i]
+        // ++i
+      }
     }
-    this.videos = yt.items
+    const temp = []
+    for (let i = 0; i < yt.items.length; i++) {
+      if (yt.items[i]) {
+        temp.push(yt.items[i])
+      }
+    }
+    this.videos = temp
   }
 
   handleVidsNavigation(x) {
@@ -93,7 +102,19 @@ export class VideosComponent implements OnInit {
       this.viewAll = true
     } else {
       this.viewAll = false
-      console.log(x)
+      switch(x){
+        case 'Laggin Out Podcast':
+          this.selectedPlaylist = this.pl1
+          break
+        case 'Killing it After Dark':
+          this.selectedPlaylist = this.pl2
+          break
+        case "Noob's Guide":
+          this.selectedPlaylist = this.pl3
+          break
+        default:
+          this.selectedPlaylist = this.pl1
+      }
     }
   }
 }

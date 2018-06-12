@@ -51,9 +51,7 @@ export class ArticleService {
 	}
 
 	fillUndefinedValues(newArticle) {
-		console.log(newArticle)
 		for (let key in newArticle) {
-			console.log(key, newArticle[key])
 			if (!newArticle[key]) {
 				newArticle[key] = ''
 			}

@@ -44,7 +44,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/relay';
+import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/retry';
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */

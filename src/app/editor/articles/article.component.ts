@@ -52,10 +52,10 @@ export class EditorArticleComponent implements OnInit, OnDestroy {
 						this.article.title || null,
 						Validators.compose([Validators.maxLength(50), Validators.required])
 					],
-					name: [this.article.name || null, Validators.maxLength(50)],
+					name: [this.article.name || null, Validators.compose([Validators.maxLength(50), Validators.required])],
 					date: [this.article.date || moment(), Validators.required],
 					type: [this.article.type || null, Validators.required],
-					excerpt: [this.article.excerpt || null, Validators.maxLength(100)],
+					excerpt: [this.article.excerpt || null, Validators.compose([Validators.maxLength(100), Validators.required])],
 					content: [this.article.content || null]
 				});
 				this.article.type = 'post';
@@ -75,10 +75,10 @@ export class EditorArticleComponent implements OnInit, OnDestroy {
 								this.article.title || null,
 								Validators.compose([Validators.maxLength(50), Validators.required])
 							],
-							name: [this.article.name || null, Validators.maxLength(50)],
+							name: [this.article.name || null, Validators.compose([Validators.maxLength(50), Validators.required])],
 							date: [this.article.date || moment(), Validators.required],
 							type: [this.article.type || null, Validators.required],
-							excerpt: [this.article.excerpt || null, Validators.maxLength(100)],
+							excerpt: [this.article.excerpt || null, Validators.compose([Validators.maxLength(100), Validators.required])],
 							content: [this.article.content || null]
 						});
 					});
@@ -145,7 +145,7 @@ export class EditorArticleComponent implements OnInit, OnDestroy {
 					});
 			}
 		} else {
-			console.log('invalid form');
+			console.warn('invalid form');
 		}
 	}
 
