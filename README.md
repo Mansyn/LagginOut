@@ -11,7 +11,6 @@ This will only remain public for a short time. Being built by developer team for
 ### Prerequisites
 
 Node.js
-
 Firebase CLI
 
 ```
@@ -20,19 +19,16 @@ npm install -g firebase-tools
 
 ### Installing
 
-Web app
+Web App
 
 ```
 npm install
+ng serve
 ```
 
-And repeat
+Firebase Functions
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+refer to read me in functions
 
 ## Running the tests
 
