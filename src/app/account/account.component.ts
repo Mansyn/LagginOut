@@ -1,19 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { AngularFireAuth } from 'angularfire2/auth'
+import { Router } from '@angular/router'
+import { MatSnackBar } from '@angular/material'
 
-import { AuthService } from '../core/auth.service';
-import { ProfileService } from '../core/profile.service';
-import { Profile, User, UserProfile } from '../models/user';
-import { Article } from '../models/article';
-import { ArticleService } from '../articles/shared/article.service';
-import UserUtils from '../models/user.utils';
+import { AuthService } from '../core/auth.service'
+import { ProfileService } from '../core/profile.service'
+import { Profile, User, UserProfile } from '../models/user'
+import { Article } from '../models/article'
+import { ArticleService } from '../articles/shared/article.service'
+import UserUtils from '../models/user.utils'
 
-import { Subject } from 'rxjs/Subject';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { Observable } from 'rxjs/Observable';
+import { Subject, Observable, combineLatest } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
 	selector: 'account',
@@ -48,7 +47,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.buildForms();
-		this.auth.user$.takeUntil(this.destroy$).subscribe((user) => {
+		this.auth.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
 			if (user && user.uid) {
 				this.getUserData(user);
 				this.onChanges();
@@ -75,6 +74,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 	}
 
 	getUserData(user) {
+
 		const userProfile$ = this.profileService.getUserProfile(user.uid);
 		const userArticles$ = this.articleService.getUserArticlesData(user.uid);
 
@@ -92,6 +92,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 			let isEditor = this.auth.canEdit(user);
 			if (isEditor) {
 				let _articles: Article[] = []
+
 				articlesData.forEach((_article) => {
 					let article = _article.payload.toJSON()
 					article['$key'] = _article.key
@@ -100,7 +101,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 				this.articles = _articles.sort(this.dateSortDesc)
 			}
 		})
-			.takeUntil(this.destroy$)
+			.pipe(takeUntil(this.destroy$))
 			.subscribe();
 	}
 

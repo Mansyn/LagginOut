@@ -1,32 +1,22 @@
-import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
-import { SelectionModel } from '@angular/cdk/collections';
+import { Component, AfterViewInit, ViewChild } from '@angular/core'
+import { Router } from '@angular/router'
+import { SelectionModel } from '@angular/cdk/collections'
 import {
 	MatTableDataSource,
 	MatSort,
 	MatPaginator,
 	MatDialog,
-	MatTabChangeEvent,
-	MatDialogRef,
-	MAT_DIALOG_DATA,
 	MatSnackBar
-} from '@angular/material';
+} from '@angular/material'
 
-import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import * as moment from 'moment'
+import _ from 'lodash'
 
-import * as _moment from 'moment';
-import { default as _rollupMoment } from 'moment';
-const moment = _rollupMoment || _moment;
-import _ from 'lodash';
-
-import { AuthService } from '../../core/auth.service';
-import { User } from '../../models/user';
-import { Article } from '../../models/article';
-import { ArticleService } from '../../articles/shared/article.service';
-import { EditorArticleDialog } from './dialogs/article.component';
-import { EditorArticleDeleteDialog } from './dialogs/delete.component';
+import { AuthService } from '../../core/auth.service'
+import { Article } from '../../models/article'
+import { ArticleService } from '../../articles/shared/article.service'
+import { EditorArticleDialog } from './dialogs/article.component'
+import { EditorArticleDeleteDialog } from './dialogs/delete.component'
 
 @Component({
 	selector: 'editor-articles',

@@ -1,24 +1,21 @@
-import { Component, Inject, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SelectionModel } from '@angular/cdk/collections';
+import { Component, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
+import { SelectionModel } from '@angular/cdk/collections'
 import {
 	MatTableDataSource,
 	MatSort,
 	MatPaginator,
 	MatDialog,
-	MatDialogRef,
-	MAT_DIALOG_DATA,
 	MatSnackBar
-} from '@angular/material';
-import _ from 'lodash';
+} from '@angular/material'
+import _ from 'lodash'
 
-import { VideosService } from '../../videos/shared/videos.service';
-import { Video } from '../../models/video';
-import { AdminVideoDeleteDialog } from './dialogs/delete.component';
-import { AdminVideoDialog } from './dialogs/video.component';
-import { AdminVideoHighlightDialog } from './dialogs/highlight.component';
-import { Subject } from 'rxjs/Subject';
+import { VideosService } from '../../videos/shared/videos.service'
+import { Video } from '../../models/video'
+import { AdminVideoDeleteDialog } from './dialogs/delete.component'
+import { AdminVideoDialog } from './dialogs/video.component'
+import { AdminVideoHighlightDialog } from './dialogs/highlight.component'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
 	selector: 'admin-videos',
@@ -41,17 +38,19 @@ export class AdminVideosComponent implements AfterViewInit, OnDestroy {
 	constructor(public dialog: MatDialog, public snackBar: MatSnackBar, private videosService: VideosService) { }
 
 	ngAfterViewInit() {
-		this.videosService.getVideos().snapshotChanges().takeUntil(this.destroy$).subscribe((data) => {
-			let videos = [];
-			data.forEach((element) => {
-				var y = element.payload.toJSON();
-				y['$key'] = element.key;
-				videos.push(y as Video);
-			});
+		this.videosService.getVideos().snapshotChanges()
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((data) => {
+				let videos = [];
+				data.forEach((element) => {
+					var y = element.payload.toJSON();
+					y['$key'] = element.key;
+					videos.push(y as Video);
+				});
 
-			this.dataSource.data = videos;
-			this.loading = false;
-		});
+				this.dataSource.data = videos;
+				this.loading = false;
+			});
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;
 		this.getHighlighted();
@@ -76,15 +75,16 @@ export class AdminVideosComponent implements AfterViewInit, OnDestroy {
 	}
 
 	getHighlighted() {
-		var x = this.videosService.getHighlightedVideos();
-		x.snapshotChanges().takeUntil(this.destroy$).subscribe((data) => {
-			this.highlighted = [];
-			data.forEach((element) => {
-				var y = element.payload.toJSON();
-				y['$key'] = element.key;
-				this.highlighted.push(y as Video);
+		this.videosService.getHighlightedVideos().snapshotChanges()
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((data) => {
+				this.highlighted = [];
+				data.forEach((element) => {
+					var y = element.payload.toJSON();
+					y['$key'] = element.key;
+					this.highlighted.push(y as Video);
+				});
 			});
-		});
 	}
 
 	videoDialog(isNew: boolean): void {

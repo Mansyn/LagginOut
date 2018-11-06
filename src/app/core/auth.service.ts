@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { firebase } from '@firebase/app';
-import '@firebase/auth';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { switchMap } from 'rxjs/operators';
-import { User, Profile } from '../models/user';
-import { ProfileService } from './profile.service';
+import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
+import { firebase } from '@firebase/app'
+import '@firebase/auth'
+import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore'
+import { Observable, of } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
+
+import { User, Profile } from '../models/user'
+import { ProfileService } from './profile.service'
 
 @Injectable()
 export class AuthService {
@@ -24,13 +25,15 @@ export class AuthService {
 		private profileService: ProfileService
 	) {
 		//// Get auth data, then get firestore user document || null
-		this.user$ = this.afAuth.authState.switchMap((user) => {
-			if (user) {
-				return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-			} else {
-				return Observable.of(null);
-			}
-		});
+		this.user$ = this.afAuth.authState.pipe(
+			switchMap(user => {
+				if (user) {
+					return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+				} else {
+					return of(null)
+				}
+			})
+		)
 	}
 
 	updateUser(response) {
@@ -82,7 +85,7 @@ export class AuthService {
 			mailing: user.mailing || false
 		};
 		this.profileService.getUserProfile(user.uid).subscribe((response) => {
-			if (response.length == 0) {
+			if (!response[0].payload.exists()) {
 				this.profileService.addProfile(profile);
 			} else {
 				let _profile = response[0].payload.toJSON();

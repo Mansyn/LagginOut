@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { SocialService } from '../../social/social.service'
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase } from 'angularfire2/database'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-footer',
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 export class FooterComponent implements OnInit {
   socialMediaObservable: Observable<any[]>
 
-  constructor(private db: AngularFireDatabase, private _links: SocialService){}
+  constructor(private db: AngularFireDatabase, private _links: SocialService) { }
 
   ngOnInit() {
     this.socialMediaObservable = this.getData('/links')

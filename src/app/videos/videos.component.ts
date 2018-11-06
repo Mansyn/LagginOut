@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-//import { SSL_OP_NO_TLSv1_1 } from 'constants';
+import { Component, OnInit } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { PlaylistObject } from './shared/playlists.model'
+//import { SSL_OP_NO_TLSv1_1 } from 'constants'
 
 @Component({
   selector: 'videos',
@@ -15,32 +17,37 @@ export class VideosComponent implements OnInit {
   pl1 = []
   pl2 = []
   pl3 = []
-  constructor() { }
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.getPlayLists()
+    this.getLivePlayLists()
     this.getVideos()
     this.viewAll = true
   }
 
-  getPlayLists() {
-    let response = (this.httpGet("https://content.googleapis.com/youtube/v3/playlists?channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=50&part=snippet&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4"))
-    let yt = JSON.parse(response)
-    console.log(yt)
-    this.playLists = yt.items
-    for (let i = 0; i < this.playLists.length; i++) {
-      if (this.playLists[i].snippet.title === 'Laggin Out Podcast' ||
-        this.playLists[i].snippet.title === 'Killing it After Dark' ||
-        this.playLists[i].snippet.title === 'Noob’s Guide'
-      ) {
-        this.getPlayListItems(this.playLists[i].snippet.title, this.playLists[i].id)
-        this.playListURLs.push(this.getHref(this.playLists[i].snippet.thumbnails.default.url, this.playLists[i].id))
-      } else {
-        this.playLists.splice(i, 1)
-        i--
+  getPlaylists() {
+    return this.http.get('https://content.googleapis.com/youtube/v3/playlists?channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=50&part=snippet&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
+  }
+
+  getLivePlayLists() {
+    this.getPlaylists().subscribe((response: PlaylistObject) => {
+      console.log(response)
+      this.playLists = response.items
+      for (let i = 0; i < this.playLists.length; i++) {
+        if (this.playLists[i].snippet.title === 'Laggin Out Podcast' ||
+          this.playLists[i].snippet.title === 'Killing it After Dark' ||
+          this.playLists[i].snippet.title === 'Noob’s Guide'
+        ) {
+          this.getPlayListItems(this.playLists[i].snippet.title, this.playLists[i].id)
+          this.playListURLs.push(this.getHref(this.playLists[i].snippet.thumbnails.default.url, this.playLists[i].id))
+        } else {
+          this.playLists.splice(i, 1)
+          i--
+        }
       }
-    }
-    this.playListURLs = this.playListURLs.reverse()
+      this.playListURLs = this.playListURLs.reverse()
+    })
   }
 
   httpGet(Url) {

@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Playlist } from '../../models/playlist';
-import 'rxjs/add/operator/map';
+import { Injectable } from '@angular/core'
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
+import { Playlist } from '../../models/playlist'
 
 @Injectable()
 export class PlaylistsService {

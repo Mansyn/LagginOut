@@ -1,10 +1,9 @@
 // angular
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { PipeResolver } from '@angular/compiler/src/pipe_resolver';
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule } from '@angular/core'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http'
 
 // third party libraries
 import {
@@ -22,38 +21,38 @@ import {
 	MatToolbarModule,
 	MatTabsModule,
 	MatTooltipModule
-} from '@angular/material';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { EmbedVideo } from 'ngx-embed-video';
+} from '@angular/material'
+import { AngularFireModule } from 'angularfire2'
+import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { AngularFireDatabaseModule } from 'angularfire2/database'
+import { AngularFireAuthModule } from 'angularfire2/auth'
+import { EmbedVideo } from 'ngx-embed-video'
 
 // app code
-import { environment } from '../environments/environment';
-import { AppRoutingModule } from './app-routing.module';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { AppComponent } from './app.component';
-import { ErrorsModule } from './core/errors/errors.module';
-import { CoreModule } from './core/core.module';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './account/login/login.component';
-import { AccountComponent } from './account/account.component';
-import { VideosService } from './videos/shared/videos.service';
-import { PlaylistsService } from './videos/shared/playlists.service';
-import { VideosComponent } from './videos/videos.component';
-import { ArticlesComponent } from './articles/articles.component';
-import { ArticleService } from './articles/shared/article.service';
-import { ProfileService } from './core/profile.service';
-import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component';
-import { RegisterComponent } from './account/register/register.component';
-import { TwitchComponent } from './twitch/twitch.component';
-import { TwitchVideoComponent } from './components/twitch-video/twitch-video.component';
-import { SocialComponent } from './social/social.component';
-import { SocialService } from './social/social.service';
-import { TwitchService } from './twitch/shared/twitch.service';
+import { environment } from '../environments/environment'
+import { AppRoutingModule } from './app-routing.module'
+import { NavbarComponent } from './components/navbar/navbar.component'
+import { FooterComponent } from './components/footer/footer.component'
+import { AppComponent } from './app.component'
+import { ErrorsModule } from './core/errors/errors.module'
+import { CoreModule } from './core/core.module'
+import { HomeComponent } from './home/home.component'
+import { LoginComponent } from './account/login/login.component'
+import { AccountComponent } from './account/account.component'
+import { VideosService } from './videos/shared/videos.service'
+import { PlaylistsService } from './videos/shared/playlists.service'
+import { VideosComponent } from './videos/videos.component'
+import { ArticlesComponent } from './articles/articles.component'
+import { ArticleService } from './articles/shared/article.service'
+import { ProfileService } from './core/profile.service'
+import { TwitchStreamsComponent } from './components/twitch-streams/twitch-streams.component'
+import { RegisterComponent } from './account/register/register.component'
+import { TwitchComponent } from './twitch/twitch.component'
+import { TwitchVideoComponent } from './components/twitch-video/twitch-video.component'
+import { SocialComponent } from './social/social.component'
+import { SocialService } from './social/social.service'
+import { TwitchService } from './twitch/shared/twitch.service'
+import { NotificationService } from './core/services/notification.service'
 
 // utilities, pipes, etc
 import { DisableControlDirective } from './utilities/directives/disable-control'
@@ -90,7 +89,7 @@ import { PipesModule } from './utilities/pipes/pipes.module'
 		PipesModule,
 		CoreModule,
 		ErrorsModule,
-		HttpModule,
+		HttpClientModule,
 		MatButtonModule,
 		MatCardModule,
 		MatChipsModule,
@@ -108,7 +107,7 @@ import { PipesModule } from './utilities/pipes/pipes.module'
 		FormsModule,
 		ReactiveFormsModule
 	],
-	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService],
+	providers: [VideosService, ArticleService, PlaylistsService, ProfileService, SocialService, TwitchService, NotificationService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

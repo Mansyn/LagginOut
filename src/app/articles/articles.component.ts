@@ -1,11 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import * as _ from 'lodash';
+import { Component, OnInit } from '@angular/core'
+import * as _ from 'lodash'
 
-import * as _moment from 'moment';
-import { default as _rollupMoment } from 'moment';
-const moment = _rollupMoment || _moment;
+import * as moment from 'moment'
 
 import { Article } from '../models/article';
 import { ArticleService } from './shared/article.service';
@@ -24,11 +20,9 @@ export class ArticlesComponent implements OnInit {
 	constructor(private articleService: ArticleService) { }
 
 	ngOnInit() {
-		const filter = [];
 		this.articles = [];
 		this.articlesTop = [];
 		this.articleService.getArticles().snapshotChanges().subscribe((data) => {
-			let articles = [];
 			data.forEach((element) => {
 				var y = element.payload.toJSON();
 				let x = y as Article;
@@ -44,10 +38,11 @@ export class ArticlesComponent implements OnInit {
 					x.content = x.content.replace(new RegExp('img src', 'g'), 'img width="100%" src');
 					const container = document.createElement('div');
 					container.innerHTML = x.content;
-					if (container.getElementsByTagName('img')[0].getAttribute('src')) {
-						x.image = container.getElementsByTagName('img')[0].getAttribute('src').toString();
+					const headImg = container.getElementsByTagName('img')
+					if (headImg.length) {
+						const img = headImg[0].getAttribute('src').toString()
+						x.image = img
 					}
-
 					if (isNaN(x.name as any)) {
 						x.name = x.name.toUpperCase();
 					}
@@ -55,8 +50,10 @@ export class ArticlesComponent implements OnInit {
 				} else if (new Date(x.date).getTime() > 1517547600000) {
 					const container = document.createElement('div');
 					container.innerHTML = x.content;
-					if (container.getElementsByTagName('img')[0].getAttribute('src')) {
-						x.image = container.getElementsByTagName('img')[0].getAttribute('src').toString();
+					const headImg = container.getElementsByTagName('img')
+					if (headImg.length) {
+						const img = headImg[0].getAttribute('src').toString()
+						x.image = img
 					}
 					if (isNaN(x.name as any)) {
 						x.name = x.name.toUpperCase();

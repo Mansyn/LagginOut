@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Profile } from '../models/user';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core'
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
+import { Profile } from '../models/user'
+import { Observable } from 'rxjs'
 
 @Injectable()
 export class ProfileService {
@@ -29,11 +28,11 @@ export class ProfileService {
 		return this.db.object('/profiles/' + key);
 	}
 
-	getUserProfile(user_uid): Observable<any> {
-		return this.db.list('profiles', (ref) => ref.orderByChild('user_uid').equalTo(user_uid)).snapshotChanges();
+	getUserProfile(user_uid) {
+		return this.db.list('profiles', ref => ref.orderByChild('user_uid').equalTo(user_uid)).snapshotChanges()
 	}
 
-	getUserProfileData(user_uid): Observable<any> {
+	getUserProfileData(user_uid) {
 		return this.db.list('profiles', (ref) => ref.orderByChild('user_uid').equalTo(user_uid)).valueChanges();
 	}
 

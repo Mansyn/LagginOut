@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from '../../../environments/environment';
-import { Endpoints } from '../../twitch/shared/endpoints.twitch';
-import { StreamObject } from '../../twitch/shared/stream.twitch';
-import { TwitchStreamer } from '../../models/streamer';
-import { TwitchService } from '../../twitch/shared/twitch.service';
-
-import '../../twitch/shared/v1';
+import { Component, OnInit } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { environment } from '../../../environments/environment'
+import { Endpoints } from '../../twitch/shared/endpoints.twitch'
+import { StreamObject } from '../../twitch/shared/stream.model'
+import { TwitchService } from '../../twitch/shared/twitch.service'
+import '../../twitch/shared/v1'
 
 @Component({
 	selector: 'twitch-streams',
@@ -19,7 +16,7 @@ export class TwitchStreamsComponent implements OnInit {
 	loaded: boolean = false;
 	liveStreaming: StreamObject;
 
-	constructor(private http: Http, private twitchService: TwitchService) { }
+	constructor(private http: HttpClient, private twitchService: TwitchService) { }
 
 	ngOnInit() {
 		this.twitchService.getStreamers().valueChanges().subscribe((streamers) => {
@@ -42,7 +39,7 @@ export class TwitchStreamsComponent implements OnInit {
 			environment.twitch.clientId +
 			'&channel=' +
 			streamer_id.join(',');
-		return this.http.get(url).map((res: Response) => res.json());
+		return this.http.get(url)
 	}
 
 	gotoTwitch(link: string) {

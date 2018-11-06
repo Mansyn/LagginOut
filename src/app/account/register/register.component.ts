@@ -3,7 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { Router } from '@angular/router'
-import { Subject } from 'rxjs/Subject'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 import { AuthService } from '../../core/auth.service'
 import { ProfileService } from '../../core/profile.service'
@@ -31,7 +32,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.auth.user$
-      .takeUntil(this.destroy$)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(user => {
         if (user) {
           this.router.navigate(['/account'])

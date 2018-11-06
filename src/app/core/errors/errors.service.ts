@@ -1,12 +1,11 @@
-import { ErrorHandler, Injectable, Injector } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Injectable, Injector } from '@angular/core';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, Event, NavigationError } from '@angular/router';
 
 import * as StackTraceParser from 'error-stack-parser';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of } from 'rxjs';
 
 import { AuthService } from '../auth.service';
 import { User } from '../../models/user';
@@ -74,6 +73,6 @@ export class ErrorsService {
 class fakeHttpService {
     static post(error): Observable<any> {
         console.log('Error sent to the server: ', error);
-        return Observable.of(error);
+        return of(error);
     }
 }

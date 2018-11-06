@@ -46,7 +46,7 @@
   <div class='nav-title'>
     PLAYLISTS:
     <ul>
-      <li class='vid-nav-btn'><a (click)='handleVidsNavigation("All")' >ALL</a></li>
+      <li class='vid-nav-btn'><a (click)='handleVidsNavigation("All")'>ALL</a></li>
       <!-- <li class='vid-nav-btn' *ngFor='let list of playLists | reverse'><a (click)='handleVidsNavigation(list.snippet.title)'>{{list.snippet.title}}</a></li> -->
     </ul>
   </div>
@@ -54,9 +54,9 @@
 <div *ngIf='viewAll' class='vids-body'>
   <div class='vids-main'>
     <div *ngFor='let video of videos; let i = index' class='vid-container'>
-        <div class='vid-series-container'>
-            <h4 class='vid-title'>{{video.series.toUpperCase()}}</h4>
-          </div>
+      <div class='vid-series-container'>
+        <h4 class='vid-title' *ngIf="video.series">{{video.series.toUpperCase()}}</h4>
+      </div>
       <a href='https://www.youtube.com/watch?v={{video.id.videoId}}' target='_blank'>
         <img src='{{video.snippet.thumbnails.high.url}}' class='img-responsive vid-image' alt='{{video.snippet.title}}'>
       </a>

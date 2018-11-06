@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
-import { Social } from './social'
+import { Component, OnInit } from '@angular/core'
+import { AngularFireDatabase } from 'angularfire2/database'
+import { Observable } from 'rxjs'
 import { SocialService } from './social.service'
 import { trigger, transition, animate, style } from '@angular/animations'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @Component({
   selector: 'social',
@@ -26,7 +24,7 @@ export class SocialComponent implements OnInit {
   socialMediaObservable: Observable<any[]>
   showStats: boolean
   statState: string
-  
+
   constructor(private db: AngularFireDatabase, private socialService: SocialService) { }
 
   ngOnInit() {

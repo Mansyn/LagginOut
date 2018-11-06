@@ -1,7 +1,7 @@
-import { Component, Inject } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { Subject } from "rxjs/Subject";
+import { Component, Inject } from "@angular/core"
+import { FormGroup, FormBuilder, Validators } from "@angular/forms"
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material"
+import { Subject } from "rxjs"
 
 @Component({
   selector: 'user-dialog',

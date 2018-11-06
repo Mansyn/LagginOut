@@ -1,31 +1,24 @@
-import { Component, Inject, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Subject } from 'rxjs/Subject';
+import { Component, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
+import { Router } from '@angular/router'
+import { SelectionModel } from '@angular/cdk/collections'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 import {
 	MatTableDataSource,
 	MatSort,
 	MatPaginator,
 	MatDialog,
-	MatTabChangeEvent,
-	MatDialogRef,
-	MAT_DIALOG_DATA,
 	MatSnackBar
-} from '@angular/material';
+} from '@angular/material'
 
-import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-
-import * as _moment from 'moment';
-import { default as _rollupMoment } from 'moment';
-const moment = _rollupMoment || _moment;
-import _ from 'lodash';
+import * as _moment from 'moment'
+const moment = _moment
+import _ from 'lodash'
 
 import { ArticleService } from '../../articles/shared/article.service'
-import { Article } from '../../models/article';
-import { AdminArticleDeleteDialog } from './dialogs/delete.component';
-import { AdminArticleDialog } from './dialogs/article.component';
+import { Article } from '../../models/article'
+import { AdminArticleDeleteDialog } from './dialogs/delete.component'
+import { AdminArticleDialog } from './dialogs/article.component'
 
 @Component({
 	selector: 'admin-articles',
@@ -35,13 +28,13 @@ import { AdminArticleDialog } from './dialogs/article.component';
 export class AdminArticlesComponent implements AfterViewInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>();
 
-	@ViewChild(MatSort) sort: MatSort;
-	@ViewChild(MatPaginator) paginator: MatPaginator;
+	@ViewChild(MatSort) sort: MatSort
+	@ViewChild(MatPaginator) paginator: MatPaginator
 
-	loading: boolean;
-	displayedColumns = ['select', 'title', 'name', 'status', 'date'];
-	dataSource = new MatTableDataSource<Article>();
-	selection = new SelectionModel<Article>(true, []);
+	loading: boolean
+	displayedColumns = ['select', 'title', 'name', 'status', 'date']
+	dataSource = new MatTableDataSource<Article>()
+	selection = new SelectionModel<Article>(true, [])
 
 	constructor(
 		private router: Router,
@@ -53,17 +46,19 @@ export class AdminArticlesComponent implements AfterViewInit, OnDestroy {
 	}
 
 	ngAfterViewInit() {
-		this.articlesService.getArticles().snapshotChanges().takeUntil(this.destroy$).subscribe((data) => {
-			let articles = [];
-			data.forEach((element) => {
-				var y = element.payload.toJSON();
-				y['$key'] = element.key;
-				articles.push(y as Article);
-			});
+		this.articlesService.getArticles().snapshotChanges()
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((data) => {
+				let articles = [];
+				data.forEach((element) => {
+					var y = element.payload.toJSON();
+					y['$key'] = element.key;
+					articles.push(y as Article);
+				});
 
-			this.dataSource.data = articles;
-			this.loading = false;
-		});
+				this.dataSource.data = articles;
+				this.loading = false;
+			});
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;
 	}

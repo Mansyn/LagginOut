@@ -1,8 +1,7 @@
 
-import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Social } from './social';
-import 'rxjs/add/operator/map';
+import { Injectable } from '@angular/core'
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
+import { Social } from './social'
 
 @Injectable()
 export class SocialService {
@@ -13,7 +12,7 @@ export class SocialService {
 	}
 
 	getSocials() {
-    this.links = this.db.list('links') as AngularFireList<Social[]>;
+		this.links = this.db.list('links') as AngularFireList<Social[]>;
 		return this.links;
 	}
 

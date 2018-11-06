@@ -1,17 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import {
     HttpRequest,
     HttpHandler,
     HttpEvent,
-    HttpInterceptor,
-    HttpErrorResponse
-} from '@angular/common/http';
-import { Router } from '@angular/router';
+    HttpInterceptor
+} from '@angular/common/http'
+import { Router } from '@angular/router'
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/retry';
+import { Observable } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 
 import { ErrorsService } from './errors.service';
 
@@ -21,9 +18,10 @@ export class ServerErrorsInterceptor implements HttpInterceptor {
         private router: Router,
         private errorsService: ErrorsService,
     ) { }
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-        return next.handle(request).retry(5);
-
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(req).pipe(catchError(() => {
+            const newReq = req.clone();
+            return next.handle(newReq);
+        }));
     }
 }

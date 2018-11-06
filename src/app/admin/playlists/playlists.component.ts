@@ -1,22 +1,19 @@
-import { Component, Inject, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Subject } from 'rxjs/Subject';
+import { Component, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
+import { SelectionModel } from '@angular/cdk/collections'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 import {
 	MatTableDataSource,
 	MatSort,
 	MatPaginator,
 	MatDialog,
-	MatDialogRef,
-	MAT_DIALOG_DATA,
 	MatSnackBar
-} from '@angular/material';
+} from '@angular/material'
 
 import { PlaylistsService } from '../../videos/shared/playlists.service'
-import { Playlist } from '../../models/playlist';
-import { AdminPlaylistDeleteDialog } from './dialogs/delete.component';
-import { AdminPlaylistDialog } from './dialogs/playlist.component';
+import { Playlist } from '../../models/playlist'
+import { AdminPlaylistDeleteDialog } from './dialogs/delete.component'
+import { AdminPlaylistDialog } from './dialogs/playlist.component'
 
 @Component({
 	selector: 'admin-playlists',
@@ -39,17 +36,19 @@ export class AdminPlaylistsComponent implements AfterViewInit, OnDestroy {
 	constructor(public dialog: MatDialog, public snackBar: MatSnackBar, private playlistsService: PlaylistsService) { }
 
 	ngAfterViewInit() {
-		this.playlistsService.getPlaylists().snapshotChanges().takeUntil(this.destroy$).subscribe((data) => {
-			let playlists = [];
-			data.forEach((element) => {
-				var y = element.payload.toJSON();
-				y['$key'] = element.key;
-				playlists.push(y as Playlist);
-			});
+		this.playlistsService.getPlaylists().snapshotChanges()
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((data) => {
+				let playlists = [];
+				data.forEach((element) => {
+					var y = element.payload.toJSON();
+					y['$key'] = element.key;
+					playlists.push(y as Playlist);
+				});
 
-			this.dataSource.data = playlists;
-			this.loading = false;
-		});
+				this.dataSource.data = playlists;
+				this.loading = false;
+			});
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;
 	}

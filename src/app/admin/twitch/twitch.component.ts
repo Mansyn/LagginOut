@@ -1,13 +1,12 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { AngularFireList } from 'angularfire2/database';
-import { Observable } from '@firebase/util';
-import { Subject } from 'rxjs';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core'
+import { MatDialog, MatSnackBar } from '@angular/material'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
-import { TwitchService } from '../../twitch/shared/twitch.service';
-import { TwitchStreamer } from '../../models/streamer';
-import { AdminTwitchDialog } from './dialogs/twitch.component';
-import { AdminTwitchDeleteDialog } from './dialogs/delete.component';
+import { TwitchService } from '../../twitch/shared/twitch.service'
+import { TwitchStreamer } from '../../models/streamer'
+import { AdminTwitchDialog } from './dialogs/twitch.component'
+import { AdminTwitchDeleteDialog } from './dialogs/delete.component'
 
 @Component({
 	selector: 'admin-twitch',
@@ -22,15 +21,17 @@ export class AdminTwitchStreamsComponent implements AfterViewInit, OnDestroy {
 	constructor(private twitchService: TwitchService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
 	ngAfterViewInit() {
-		this.twitchService.getStreamers().snapshotChanges().takeUntil(this.destroy$).subscribe((data) => {
-			let streamers = [];
-			data.forEach((element) => {
-				var e = element.payload.toJSON();
-				e['$key'] = element.key;
-				streamers.push(e as TwitchStreamer);
+		this.twitchService.getStreamers().snapshotChanges()
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((data) => {
+				let streamers = [];
+				data.forEach((element) => {
+					var e = element.payload.toJSON();
+					e['$key'] = element.key;
+					streamers.push(e as TwitchStreamer);
+				});
+				this.streamers = streamers;
 			});
-			this.streamers = streamers;
-		});
 	}
 
 	twitchDialog(key: string): void {

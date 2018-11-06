@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core'
-import { Http, Response, RequestOptions, Headers } from '@angular/http'
+import { Component } from '@angular/core'
+import { Http, Response } from '@angular/http'
 import { DomSanitizer } from '@angular/platform-browser'
+import { map } from 'rxjs/operators'
 
 import './shared/v1'
 import { environment } from '../../environments/environment'
-import { FeedObject } from './shared/feed.twitch'
+import { FeedObject } from './shared/feed.model'
 
 @Component({
   selector: 'twitch',
@@ -27,7 +28,9 @@ export class TwitchComponent {
 
   getHalls() {
     let url = `${environment.twitch.apiRoot}kraken/feed/laggin_out/posts?client_id=` + environment.twitch.clientId
-    return this.http.get(url).map((res: Response) => res.json())
+    return this.http.get(url).pipe(
+      map((response: Response) => response.json())
+    );
   }
 
   sanURL() {

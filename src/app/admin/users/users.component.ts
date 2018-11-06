@@ -1,7 +1,5 @@
-import { Component, Inject, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SelectionModel } from '@angular/cdk/collections';
+import { Component, Inject, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
+import { SelectionModel } from '@angular/cdk/collections'
 import {
 	MatTableDataSource,
 	MatSort,
@@ -11,17 +9,16 @@ import {
 	MatDialogRef,
 	MAT_DIALOG_DATA,
 	MatSnackBar
-} from '@angular/material';
-import _ from 'lodash';
-import { saveAs } from 'file-saver/FileSaver';
+} from '@angular/material'
+import _ from 'lodash'
 
-import { AuthService } from '../../core/auth.service';
-import { ProfileService } from '../../core/profile.service';
-import { User, UserProfile, Profile } from '../../models/user';
-import { AdminUserDialog } from './dialogs/user.component';
-import UserUtils from '../../models/user.utils';
-import { Subject } from 'rxjs/Subject';
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { AuthService } from '../../core/auth.service'
+import { ProfileService } from '../../core/profile.service'
+import { UserProfile, Profile } from '../../models/user'
+import { AdminUserDialog } from './dialogs/user.component'
+import UserUtils from '../../models/user.utils'
+import { Subject, combineLatest } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
 	selector: 'users',
@@ -65,7 +62,7 @@ export class UsersComponent implements AfterViewInit, OnDestroy {
 			this.dataSource.data = users;
 			this.users = users;
 		})
-			.takeUntil(this.destroy$)
+			.pipe(takeUntil(this.destroy$))
 			.subscribe();
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;

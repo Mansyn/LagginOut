@@ -1,20 +1,16 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core'
+import { Location } from '@angular/common'
+import { ActivatedRoute } from '@angular/router'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { MatSnackBar } from '@angular/material'
+import { takeUntil } from 'rxjs/operators'
 
-import { MatSnackBar } from '@angular/material';
-
-import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-
-import * as _moment from 'moment';
-import { default as _rollupMoment } from 'moment';
-const moment = _rollupMoment || _moment;
+import * as _moment from 'moment'
+const moment = _moment
 
 import { ArticleService } from '../../articles/shared/article.service'
-import { Article } from '../../models/article';
-import { Subject } from 'rxjs/Subject';
+import { Article } from '../../models/article'
+import { Subject } from 'rxjs'
 
 @Component({
 	selector: 'admin-article',
@@ -63,7 +59,7 @@ export class AdminArticleComponent implements OnInit, OnDestroy {
 				this.articlesService
 					.getArticle(this.id)
 					.snapshotChanges()
-					.takeUntil(this.destroy$)
+					.pipe(takeUntil(this.destroy$))
 					.subscribe((data) => {
 						var y = data.payload.toJSON();
 						y['$key'] = data.key;

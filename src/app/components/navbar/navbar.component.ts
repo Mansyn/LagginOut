@@ -1,31 +1,32 @@
-import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material';
-import { AuthService } from '../../core/auth.service';
-import * as _ from 'lodash';
+import { Component } from '@angular/core'
+import { AuthService } from '../../core/auth.service'
+import * as _ from 'lodash'
+import { map } from 'rxjs/operators'
 
 @Component({
 	selector: 'navbar',
 	templateUrl: './navbar.component.html',
-	styleUrls: [ './navbar.component.scss' ]
+	styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
 	userRoles: Array<string>;
 
 	constructor(public auth: AuthService) {
 		auth.user$
-			.map((user) => {
-				return (this.userRoles = _.keys(_.get(user, 'roles')));
-			})
+			.pipe(
+				map((user) => {
+					return (this.userRoles = _.keys(_.get(user, 'roles')));
+				}))
 			.subscribe();
 	}
 
 	get isEditor(): boolean {
-		const allowed = [ 'editor', 'admin' ];
+		const allowed = ['editor', 'admin'];
 		return this.matchingRole(allowed);
 	}
 
 	get isAdmin(): boolean {
-		const allowed = [ 'admin' ];
+		const allowed = ['admin'];
 		return this.matchingRole(allowed);
 	}
 

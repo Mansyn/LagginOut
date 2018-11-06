@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { AuthService } from './auth.service';
-import { tap, map, take } from 'rxjs/operators';
+import { Injectable } from '@angular/core'
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
+import { Observable } from 'rxjs'
+import { AuthService } from './auth.service'
+import { tap, map, take } from 'rxjs/operators'
 
 @Injectable()
 export class EditorGuard implements CanActivate {
 
-    // determines if user is admin or editor
-  constructor(private auth: AuthService) {}
+  // determines if user is admin or editor
+  constructor(private auth: AuthService) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
