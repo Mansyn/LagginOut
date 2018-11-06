@@ -96,7 +96,7 @@ export class AdminVideosComponent implements AfterViewInit, OnDestroy {
 		});
 
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log('The dialog was closed');
+			// console.log('The dialog was closed');
 			if (result) {
 				if (isNew) {
 					this.videosService.addVideo(result).then((data) => {

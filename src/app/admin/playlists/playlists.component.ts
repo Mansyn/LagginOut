@@ -74,7 +74,7 @@ export class AdminPlaylistsComponent implements AfterViewInit, OnDestroy {
 		});
 
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log('The dialog was closed');
+			// console.log('The dialog was closed');
 			if (result) {
 				if (isNew) {
 					this.playlistsService.addPlaylist(result).then((data) => {

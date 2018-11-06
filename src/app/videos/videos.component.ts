@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { PlaylistObject } from './shared/playlists.model'
+import { Meta } from '@angular/platform-browser';
 //import { SSL_OP_NO_TLSv1_1 } from 'constants'
 
 @Component({
@@ -10,6 +11,7 @@ import { PlaylistObject } from './shared/playlists.model'
 })
 export class VideosComponent implements OnInit {
   playLists = []
+  selectedPlaylist
   playListURLs = []
   videos = []
   viewAll: boolean
@@ -18,7 +20,20 @@ export class VideosComponent implements OnInit {
   pl2 = []
   pl3 = []
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private meta: Meta) {
+    this.meta.removeTag('property="og:type"');
+    this.meta.removeTag('property="og:title"');
+    this.meta.removeTag('property="og:type"');
+    this.meta.removeTag('property="og:url"');
+    this.meta.removeTag('property="og:site_name"');
+    this.meta.removeTag('property="og:description"')
+    this.meta.addTag({ property: 'og:type', content: 'videos' })
+    this.meta.addTag({ property: 'og:title', content: 'Laggin\' Out Videos' })
+    this.meta.addTag({ property: 'og:type', content: 'Latest Podcasts' })
+    this.meta.addTag({ property: 'og:url', content: 'lagginout.com/videos' })
+    this.meta.addTag({ property: 'site_name', content: 'Laggin\' Out' })
+    this.meta.addTag({ property: 'og:description', content: 'Laggin\' Out Videos' })
+  }
 
   ngOnInit() {
     this.getLivePlayLists()
@@ -68,7 +83,6 @@ export class VideosComponent implements OnInit {
     let response = (this.httpGet('https://www.googleapis.com/youtube/v3/playlistItems?channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=25&part=snippet,contentDetails&playlistId=' + id + '&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4'))
     let listItem = JSON.parse(response)
     for (let i = 0; i < listItem.items.length; i++) {
-      console.log(title, id, listItem.items[i].snippet.playlistId)
       if (title === 'Laggin Out Podcast') {
         this.pl1.push(listItem.items[i])
       } else if (title === 'Killing it After Dark') {
@@ -77,22 +91,32 @@ export class VideosComponent implements OnInit {
         this.pl3.push(listItem.items[i])
       }
     }
-    console.log('pl1', this.pl1, '\npl2', this.pl2, '\npl3', this.pl3)
   }
 
   getVideos() {
-    let response = this.httpGet('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=15&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
+    let response = this.httpGet('https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UC_aGjq9YxYM4NLltfyugkDQ&maxResults=26&key=AIzaSyBEfu_6T84F1x2w-sg8SOy9UJoIKaUtWg4')
     let yt = JSON.parse(response)
     for (let i = 0; i < yt.items.length; i++) {
       let dt = yt.items[i].snippet.publishedAt
       dt = new Date(dt)
       yt.items[i].snippet.publishedAt = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear()
+
       if (yt.items[i].snippet.title.match(/\(([^)]+)\)/)) {
         yt.items[i].series = yt.items[i].snippet.title.match(/\(([^)]+)\)/)[1]
         yt.items[i].snippet.title = yt.items[i].snippet.title.replace((/\(([^)]+)\)/), '')
       }
+      if (yt.items[i].snippet.title === 'Diablo') {
+        delete yt.items[i]
+        // ++i
+      }
     }
-    this.videos = yt.items
+    const temp = []
+    for (let i = 0; i < yt.items.length; i++) {
+      if (yt.items[i]) {
+        temp.push(yt.items[i])
+      }
+    }
+    this.videos = temp
   }
 
   handleVidsNavigation(x) {
@@ -100,7 +124,19 @@ export class VideosComponent implements OnInit {
       this.viewAll = true
     } else {
       this.viewAll = false
-      console.log(x)
+      switch (x) {
+        case 'Laggin Out Podcast':
+          this.selectedPlaylist = this.pl1
+          break
+        case 'Killing it After Dark':
+          this.selectedPlaylist = this.pl2
+          break
+        case "Noob's Guide":
+          this.selectedPlaylist = this.pl3
+          break
+        default:
+          this.selectedPlaylist = this.pl1
+      }
     }
   }
 }

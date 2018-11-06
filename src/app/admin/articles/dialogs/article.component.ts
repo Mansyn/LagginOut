@@ -34,10 +34,10 @@ export class AdminArticleDialog {
     }
     this.form = this.fb.group({
       title: [data.article.title || null, Validators.compose([Validators.maxLength(50), Validators.required])],
-      name: [data.article.name || null, Validators.maxLength(50)],
+      name: [data.article.name || null, Validators.compose([Validators.maxLength(50), Validators.required])],
       date: [data.article.date || moment(), Validators.required],
       type: [data.article.type || null],
-      excerpt: [data.article.excerpt || null, Validators.maxLength(100)],
+      excerpt: [data.article.excerpt || null, Validators.compose([Validators.maxLength(100), Validators.required])],
       content: [data.article.content || null, Validators.required],
     });
     // Set default value

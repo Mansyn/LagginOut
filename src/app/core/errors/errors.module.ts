@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
 
+import {
+  MatButtonModule,
+  MatCardModule
+} from '@angular/material';
+
 import { ErrorsHandler } from './errors.handler'
 import { ErrorsService } from './errors.service'
 import { ServerErrorsInterceptor } from './server-errors.interceptor'
@@ -16,7 +21,9 @@ import { ErrorsComponent } from './component/errors.component'
   imports: [
     CommonModule,
     RouterModule,
-    ErrorRoutingModule
+    ErrorRoutingModule,
+    MatButtonModule,
+    MatCardModule,
   ],
   declarations: [
     ErrorsComponent

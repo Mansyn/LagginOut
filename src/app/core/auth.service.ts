@@ -13,6 +13,7 @@ import { ProfileService } from './profile.service'
 @Injectable()
 export class AuthService {
 	user$: Observable<User>;
+	username: string;
 
 	// only for admin use
 	private usersCollection: AngularFirestoreCollection<User>;
@@ -46,6 +47,10 @@ export class AuthService {
 			roles: {}
 		};
 		this.updateUserData(user);
+	}
+
+	getUsername() {
+		return this.username
 	}
 
 	registerUser(response, name, phoneNumber?) {

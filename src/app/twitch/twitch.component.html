@@ -1,8 +1,61 @@
-<p>
-  <button mat-button (click)="doGET()">GET</button>
-</p>
+<!-- <div *ngIf="(feed$ | async) as feed; else loading">
+  <div *ngFor="let post of feed.posts">
+    {{post.body}}
+  </div>
+</div> -->
 
-<div *ngIf="loaded">
-  <iframe [src]="sanURL()" height="300" width="400" frameborder="0" scrolling="no" allowfullscreen="true">
-  </iframe>
+<div class="flex-100 layout-column layout-align-start-stretch">
+  <header class="m-0a main-header p-h-5 shadow">
+    <div>
+      <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive hide-md hide-lg hide-xl header-logo' />
+      <img src='assets/images/letterhead_yellow_website_L.png' class='img-responsive hide-xs hide-sm header-logo-lg' />
+    </div>
+  </header>
+
+  <twitch-streams class='hide-xs hide-sm'></twitch-streams>
+
+  <main class="main-body p-h-5 shadow">
+    <section>
+      <div class='section-title-container'>
+        <div class='section-title'>
+          Twitch Feed
+        </div>
+      </div>
+      <div *ngIf="(feed$ | async) as feed; else loading">
+        <div class="layout-row layout-align-space-around-center layout-wrap">
+          <div *ngFor="let post of feed.posts">
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar class="header-image"></div>
+                <mat-card-title>{{post.user.display_name}}</mat-card-title>
+                <mat-card-subtitle>{{post.created_at | date}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content *ngIf="post.embeds.length == 0">
+                <p>{{[post.body]}}</p>
+              </mat-card-content>
+              <mat-card-content *ngIf="post.embeds.length > 0">
+                <p>
+                  <a href="{{post.embeds[0].request_url}}" target="_blank">{{post.embeds[0].request_url}}</a>
+                </p>
+                <img *ngIf="post.embeds.length" mat-card-image src="{{post.embeds[0].thumbnail_url}}">
+                <p class="author">{{post.embeds[0].author_name}}</p>
+                <p class="title">{{post.embeds[0].title}}</p>
+                <p class="provider">{{post.embeds[0].provider_name}}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
+
+<ng-template #loading>
+  <div class="layout-row layout-align-center-center">
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </div>
+</ng-template>

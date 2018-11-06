@@ -8,26 +8,15 @@ import * as StackTraceParser from 'error-stack-parser';
 import { Observable, of } from 'rxjs';
 
 import { AuthService } from '../auth.service';
-import { User } from '../../models/user';
 
 @Injectable()
 export class ErrorsService {
-
-    user: User
 
     constructor(
         private injector: Injector,
         private router: Router,
         public auth: AuthService
     ) {
-
-        this.auth.user$.subscribe((user) => {
-            if (user && user.uid) {
-                this.user = user
-            } else {
-                this.user.displayName = 'guest'
-            }
-        })
 
         // Subscribe to the NavigationError
         this.router
@@ -55,7 +44,7 @@ export class ErrorsService {
         // You can include context details here (usually coming from other services: UserService...)
         const name = error.name || null;
         const appId = 'Laggin Out';
-        const user = this.user.displayName;
+        const user = this.auth.getUsername()
         const time = new Date().getTime();
         const id = `${appId}-${user}-${time}`;
         const location = this.injector.get(LocationStrategy);
